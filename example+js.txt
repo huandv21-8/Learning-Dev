@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <form>
+        <div class="input-group">
+            <input id="mobile" type="text" class="form-control" placeholder="Số điện thoại">
+            <input id="nhamang" type="text" class="form-control" placeholder="nha mang">
+            <div class="input-group-btn">
+                <button class="btn btn-default checkmobile" type="button">
+                    Kiểm tra
+                </button>
+            </div>
+        </div>
+    </form>
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('body').on('click', '.checkmobile', function () {
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            var mobile = $('#mobile').val();
+            if (mobile !== '') {
+                if (vnf_regex.test(mobile) == false) {
+                    alert('Số điện thoại của bạn không đúng định dạng!');
+                } else {
+                    alert('Số điện thoại của bạn hợp lệ!');
+                }
+            } else {
+                alert('Bạn chưa điền số điện thoại!');
+            }
+        });
+
+
+    });
+
+    $("#mobile").keyup(function () {
+        let viettel = ['086', '096', '097', '098', '032', '033', '034', '035', '036', '037', '038', '039'];
+        let vinaPhone = ['088', '091', '094', '083', '084', '085', '081', '082'];
+        let mobifone = ['089', '090', '093', '070', '079', '077', '076', '078'];
+        let vietnammobile = ['092', '056', '058'];
+        var phone = $('#mobile').val();
+
+        if (phone.length > 2) {
+            const phone1 = phone.slice(0, 3);
+            if ($.inArray(phone1, vietnammobile) == -1 && $.inArray(phone1, mobifone) == -1 && $.inArray(phone1, vinaPhone) == -1 && $.inArray(phone1, viettel) == -1) {
+                alert("không có nhà mạng nào cho số này");
+                $("#nhamang").val("");
+                $('#mobile').val("");
+            }
+            console.log(phone1);
+
+            if ($.inArray(phone1, viettel) != -1) {
+                $("#nhamang").val("viettel");
+            }
+            else if ($.inArray(phone1, vinaPhone) != -1) {
+                $("#nhamang").val("vinaPhone");
+            }
+            else if ($.inArray(phone1, mobifone) != -1) {
+                $("#nhamang").val("mobifone");
+            }
+            else if ($.inArray(phone1, vietnammobile) != -1) {
+                $("#nhamang").val("vietnammobile");
+            }
+        }
+        if (phone.length < 3 && phone.length > 10) {
+            $("#nhamang").val("");
+        }
+    });
+
+    $("#mobile").change(function () {
+        var phone = $('#mobile').val();
+        if (phone.length == 0) {
+            $("#nhamang").val("");
+        }
+    });
+</script>
+
+</html>
+
+
+
+///////////////////////////*////////////////////////////////////************************************
+
+**variables
+ - var: ko khuyên dùng, cơ chế hoisting dẽ gây confise trong app, có thể tái-khai-báo hay tái-định-nghĩa ( ko tốt)
+ - let: có trong es6 , ko thể tái-khai-báo, phải dc khai báo trc khi sử dụng , có thể có block scope, có thể gán lại giá trị chứ ko đc khai báo lại.
+ - const: có trong es6 , ko thể tái-khai-báo, phải dc khai báo trc khi sử dụng , có thể có block scope, ko thể gán lại giá trị, và phải đc gán ngay khi khai báo
+
+
+ ví dụ về hoisting: 
+ x = 10;  
+ var x;    // dùng trc rồi mới khai báo
+
+** data type
+
+ + kiểu dữ liệu nguyên thủy
+ - string; chuỗi
+ - number: số
+ - undefind : ko xac định
+ - null: chưa xác định
+ - boolean: đúng/sai
+
++ kiểu dữ liệu ko nguyên thủy
+ - Object : (đối tượng)
+ - Array: mảng   (có thể gồm nhieuf data type khác nhau trong 1 array) 
+ - RegExp: biếu thức chính quy
+
+
+
+** object
+ - khai báo {}
+ - lấy thuộc tính : person.name hoặc objectname["name"]
+ - trong 1 object , 1 prop được viết dưới dạng 1 hàm được gọi là phương thức 
+
+** array
+ -khai báo bằng let thì có thể gán đc giá trị và thầy đổi đc phần tử.
+ -khai báo bằng const thì chỉ gán đc giá trị của phần tử trong mảng, ko thể thay đổi length của mảng.
+ 
+ ** toán tử.
+  - truthy/falsey trong JS : 
+   + Các giá trị được xem là falsy: undefined, null, false, 0, -0, 0n, NaN, ‘’.
+   + Các giá trị được xem là truthy: chuỗi khác rỗng, số khác 0 và tất cả các object. // Bao gồm cả [ ] và { } vì mảng rỗng và chuỗi rỗng vẫn là object
+ 
+ ** Note học js
+   - tránh tạo biến global variables
+   - luôn tạo biến cục bộ ( local variables)
+   - luôn khai báo biến trên đầu file
+   - khởi tạo biết ngay khi khai báo ,hoặc đặt gtri mặc định cho biến
+   - khai báo object/array với const
+   - đừng sử dụng từ khóa new ( ví dụ : new array, new object, ...)
+   - đừng tùy tiện thay đổi kiểu giá trị của biến
+   - sử dụng "===" thay vì "=="
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+***** giới thiệu về React Js
+  -là Single Page : ko load lại trang, dùng duy nhất 1 trang.
+  -
+**** terminal create React app
+    - tạo project react : npx create-react-app my-app 
+    - tạo route liên kết : npm install react-router-dom
+    - Run project : npm start
+
+**** State và props
+    - State: dữ liệu nội bộ trong 1 component, có thể thay đổi giá trị, phạm vi private trong 1 component.
+    - props: nhận dữ liệu từ bên ngoài, ko thể thay đổi giá trị trong component con.
+	   + 
+	
+****	life-cycle *************
+
+  -componentDidMount():1 function trong component's life-cycle, nội dung sẽ được thực thi ngay sau khi component được khởi tạo, sủ dụng useEffect() với dependencies list rỗng
+  
+  -componentDidUpdate():1 function trong component's life-cycle, trong đó nội dung sẽ được thực thi khi có bất cứ prop hoặc state nào của component được thay đổi. Sử dụng useEffect() với dependencies có 1 hoặc nhiều phần tử.
+  
+  -componentWillUnmount():1 function trong component's life-cycle, trong đó nội dung sẽ được thực thi ngay trước khi component bị kill. Sử dụng useEffect() với dependencies có 1 hoặc nhiều phần tử
+  
+  - Những hook sau đây sử dụng chỉ để tối ưu hóa performance, bằng cách ngăn chặn việc re-render không cần thiết : useMemo(), useCallback()

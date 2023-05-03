@@ -1,0 +1,106 @@
+
+*********** HIỂN THỊ DATA ************
+    *component->view: 
+        - interpolation: {{value}} , dùng hiển thị string , number, toán tử 3 ngôi, phương thức, geter , 1 nullable để hiện thị hình ảnh , đường link, video.
+     	- property : [property-name]="value" , hiển thị src, value,href,hiden,disabled.
+        - atribute : [attr.atribute_name] = "value" , hiển thị colspan, href, border, height, width.
+        - class binding : [class.class_name] = "value" , sử dụng 1 biến boolean, number,string để so sánh, nếu đúng thì thêm class vào thẻ, chỉ áp dụng cho class.
+        - style binding: [style.style_name] = "value", sử dụng 1 biến boolean, number,string để so sánh, nếu đúng thì thêm style vào thẻ, chỉ áp dụng cho style.	
+    *view->component : dùng ngoặc (event_name)="name_thuộc_tính hoặc name_function"  
+    *view->component->view: two way binding : dùng dấu [(ngModel)]="name_thuộc_tính"
+       - cần phải import : FormsModule
+	   
+********** DIRECTIVES ***************
+    * Structural directives ******
+       - ngIf : *ngIf="dieu_kien" : thường được use để thêm hoặc xóa 1 phần tử (check false thì xóa còn true thì hiển thị phần tử, giống if else)
+	   - ngFor: *ngFor="let item of products" : dùng để lặp.
+    * Attribute directives ******
+	   - ngClass: [ngClass]="['name-class','name-class','name-class']" :thêm nhiều class.
+	   - ngStyle: [ngStyle]="{'color': 'blue','padding.px': '10'}": thêm nhiều style.
+	   
+********** COMPONET INTERACTION ***************
+    *@input : chuyền từ cha -> con:
+	    - chuyền từ cha: [key]="tên thuộc tính" 
+    	- cách nhận tù thg con :   @Input("key") tên biến!: kiểu dữ liệu ;
+	 *@output : chuyền từ con -> cha: tìm hiểu code mẫu.
+	 
+********** PIPES ***************
+    * pipe cơ bản:  cú pháp {{ tên biến | tên pipes}}
+	    - upper case : viết hoa toàn bộ 
+	    - title case : viết hoa chữ đầu , áp dụng cho tiếng việt không có dấu.
+	    - lower case : viết thường toàn bộ.
+	    - slice Case : {{ tên biến | tên pipes : start : end }} : cắt chuỗi 
+		- number : {{ tên biến | number :'3.1-1' }} : số
+		- percent: {{ tên biến | percent :'3.1-1' }} : phần trăm.
+		- currency: {{totalMoney |currency:'VND':true }}: xử lý tiền tệ
+		- date: {{today |date :'dd/MM/y hh:mm:ss a' }} : xử lý date.
+	* custom pipe: tự tạo pipe : câu lệnh : ng g pipe my-pipe
+
+*********Sử Dụng Thư Viện Third-Party : Lodash **************
+    - là thư viện javascript hiện đại, tiện ích cung cấp mô đun , hiệu suất và tính năng bổ sung.
+	- cài đặt : npm install lodash -save
+	- trang chủ : https://lodash.com/
+	- dùng thông qua tên hàm : _.tên_hàm()
+
+********* Template reference variables ****************
+   - sử dụng lấy giá trị của phần tử DOM
+   - có 2 cách : 
+       - tại Template : dùng #name hoặc ref-name
+	   - tại component: @ViewChild("name1") name2:ElementRef
+	
+************** Lifecycle Hook **************
+	* ngOnInit: 
+	    - thường dùng dể khởi tạo giá trị.
+		- chỉ gọi 1  lần duy nhất , sau khi hook ngOnChange() được gọi lân đầu tiên.
+    * ngOnDestroy:
+        - được goi jkhi component bị hủy
+        - dùng để giải phóng bộ nhớ, và hủy các kết nối. ( vd: component kết nối API,db,route -> nên hủy để giải phóng bộ nhớ.)		    
+	* ngOnChange : 
+	    - được thực hiện khi INPUT có sự thay đổi. Được quản lý thông qua đối tượng SimpleChanges, được gọi trước cả ngOnInit.
+	* ngDoCheck: 
+	    - được gọi sau ngOnChange và ngOnInit, cứ mỗi lần gọi ngOnChange thì sau đó ngDoCheck được gọi
+	* ngContent:
+	    - dùng để hiển thị các prop, html bên trong selector của 1 component.
+		- cú pháp :  <ng-content> </ng-content> // toàn bộ nội dung sẽ đổ vào ng-content
+	* ngAfterContentInit:
+	    - chỉ được gọi 1 lần duy nhất.
+		- chỉ dành cho component.
+		- quan tâm đến ContentChild
+	* ngAfterContentCheck:
+	    - chỉ được gọi nhiều lần.
+		- chỉ dành cho component.
+	
+	* ngAfterView :
+	    - được gọi sau khi angular khởi tạo view của conponent và các child views.
+		- quan tâm dến ViewChild.
+	* ngAfterViewCheckd:
+	    - được gọi nhiều lần.
+		- chỉ dành cho component.
+	
+************** SERVICE **************
+    - Dependency Injection là 1 disign pattern quan trọng để xây dựng ứng dụng. Angular sở hữu DI giúp giảm sự phụ thuộc giữa các lớp với nhau ( tối giảm code , tránh lặp lại code)
+	- cú pháp tạo service : ng g service name-service 
+	
+************* Router : lấy tham số trên router *************
+	* ActivatedRouter -snapshot : 
+	    - khai báo ActivatedRouter từ @angular/router.
+		- lấy tham số trên đường dẫn (vd: /product/1);
+		    + cần khai báo router có truyền tham số. vd: path: '/product/:id'
+			+ cú pháp lấy : .snapshot.params.tên_params_khi_khai_báo_trong_route //id
+			+ chú ý: snapshot ko áp dụng khi chuyển trang trên cùng 1 router. vd product/1 -> product/2 . nên thông qua 1 trang khác. ( hoặc dùng Subscription )
+	* ActivatedRouter -Subscription:
+	    - trả về Subscription thuộc 'rxjs/Rx.
+		- cú pháp: ActivatedRouter.params.subscribe(params : Params=>{Handler});
+		- chú ý : 
+		    + nên hủy đối tượng subscription khi component bị hủy (ngOnDestroy)
+		    + cú pháp : .unsubsribe();	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	

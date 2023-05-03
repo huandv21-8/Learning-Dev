@@ -1,0 +1,28 @@
+
+****Học Html+css+js***************
+   * JavaScript
+     - tìm theo id của html thì chả về 1 thằng còn tìm theo class, tagName, querySelectAll  thì chả về 1 list
+	 - sự khác nhau giữa khai báo biến : var, let, const
+	    + var: dù khai báo ở đâu thì biến đều sẽ được đem lên đầu scope trước khi code được thực hiện. hay dùng trong trường hợp dùng lại ở nhiều hàm khác nhau.
+	    + let: khai báo trong 1 hàm thì ko thể dùng lại ở ngoài hàm đó. hay dùng trong 1 hàm.
+	    + const:  giống biến final trong java, ko thể cập nhật giá trị cũ của biến.
+
+***** token, cookie, localstorage, session*************
+    - token:    + Token là một dạng chữ ký số hay chữ ký điện tự được mã hóa thành những con số trên thiết bị chuyên biệt.  
+	            + Mã Token tạo ra là dạng mã OTP, sử dụng một lần và được tạo ngẫu nhiên. Có 2 loại Token là: Hard Token, Soft Token
+			  
+    - cookie:   + Cookies là các tệp được trang web người dùng truy cập tạo ra. Cookie giúp trải nghiệm trực tuyến của bạn dễ dàng hơn bằng cách lưu thông tin duyệt web.
+            	+ Với Cookies, các trang web có thể duy trì trạng thái đăng nhập của bạn, ghi nhớ tùy chọn trang web và cung cấp nội dung phù hợp với vị trí của người dùng
+				 
+	-localstorage:  + LocalStorage giúp website lưu trữ dữ liệu vĩnh viễn trên trình duyệt. Trừ khi người dùng xóa cache hoặc làm các hành động như cài lại trình duyệt.
+	                + LocalStorage không bảo mật, có thể dễ dàng lưu dữ liệu, lấy dữ liệu và chỉnh sửa dữ liệu từ LocalStorage.
+					+ Điểm yếu của LocalStorage là nó chỉ lưu đơn thuần một String. Các kiểu dữ liệu phức tạp đều không phù hợp để lưu trong LocalStorage.
+					
+	-session:   + sessionStorage khá giống với localStorage. Vì chúng đều thuộc về web storage API.
+	            + Khi close tab hay close browser thì data ở localStorage vẫn tồn tại, và chỉ bị mất khi user xoá cache hoặc clear web data. 
+			    + Còn đối với sessionStorage thì data sẽ bị mất ngay khi close tab hoặc close browser.
+	           
+******* API ********************
+    - API là các phương thức, giao thức kết nối với các thư viện và các ứng dụng khác. 
+	- Nó là viết tắt của Application Programming Interface – giao diện lập trình ứng dụng
+	- API cung cấp khả năng cung cấp khả năng truy xuất đến một tập các hàm hay dùng. Và từ đó có thể trao đổi dữ liệu giữa các ứng dụng.

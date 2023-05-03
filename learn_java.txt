@@ -1,0 +1,91 @@
+
+**************** NOTE *******
+-static block chạy trước khi chạy 1 project java.
+
+************* STATIC ***********
+- có thể hiểu nó là biến, method dùng chung. Dùng xuyên suốt cho đến khi kết thúc chương trình.
+- mothod static chỉ gọi được các hàm và biến là static.
+
+
+
+ ************* java 8 *****************
+  - có lamdal  : giúp code nhanh hơn, ngắn gọn hơn
+  - có Functional interface : có 1 method duy nhất (hay dùng với lamdal) và đc dùng với annotation @FunctionalInterface (có thể có thêm các method không trừu tượng bằng từ khóa default trong Java 8)
+  - có streams api  : Stream là 1 lớp trừu tượng mới được giới thiệu trong Java 8 giúp ta giải quyết các bài toán về collections, array 1 cách tự nhiên hơn như thêm, sửa, xóa, lọc object…
+  - có các method default trong interface  (Các phương thức mặc định)  : method có body, ko cần override method default trong class mà implements interface đó.
+  - có date and time apis
+  - optional class : các biến được sử dụng thông qua Optional Class sẽ tránh được lỗi NullPointerException.
+   
+   
+
+
+**************** Collection **********************
+
+  - stack: vào sau ra trước
+  - queue : vào trước ra trước
+  
+  - hashMap:  cho phép một key là null và nhiều giá trị null.
+  - hashTable: không cho phép bất kỳ key hoặc giá trị null.
+  
+  
+***************** compile time và run time ****************
+   - run time: là thời điểm chương trình đang chạy   (override)
+   - compile time: là thời điểm source code đang được compile   (overloading)
+
+   - Thông thường run time và compile time được nhắc tới khi nói tới lỗi. Lỗi run time tức là lỗi khi chạy mới thấy, tức lỗi logic. Lỗi compile time là lỗi compile là thấy ngay, tức là lỗi cú pháp.
+   
+
+**************** JVM, JRE, JDk **********************
+   – JVM là một thiết bị trừu tượng (ảo) có thể giúp máy tính chạy các chương trình Java.
+   – JRE được sử dụng để cung cấp môi trường runtime. Nó là trình triển khai của JVM.
+   – JDK (là viết tắt của Java Development Kit) bao gồm JRE và các Development Tool.
+  
+   
+
+*************** OCA **********************************
+Chapter 1: Tổng qian
+   - java packages là cơ bản, và javax packages là mở rộng
+   - Comment:   có 3 cách comment : 1 dòng "//", nhiều dòng "/**/", và javadoc "/** */"
+   - File java: kết thúc bằng .java
+		+ 1 file java có thể định nghĩa nhiều class, và nhiều nhất chỉ 1 class được public ( có thể ko có class nào được puclic )
+		+ Trong 1 class sẽ chạy theo thứ tự fields, function, contructor ( hết các fields rồi mới đến function, hết function rồi mới đến contructor) 
+   - Package and import
+		+ Package được xuất phát từ java hoặc javax -> thuộc thư viện của JDK, nếu khác thì là ngoài JDK
+		+ import java.util.*; ( ví dụ cách import nhiều class trong 1 package hoặc có thể import cụ thể từng class)
+		+ gói java.lang ko cần import ( ko bắt buộc)
+		+ Phải import cụ thể tên class nếu có 2 lớp trùng tên nhưng ở package khác. ( Ví dụ: import java.util.Date; import java.sql.Date; )
+		
+   - Initializer Blocks: Khối khởi tạo: code giữa các dấu ngoặc nhọn là một khối khởi tạo ({})
+		+ các khối có thể chứa các khối khác.
+		
+   - Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
+		+ kiểu nguyên thủy có 8 loại. Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
+		+ example về int vs long: nếu khai báo là long và giá trị lớn hơn kiểu int thì phải thêm kí hiệu L ( long a = 1878234356546L), nếu không có thì sẽ đang compile là kiểu int và sẽ error.
+		+ kiểu nguyên thủy luôn có default value, không thể null và không có method. Kiểu tham chiếu có thể null
+		+ Kiểu tham chiếu sẽ lưu địa chỉ ô nhớ ( nơi đặt đối tượng, nơi lưu trữ dữ liệu ) ->  khái niệm con trỏ.
+		+ Có 5 kiểu tham chiếu trong java: array, class, interface, annotation, Enumeration
+		
+   - Khai báo và khởi tạo :
+		+ example về khai báo và khởi tạo: int i1, i2, i3 = 0 ( có 3 biến được khai báo nhưng chỉ có 1 biến được khởi tạo (i3) )
+		+ example về khai báo: int num, String value; // DOES NOT COMPILE ( không được khai báo 2 hoặc nhiều biến khác kiểu dữ liệu trên 1 khai báo )
+		+ tên biến có thể gồm các chữ cái, số , ký tự "$" hoặc "_". và Khong được bắt đầu bằng số.
+		+ biến local ( trong method) không có default value và compile error nếu dùng mà không khởi tạo
+		
+   - Thu gom rác : Garbage Collection
+		+ Một đối tượng đc thu gom rác khi : không còn bất kì tham chiếu nào trỏ tới và tất cả các tham chiếu đã vượt quá phạm vi.
+		+ finalize() không thể và không được gọi lại lần 2
+
+Chapter 2: Toán tử
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
