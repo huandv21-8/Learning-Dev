@@ -61,6 +61,7 @@ Chapter 1: Tổng qian
    - Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
 		+ kiểu nguyên thủy có 8 loại. Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
 		+ example về int vs long: nếu khai báo là long và giá trị lớn hơn kiểu int thì phải thêm kí hiệu L ( long a = 1878234356546L), nếu không có thì sẽ đang compile là kiểu int và sẽ error.
+		+ example về float vs double: nếu khai báo float thì phải có kí hiệu là f ( float a= 12.4f), nếu không có sẽ compile error tại vì float sẽ được giả định là double nếu không thêm kí hiệu "f"
 		+ kiểu nguyên thủy luôn có default value, không thể null và không có method. Kiểu tham chiếu có thể null
 		+ Kiểu tham chiếu sẽ lưu địa chỉ ô nhớ ( nơi đặt đối tượng, nơi lưu trữ dữ liệu ) ->  khái niệm con trỏ.
 		+ Có 5 kiểu tham chiếu trong java: array, class, interface, annotation, Enumeration
@@ -76,8 +77,29 @@ Chapter 1: Tổng qian
 		+ finalize() không thể và không được gọi lại lần 2
 
 Chapter 2: Toán tử
-
-   
+   - Rule:
+		+ Sử dụng toán tử với 2 giá trị khác kiểu dữ liệu thì sẽ auto return về kiểu dữ liệu lớn hơn 
+			( ví dụ 1 : int a = 4; long b = 5L; a+b --> return long )
+			( ví dụ 2: double a = 5.5; float b = 8.6f; a+b --> return double )
+		+ Sử dụng toán tử với số nguyên ( byte, short, int, long ) và số thập phân ( float, double) thì sẽ auto return về số thập phân.
+			( ví dụ: long a = 3L; float b = 4.5f; a+b --> return float)
+		+ Với những kiểu dữ liệu nhỏ như short, char, byte, lần đầu sử dụng toán tử sẽ được thăng cấp thành int,
+			( ví dụ : short a = 3; byte b = 5; a+b --> return int )
+		
+	- Toán tử gán:
+		+ Không thể gán kiểu dữ liệu lớn hơn sang nhỏ hơn ( có thể gán ngược lại nhỏ -> lớn ) -> giải pháp là ép sang kiểu dữ liệu nhỏ hơn hoặc ép từ dạng số nguyên sang kiểu thập phân
+			( ví dụ 1: short a= (short) 1921222; )
+			( ví dụ 2: int b = (int) 9.9f; )
+	- Toán tử logic: cho 2 biến boolean: a, b
+		+ Toán tử &: return true nếu cả a và b đều là true
+		+ Toán tử |: return false nếu cả a và b đều là false
+		+ toán tử ^: return true nếu a và b trái nhau ( a: true và b: fasle hoặc a: false và b : true )
+		+ khác nhau & và &&: ( chỉ áp dụng cho việc check null của tham chiếu và sử dụng luôn tham chiếu đó )
+			 && : nếu vế trái đã xác định và đánh giá được kết quả thì sẽ bỏ qua vế phải
+			 & : sẽ đánh giá cả 2 vế trái và phải
+			 ( ví dụ 1: if(x != null & x.getValue() < 5) trong trường hợp này nếu x là null thì sẽ gây chết chương trình vì sẽ đánh giá tiếp cả vế phải )
+			 ( ví dụ 2: if(x != null && x.getValue() < 5) trong trường hợp này nếu x là null thì kết quả của biểu thức sẽ là false luôn và ko đánh giá vế phải )
+  
    
    
    
