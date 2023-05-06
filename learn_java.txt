@@ -49,15 +49,16 @@ Chapter 1: Tổng qian
    - File java: kết thúc bằng .java
 		+ 1 file java có thể định nghĩa nhiều class, và nhiều nhất chỉ 1 class được public ( có thể ko có class nào được puclic )
 		+ Trong 1 class sẽ chạy theo thứ tự fields, function, contructor ( hết các fields rồi mới đến function, hết function rồi mới đến contructor) 
+
    - Package and import
 		+ Package được xuất phát từ java hoặc javax -> thuộc thư viện của JDK, nếu khác thì là ngoài JDK
 		+ import java.util.*; ( ví dụ cách import nhiều class trong 1 package hoặc có thể import cụ thể từng class)
 		+ gói java.lang ko cần import ( ko bắt buộc)
 		+ Phải import cụ thể tên class nếu có 2 lớp trùng tên nhưng ở package khác. ( Ví dụ: import java.util.Date; import java.sql.Date; )
-		
+
    - Initializer Blocks: Khối khởi tạo: code giữa các dấu ngoặc nhọn là một khối khởi tạo ({})
 		+ các khối có thể chứa các khối khác.
-		
+
    - Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
 		+ kiểu nguyên thủy có 8 loại. Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
 		+ example về int vs long: nếu khai báo là long và giá trị lớn hơn kiểu int thì phải thêm kí hiệu L ( long a = 1878234356546L), nếu không có thì sẽ đang compile là kiểu int và sẽ error.
@@ -65,13 +66,13 @@ Chapter 1: Tổng qian
 		+ kiểu nguyên thủy luôn có default value, không thể null và không có method. Kiểu tham chiếu có thể null
 		+ Kiểu tham chiếu sẽ lưu địa chỉ ô nhớ ( nơi đặt đối tượng, nơi lưu trữ dữ liệu ) ->  khái niệm con trỏ.
 		+ Có 5 kiểu tham chiếu trong java: array, class, interface, annotation, Enumeration
-		
+
    - Khai báo và khởi tạo :
 		+ example về khai báo và khởi tạo: int i1, i2, i3 = 0 ( có 3 biến được khai báo nhưng chỉ có 1 biến được khởi tạo (i3) )
 		+ example về khai báo: int num, String value; // DOES NOT COMPILE ( không được khai báo 2 hoặc nhiều biến khác kiểu dữ liệu trên 1 khai báo )
 		+ tên biến có thể gồm các chữ cái, số , ký tự "$" hoặc "_". và Khong được bắt đầu bằng số.
 		+ biến local ( trong method) không có default value và compile error nếu dùng mà không khởi tạo
-		
+
    - Thu gom rác : Garbage Collection
 		+ Một đối tượng đc thu gom rác khi : không còn bất kì tham chiếu nào trỏ tới và tất cả các tham chiếu đã vượt quá phạm vi.
 		+ finalize() không thể và không được gọi lại lần 2
@@ -85,11 +86,12 @@ Chapter 2: Toán tử
 			( ví dụ: long a = 3L; float b = 4.5f; a+b --> return float)
 		+ Với những kiểu dữ liệu nhỏ như short, char, byte, lần đầu sử dụng toán tử sẽ được thăng cấp thành int,
 			( ví dụ : short a = 3; byte b = 5; a+b --> return int )
-		
+
 	- Toán tử gán:
 		+ Không thể gán kiểu dữ liệu lớn hơn sang nhỏ hơn ( có thể gán ngược lại nhỏ -> lớn ) -> giải pháp là ép sang kiểu dữ liệu nhỏ hơn hoặc ép từ dạng số nguyên sang kiểu thập phân
 			( ví dụ 1: short a= (short) 1921222; )
 			( ví dụ 2: int b = (int) 9.9f; )
+
 	- Toán tử logic: cho 2 biến boolean: a, b
 		+ Toán tử &: return true nếu cả a và b đều là true
 		+ Toán tử |: return false nếu cả a và b đều là false
@@ -99,7 +101,73 @@ Chapter 2: Toán tử
 			 & : sẽ đánh giá cả 2 vế trái và phải
 			 ( ví dụ 1: if(x != null & x.getValue() < 5) trong trường hợp này nếu x là null thì sẽ gây chết chương trình vì sẽ đánh giá tiếp cả vế phải )
 			 ( ví dụ 2: if(x != null && x.getValue() < 5) trong trường hợp này nếu x là null thì kết quả của biểu thức sẽ là false luôn và ko đánh giá vế phải )
+ 
+	- Toán tử == và !=
+		+ So sánh 2 kiểu số nguyên và thập phân. Nếu 2 kiểu dữ liệu khác nhau thì kiểu dữ liệu sẽ được thăng cấp (
+			( ví dụ: 5==5.0 => true vì 5 lúc này sẽ được thăng cấp lên kiểu dữ liệu là double )
+		+ So sánh 2 giá trị boolean
+		+ So sánh 2 giá trị object, bao gồm cả null và giá trị String 
+		+ Không thể so sánh các kiểu sau đây với nhau:
+			 String với int, float, double,...
+			 String với boolean
+			 boolean với int, float, double,..
+
+	- Câu lệnh rẽ nhánh ( if-else )
+		+ Trong 1 khối lệnh if-then-else thì chỉ được thực thi trong một nhánh, không có chuyện 2 nhánh trở lên được thực thi
+		+ điều kiện trong mệnh đề if phải là boolean và không thể sử dụng các toán tử khác như toán tử gán( = )
+
+	- Câu lệnh switch-case
+		+ kiểu dữ kiệu của các case sẽ phải phù hợp với kiểu của switch
+		+ Giá trị của case phải là hằng số hoặc hằng số enum, hằng số cuối cùng ( có nghĩa là không thể thay đổi nữa) 
+		+ Nếu không có case nào phù hợp thì default sẽ được gọi, nếu không có default thì tất cả các case sẽ được bỏ qua.
+		+ Điều kiện của switch không hỗ trợ kiểu boolean và Long hoặc 
+		+ case default sẽ được đặt ở bất cứ đâu trong switch, và nếu default không được đặt ở cuối và không có break thì case tiếp theo vẫn được thực thi cho đến khi có break
+
+	- Vòng lặp:
+		+ vòng for cơ bản:
+			 Phần điều kiện của vòng for cơ bản gồm 3 phần: khởi tạo, kiểm tra điều kiện, và cập nhật khởi tạo.Các phần này sẽ không bắt buộc nhưng bắt buộc phải có dấu chấm phẩy (;)
+			 Khi khai báo nhiều hơn 1 biến trong khối khởi tạo, kiểu dữ liệu của các biến phải cùng loại data type ( cùng int, hoặc cùng float, ... )
+			 Phần khởi tạo và cập nhật có thể có nhiều câu lệnh phân tách bằng dấu phẩy (,)
+			 Thứ tự thực hiện: 1.khởi tạo biến -> 2.kiểm tra điều kiện -> 3.thực thi body -> 4.cập nhật lại biến khởi tạo-> 5.quay lại bước 2
+		+ Vòng lặp while: 1.kiểm tra điều kiện, nếu là true -> 2.thực thi khối lệnh trong while
+		+ Vòng lặp do-while : 1.thực hiện khối lệnh trong do -> 2.kiểm tra điều kiện, nếu là true -> 3.lặp lại step 1 ( thực thi ít nhất 1 lần )
+   
   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  
+   
+   
+   
    
    
    
