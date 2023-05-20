@@ -39,11 +39,10 @@
    – JVM là một thiết bị trừu tượng (ảo) có thể giúp máy tính chạy các chương trình Java.
    – JRE được sử dụng để cung cấp môi trường runtime. Nó là trình triển khai của JVM.
    – JDK (là viết tắt của Java Development Kit) bao gồm JRE và các Development Tool.
-  
-   
+
 
 *************** OCA **********************************
-Chapter 1: Tổng qian
+Chapter 1: Tổng quan
    - java packages là cơ bản, và javax packages là mở rộng
    - Comment:   có 3 cách comment : 1 dòng "//", nhiều dòng "/**/", và javadoc "/** */"
    - File java: kết thúc bằng .java
@@ -58,9 +57,11 @@ Chapter 1: Tổng qian
 
    - Initializer Blocks: Khối khởi tạo: code giữa các dấu ngoặc nhọn là một khối khởi tạo ({})
 		+ các khối có thể chứa các khối khác.
+		+ contructor không phải là khối khởi tạo
 
    - Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
-		+ kiểu nguyên thủy có 8 loại. Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
+		+ kiểu nguyên thủy có 8 loại. và 8 loại này đều có kiểu bao bọc ( ánh xạ tới Byte, Short, Integer, Long, Float, Double, Boolean, Character) ( Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
+		+ Không thể sử dụng kiểu nguyên thủy cho các colection ( array, ...) mà phải sử dụng kiểu bao bọc.
 		+ example về int vs long: nếu khai báo là long và giá trị lớn hơn kiểu int thì phải thêm kí hiệu L ( long a = 1878234356546L), nếu không có thì sẽ đang compile là kiểu int và sẽ error.
 		+ example về float vs double: nếu khai báo float thì phải có kí hiệu là f ( float a= 12.4f), nếu không có sẽ compile error tại vì float sẽ được giả định là double nếu không thêm kí hiệu "f"
 		+ kiểu nguyên thủy luôn có default value, không thể null và không có method. Kiểu tham chiếu có thể null
@@ -70,15 +71,16 @@ Chapter 1: Tổng qian
    - Khai báo và khởi tạo :
 		+ example về khai báo và khởi tạo: int i1, i2, i3 = 0 ( có 3 biến được khai báo nhưng chỉ có 1 biến được khởi tạo (i3) )
 		+ example về khai báo: int num, String value; // DOES NOT COMPILE ( không được khai báo 2 hoặc nhiều biến khác kiểu dữ liệu trên 1 khai báo )
-		+ tên biến có thể gồm các chữ cái, số , ký tự "$" hoặc "_". và Khong được bắt đầu bằng số.
+		+ tên biến có thể gồm các chữ cái, số , ký tự "$" hoặc "_". và không được bắt đầu bằng số. và không được sử dụng keyword trong java làm tên biến ( có thể sử dụng tên class như Integer, Double,..)
 		+ biến local ( trong method) không có default value và compile error nếu dùng mà không khởi tạo
+		+ Biến khai báo trong method Main là biến local
 
    - Thu gom rác : Garbage Collection
 		+ Một đối tượng đc thu gom rác khi : không còn bất kì tham chiếu nào trỏ tới và tất cả các tham chiếu đã vượt quá phạm vi.
-		+ finalize() không thể và không được gọi lại lần 2
+		+ finalize() có thể không được gọi hoặc là chỉ có thể gọi duy nhất 1 lần ( không thể gọi nhiều hơn 1 ) và cuối cùng là nó không được chạy theo yêu cầu ( có trường hợp kể cả gọi nó cũng không chạy )
 
 Chapter 2: Toán tử
-   - Rule:
+	- Rule:
 		+ Sử dụng toán tử với 2 giá trị khác kiểu dữ liệu thì sẽ auto return về kiểu dữ liệu lớn hơn 
 			( ví dụ 1 : int a = 4; long b = 5L; a+b --> return long )
 			( ví dụ 2: double a = 5.5; float b = 8.6f; a+b --> return double )
@@ -131,10 +133,55 @@ Chapter 2: Toán tử
 			 Thứ tự thực hiện: 1.khởi tạo biến -> 2.kiểm tra điều kiện -> 3.thực thi body -> 4.cập nhật lại biến khởi tạo-> 5.quay lại bước 2
 		+ Vòng lặp while: 1.kiểm tra điều kiện, nếu là true -> 2.thực thi khối lệnh trong while
 		+ Vòng lặp do-while : 1.thực hiện khối lệnh trong do -> 2.kiểm tra điều kiện, nếu là true -> 3.lặp lại step 1 ( thực thi ít nhất 1 lần )
-   
-  
-   
-   
+
+	- Labels:
+		+ Thường được dùng trong vòng lặp lồng nhau
+		+ Thường được viết hoa và kết thúc bằng dấu (:)
+		+ Thường được dùng để break ra ngoài vòng lặp mà bạn muốn break
+
+	- Break:
+		+ Dùng để dừng luồng hiện tại và chuyển sang luồng tiếp theo
+		+ Không dùng trong câu lệnh rẽ nhánh
+
+	- Continue: 
+		+ DÙng để dừng vòng lặp hiện tại
+		+ Không dùng trong switch
+
+Chapter 3: Core Java APIs
+	- Thao tác với String:
+		+ Nối chuỗi ( + )
+			 Nếu hai toán tử là số -> phép cộng
+			 Néu hai toán tử lá string -> phép nối
+			 Được thực hiện từ trái qua phải
+		+ Tính bất biến 
+			 String là bất biến ( không thể thay đổi được giá trị trong string pool sau khi tạo )
+			 Sử dụng hàm concat() để nối chuỗi trong Java thì phải gán lại giá trị khi nối xong. Nếu không gán thì nó chỉ tạo ra một chuỗi khác và và chưa được gán chuỗi mới vào tham chiếu bán dầu
+				( ví dụ: String a = "1"; a.concat("2") --> output: a = 1 )
+		+ String pool
+			 Thuộc JVM ( java virtual machine )
+		+ Method quan trọng trong String
+			 length(): đếm kí tự chuỗi
+			 charAt(): trả về kí tự theo index, trường hợp không tồn tại giá trị theo index thì trả về exception java.lang.StringIndexOutOfBoundsException --> ví dụ : string.charAt(0)
+			 indexOf(): tìm kiếm theo kí tự và trả về index. Trả về -1 nếu không tìm thấy, có thể tìm một kí tự hoặc một chuỗi và cũng có thể bắt đầu từ 1 vị trí --> ví dụ: string.indexOf("al") hoặc string.indexOf('a', 4) 
+			 substring(): tìm kiếm các kí tự trong một chuỗi và trả về các phần của chuỗi. Tham số đầu tiên là index bắt đầu của chuỗi được trả về và tham số thứ hai là index để kết thúc. --> ví dụ : string.substring(3, 7)
+			 toLowerCase(): chuyển kí tự thành chữ thường, kí tựu khong phải chữ sẽ được giữ lại, và vì string là bất biến nên chuỗi ban đầu vẫn giữ nguyên
+			 toUpperCase(): chuyển kí tự thành chữ hoa, kí tựu khong phải chữ sẽ được giữ lại, và vì string là bất biến nên chuỗi ban đầu vẫn giữ nguyên
+			 equals(): so sáng nội dung của 2 chuỗi và phân biệt chữ hoa chữ thường.
+			 equalslgnoreCase(): so sánh nội dung của 2 chuỗi và không phân biệt chữ hoa chữ thường.
+			 startsWith(): Kiểm tra kí tự ĐẦU TIÊN của chuỗi và phân biệt chữ hoa chữ thường --> ví dụ : "abc".startsWith("A") -> return false
+			 endsWith(): Kiểm tra kí tự CUỐI CÙNG của chuỗi và phân biệt chữ hoa chữ thường --> ví dụ : "abc".endsWith("c") -> return true
+			 contains(): Kiểm tra kí tự trong một chuỗi ( bất cứ đâu trong chuỗi) và phân biệt chữ hoa chữ thường --> ví dụ: "abcd".endsWith("bC") -> return false
+			 replace(): tìm kiếm và thay thế chuỗi hoặc kí tự
+			 trim(): loại bỏ khoảng trắng trước và sau chuỗi ( bao gồm cả xuống dòng và tab)
+
+	- StringBuilder
+		+ StringBuilder không phải bất biến ( có thể thay đổi được giá trị sau khi tạo )
+		+ Có 3 loại khởi tạo stringBuilder: 
+			StringBuilder sb1 = new StringBuilder();
+			StringBuilder sb2 = new StringBuilder("animal");
+			StringBuilder sb3 = new StringBuilder(10);  // 10 là dung lượng của được set của chuỗi, 
+		+ Dung lượng mặc định của stringBuilder là 16 và có thể set cho nó ( ví dụ trên thì dung lượng là 10 ). Nếu được append chuỗi dài hơn thì dung lượng này sẽ tự dộng tăng lên
+		+ Method quan trọng trong StringBuilder
    
    
    
