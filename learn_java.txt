@@ -116,11 +116,12 @@ Chapter 2: Toán tử
 
 	- Câu lệnh rẽ nhánh ( if-else )
 		+ Trong 1 khối lệnh if-then-else thì chỉ được thực thi trong một nhánh, không có chuyện 2 nhánh trở lên được thực thi
-		+ điều kiện trong mệnh đề if phải là boolean và không thể sử dụng các toán tử khác như toán tử gán( = )
+		+ điều kiện trong mệnh đề if phải là boolean và chỉ có thể sử dụng toán tử gán ( = ) khi kiểu dữ liệu là boolean
+		+ nếu câu lệnh if không có dấu {} thì chỉ có câu lệnh đầu tiên sau câu lệnh if sẽ thuộc câu lệnh if. Những câu tiếp theo sẽ không thuộc if, kể cả có thụt đầu dòng đi chăng nữa. Tương tự với else
 
 	- Câu lệnh switch-case
 		+ kiểu dữ kiệu của các case sẽ phải phù hợp với kiểu của switch
-		+ Giá trị của case phải là hằng số hoặc hằng số enum, hằng số cuối cùng ( có nghĩa là không thể thay đổi nữa) 
+		+ Giá trị của case phải là hằng số hoặc hằng số enum, hoặc final ( có nghĩa là không thể thay đổi nữa). Nếu khai báo trong 1 biến thì biến đó phải gán final
 		+ Nếu không có case nào phù hợp thì default sẽ được gọi, nếu không có default thì tất cả các case sẽ được bỏ qua.
 		+ Điều kiện của switch không hỗ trợ kiểu boolean và Long hoặc 
 		+ case default sẽ được đặt ở bất cứ đâu trong switch, và nếu default không được đặt ở cuối và không có break thì case tiếp theo vẫn được thực thi cho đến khi có break
@@ -182,9 +183,34 @@ Chapter 3: Core Java APIs
 			StringBuilder sb3 = new StringBuilder(10);  // 10 là dung lượng của được set của chuỗi, 
 		+ Dung lượng mặc định của stringBuilder là 16 và có thể set cho nó ( ví dụ trên thì dung lượng là 10 ). Nếu được append chuỗi dài hơn thì dung lượng này sẽ tự dộng tăng lên
 		+ Method quan trọng trong StringBuilder
-   
-   
-   
+			 append(String str): nối chuỗi và trả về tham chiếu ban đầu
+			 insert(int index, String str): chèn ký tự tại index được yêu cầu và trả về tham chiếu ban đầu
+			 delete(int start, int end): xóa ký tự từ vị trí index start đến end và trả về tham chiếu ban đầu
+			 deleteCharAt(int index): xóa ký tự tại index và trả về tham chiếu ban đầu. Trường hợp không tồn tại ký tự tại vị trí index thì throws StringIndexOutOfBoundsException.
+			 reverse(): đảo ngược chuỗi và trả về tham chiếu ban đầu.
+		+StringBuilder vs StringBuffer
+			 StringBuffer giống với StringBuilder về cách sử dụng những sẽ chậm hơn vì nó an toàn về luồng.
+
+	- Arrays
+		+ array là một vùng nhớ trên heap( [] )
+		+ Tạo 1 mảng nguyên thủy: int[] numbers = new int[3]; ( 3 là size của mảng )
+			 Tạo 1 mảng có các phần tử được chỉ định cụ thể thì sẽ không có size mảng hoặc ngược lại
+		+ Tạo 1 mảng tham chiếu:
+			 Khi print 1 mảng thì sẽ có ký tự [L ở đầu
+		+ Hàm trong array
+			 sort(): sắp xếp
+			 binarySearch(): tìm kiếm. Trả về index nếu tìm thấy và sẽ trả về index là số âm nếu không tìm thấy. Trường hợp mảng chứa sắp xếp sẽ dự đoán được kết quả trả về ( nên chọn đáp án đầu ra không xác định được )
+			 Mảng là đối tượng, các thành phần của mảng có thể là đối tương -> có thể chứa mảng trong mảng
+		+ Mảng đa chiều: 
+			 Mỗi cặp [] được xác định là 1 chiều ( ví dụ: int[] arr[][]; -> khai báo mảng 3D ( 3 chiều ) )
+			 
+	- ArrayList
+		+ Collection nằm trong gói java.util
+		+ được implements từ List, và ArrayList là một List
+		+ interface List không thể được khởi tạo
+		+ method của ArrayList:
+			 add(): dùng để insert một phần tử mới vào mảng, nếu không chỉ định loại type cho ArrayList thì chúng ta có thể add bất kì giá trị nào vào mảng và khi đó type của nó là Object ( bao gồm mọi loại type ngoại trừ nguyên thủy )
+			 remove(): xóa phần tử đầu tiên của mảng hoặc xóa tại 1 index được chỉ định
    
    
    
