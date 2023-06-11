@@ -43,23 +43,23 @@
 
 *************** OCA **********************************
 Chapter 1: Tổng quan
-   - java packages là cơ bản, và javax packages là mở rộng
-   - Comment:   có 3 cách comment : 1 dòng "//", nhiều dòng "/**/", và javadoc "/** */"
-   - File java: kết thúc bằng .java
+	- java packages là cơ bản, và javax packages là mở rộng
+	- Comment:   có 3 cách comment : 1 dòng "//", nhiều dòng "/**/", và javadoc "/** */"
+	- File java: kết thúc bằng .java
 		+ 1 file java có thể định nghĩa nhiều class, và nhiều nhất chỉ 1 class được public ( có thể ko có class nào được puclic )
 		+ Trong 1 class sẽ chạy theo thứ tự fields, function, contructor ( hết các fields rồi mới đến function, hết function rồi mới đến contructor) 
 
-   - Package and import
+	- Package and import
 		+ Package được xuất phát từ java hoặc javax -> thuộc thư viện của JDK, nếu khác thì là ngoài JDK
 		+ import java.util.*; ( ví dụ cách import nhiều class trong 1 package hoặc có thể import cụ thể từng class)
 		+ gói java.lang ko cần import ( ko bắt buộc)
 		+ Phải import cụ thể tên class nếu có 2 lớp trùng tên nhưng ở package khác. ( Ví dụ: import java.util.Date; import java.sql.Date; )
 
-   - Initializer Blocks: Khối khởi tạo: code giữa các dấu ngoặc nhọn là một khối khởi tạo ({})
+	- Initializer Blocks: Khối khởi tạo: code giữa các dấu ngoặc nhọn là một khối khởi tạo ({})
 		+ các khối có thể chứa các khối khác.
 		+ contructor không phải là khối khởi tạo
 
-   - Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
+	- Java có 2 kiểu dữ liệu là primitive type ( kiểu nguyên thủy ) và reference type ( kiểu tham chiếu) 
 		+ kiểu nguyên thủy có 8 loại. và 8 loại này đều có kiểu bao bọc ( ánh xạ tới Byte, Short, Integer, Long, Float, Double, Boolean, Character) ( Mỗi loại số sử dụng gấp đôi số bit so với loại tương tự nhỏ hơn. ví dụ : 1long = 2int = 4short = 8byte
 		+ Không thể sử dụng kiểu nguyên thủy cho các colection ( array, ...) mà phải sử dụng kiểu bao bọc.
 		+ example về int vs long: nếu khai báo là long và giá trị lớn hơn kiểu int thì phải thêm kí hiệu L ( long a = 1878234356546L), nếu không có thì sẽ đang compile là kiểu int và sẽ error.
@@ -68,12 +68,19 @@ Chapter 1: Tổng quan
 		+ Kiểu tham chiếu sẽ lưu địa chỉ ô nhớ ( nơi đặt đối tượng, nơi lưu trữ dữ liệu ) ->  khái niệm con trỏ.
 		+ Có 5 kiểu tham chiếu trong java: array, class, interface, annotation, Enumeration
 
-   - Khai báo và khởi tạo :
+	- Khai báo và khởi tạo :
 		+ example về khai báo và khởi tạo: int i1, i2, i3 = 0 ( có 3 biến được khai báo nhưng chỉ có 1 biến được khởi tạo (i3) )
 		+ example về khai báo: int num, String value; // DOES NOT COMPILE ( không được khai báo 2 hoặc nhiều biến khác kiểu dữ liệu trên 1 khai báo )
 		+ tên biến có thể gồm các chữ cái, số , ký tự "$" hoặc "_". và không được bắt đầu bằng số. và không được sử dụng keyword trong java làm tên biến ( có thể sử dụng tên class như Integer, Double,..)
 		+ biến local ( trong method) không có default value và compile error nếu dùng mà không khởi tạo
 		+ Biến khai báo trong method Main là biến local
+
+	- Wrapper class ( lớp bao bọc ) và kiểu nguyên thủy
+		+ lớp bao bọc được viết hoa và bao bọc các kiểu nguyên thủy.
+		+ lớp bao bọc được sử dụng như 1 object ( đối tượng )
+		+ method để chuyển đổi:
+			parseInt(): chuyển về một giá trị nguyên thủy
+			valueOf(): chuyển về một lớp bao bọc
 
    - Thu gom rác : Garbage Collection
 		+ Một đối tượng đc thu gom rác khi : không còn bất kì tham chiếu nào trỏ tới và tất cả các tham chiếu đã vượt quá phạm vi.
@@ -206,12 +213,18 @@ Chapter 3: Core Java APIs
 			 
 	- ArrayList
 		+ Collection nằm trong gói java.util
-		+ được implements từ List, và ArrayList là một List
+		+ được extends AbstractList và AbstractList lại implements từ List, -> ArrayList là một List
 		+ interface List không thể được khởi tạo
+		+ không được định nghĩa type là kiểu nguyên thủy, phải là tham chiếu hoặc các lớp bao bọc (wrapper class)
 		+ method của ArrayList:
 			 add(): dùng để insert một phần tử mới vào mảng, nếu không chỉ định loại type cho ArrayList thì chúng ta có thể add bất kì giá trị nào vào mảng và khi đó type của nó là Object ( bao gồm mọi loại type ngoại trừ nguyên thủy )
-			 remove(): xóa phần tử đầu tiên của mảng hoặc xóa tại 1 index được chỉ định
-   
+			 remove(): xóa phần tử đầu tiên của mảng hoặc xóa tại 1 index được chỉ định, trường hợp ko tìm được index để remove thì throw IndexOutOfBoundsException
+			 set(): Thay đổi các phần tử mà không thay đổi kích thước. không tìm thấy index để replace thì sẽ throw IndexOutOfBoundsException
+			 isEmpty(): return boolean, dùng để kiểm tra mảng có empty hay không 
+			 size(): kiểm tra độ dài của mảng đã được sử dụng
+			 clear(): dùng để loại bỏ tất cả các phần tử trong mảng
+			 contain(): kiểm tra 1 giá trị có tồn tại trong mảng hay không, sử dụng equals() trên từng phần tử của mảng để so sánh
+			 equals(): dùng để so sánh 2 mảng
    
    
    
