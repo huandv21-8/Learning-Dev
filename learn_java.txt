@@ -75,14 +75,16 @@ Chapter 1: Tổng quan
 		+ biến local ( trong method) không có default value và compile error nếu dùng mà không khởi tạo
 		+ Biến khai báo trong method Main là biến local
 
-	- Wrapper class ( lớp bao bọc ) và kiểu nguyên thủy
+	- Lớp bao bọc ( Wrapper class ) và kiểu nguyên thủy
 		+ lớp bao bọc được viết hoa và bao bọc các kiểu nguyên thủy.
 		+ lớp bao bọc được sử dụng như 1 object ( đối tượng )
 		+ method để chuyển đổi:
-			parseInt(): chuyển về một giá trị nguyên thủy
-			valueOf(): chuyển về một lớp bao bọc
+			parseInt(): chuyển đổi một chuỗi String về một giá trị nguyên thủy, được gọi từ lớp bao bọc (ví dụ: int a = Integer.parseInt(number); )
+			intValue(): chuyển đối tượng bao bọc về một giá trị nguyên thủy nhưng nó được dùng cho đối tượng đã xác định.
+			valueOf(): chuyển đổi giá trị nguyên thủy hoặc một chuỗi String về một đối tượng bao bọc
+			trường hợp không chuyển đổi được sẽ throw NumberFormatException
 
-   - Thu gom rác : Garbage Collection
+	- Thu gom rác : Garbage Collection
 		+ Một đối tượng đc thu gom rác khi : không còn bất kì tham chiếu nào trỏ tới và tất cả các tham chiếu đã vượt quá phạm vi.
 		+ finalize() có thể không được gọi hoặc là chỉ có thể gọi duy nhất 1 lần ( không thể gọi nhiều hơn 1 ) và cuối cùng là nó không được chạy theo yêu cầu ( có trường hợp kể cả gọi nó cũng không chạy )
 
@@ -199,6 +201,7 @@ Chapter 3: Core Java APIs
 			 StringBuffer giống với StringBuilder về cách sử dụng những sẽ chậm hơn vì nó an toàn về luồng.
 
 	- Arrays
+		+ arrays không thể thay đổi được kích thước mảng( không thể add thêm hoặc xóa phần tử vào một mảng sau khi đã khai báo)
 		+ array là một vùng nhớ trên heap( [] )
 		+ Tạo 1 mảng nguyên thủy: int[] numbers = new int[3]; ( 3 là size của mảng )
 			 Tạo 1 mảng có các phần tử được chỉ định cụ thể thì sẽ không có size mảng hoặc ngược lại
@@ -216,16 +219,26 @@ Chapter 3: Core Java APIs
 		+ được extends AbstractList và AbstractList lại implements từ List, -> ArrayList là một List
 		+ interface List không thể được khởi tạo
 		+ không được định nghĩa type là kiểu nguyên thủy, phải là tham chiếu hoặc các lớp bao bọc (wrapper class)
+		+ Khi chuyển đổi Arrays thành List, thì độ dài của List sẽ không thể thay đổi ( không thể xóa hoặc thêm 1 phần tử vì độ dài của Arrays không thay đổi) nếu cố tình thay đổi độ dài của List hoặc Arrays thì sẽ throw UnsupportedOperation. Và khi thay đổi giá trị phần tử của Arrays thì đồng thời giá trị của List cũng thay đổi và ngược lại
 		+ method của ArrayList:
 			 add(): dùng để insert một phần tử mới vào mảng, nếu không chỉ định loại type cho ArrayList thì chúng ta có thể add bất kì giá trị nào vào mảng và khi đó type của nó là Object ( bao gồm mọi loại type ngoại trừ nguyên thủy )
-			 remove(): xóa phần tử đầu tiên của mảng hoặc xóa tại 1 index được chỉ định, trường hợp ko tìm được index để remove thì throw IndexOutOfBoundsException
+			 remove(): xóa phần tử đầu tiên của mảng hoặc xóa tại 1 index được chỉ định,nếu parameter truyền vào là int thì sẽ xóa theo index, còn nếu là Integer thì sẽ xóa theo giá trị, trường hợp ko tìm được index để remove thì throw IndexOutOfBoundsException
 			 set(): Thay đổi các phần tử mà không thay đổi kích thước. không tìm thấy index để replace thì sẽ throw IndexOutOfBoundsException
 			 isEmpty(): return boolean, dùng để kiểm tra mảng có empty hay không 
 			 size(): kiểm tra độ dài của mảng đã được sử dụng
 			 clear(): dùng để loại bỏ tất cả các phần tử trong mảng
 			 contain(): kiểm tra 1 giá trị có tồn tại trong mảng hay không, sử dụng equals() trên từng phần tử của mảng để so sánh
 			 equals(): dùng để so sánh 2 mảng
-   
+		+ Autoboxing:
+			 trường hợp add một giá trị null vào mảng và sau đó sử dụng nó với mục đích khác thì sẽ throw NullPointerException
+			 
+	- Dates and Times
+		+ hầu hết nằm trong package java.time.*
+		+ OCA gồm 3 loại
+			 LocalDate: bao gồm năm tháng ngày (yyyy-MM-dd)
+			 LocalTime: bao gồm giờ phút giây (HH:mm:ss.SSS)
+			 LocalDateTime: bao gồm năm tháng ngày giờ phút giây (yyyy-MM-dd'T'HH:mm:ss.SSS)
+			 ZonedDateTime: sử dụng theo múi giờ
    
    
    
