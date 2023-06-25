@@ -173,7 +173,7 @@ Chapter 3: Core Java APIs
 			 length(): đếm kí tự chuỗi
 			 charAt(): trả về kí tự theo index, trường hợp không tồn tại giá trị theo index thì trả về exception java.lang.StringIndexOutOfBoundsException --> ví dụ : string.charAt(0)
 			 indexOf(): tìm kiếm theo kí tự và trả về index. Trả về -1 nếu không tìm thấy, có thể tìm một kí tự hoặc một chuỗi và cũng có thể bắt đầu từ 1 vị trí --> ví dụ: string.indexOf("al") hoặc string.indexOf('a', 4) 
-			 substring(): tìm kiếm các kí tự trong một chuỗi và trả về các phần của chuỗi. Tham số đầu tiên là index bắt đầu của chuỗi được trả về và tham số thứ hai là index để kết thúc. --> ví dụ : string.substring(3, 7)
+			 substring(): tìm kiếm các kí tự trong một chuỗi và trả về các phần của chuỗi. Tham số đầu tiên là index bắt đầu của chuỗi được trả về và tham số thứ hai là index để kết thúc. Trường hợp index đầu và index cuối trùng nhau thì trả về empty --> ví dụ : string.substring(7, 7);
 			 toLowerCase(): chuyển kí tự thành chữ thường, kí tựu khong phải chữ sẽ được giữ lại, và vì string là bất biến nên chuỗi ban đầu vẫn giữ nguyên
 			 toUpperCase(): chuyển kí tự thành chữ hoa, kí tựu khong phải chữ sẽ được giữ lại, và vì string là bất biến nên chuỗi ban đầu vẫn giữ nguyên
 			 equals(): so sáng nội dung của 2 chuỗi và phân biệt chữ hoa chữ thường.
@@ -199,6 +199,12 @@ Chapter 3: Core Java APIs
 			 reverse(): đảo ngược chuỗi và trả về tham chiếu ban đầu.
 		+StringBuilder vs StringBuffer
 			 StringBuffer giống với StringBuilder về cách sử dụng những sẽ chậm hơn vì nó an toàn về luồng.
+	- String vs StringBuffer vs StringBuilder khi so sánh == sẽ ko compile do khác type
+	
+	equals và == với String và StringBuilder
+		 Sử dụng == với String sẽ so sánh địa chỉ ô nhớ
+		 Sử dụng equals với String sẽ so sánh các ký tự có giống nhau hay không
+		 Sử dụng == và equals với StringBuilder sẽ kiểm tra tham chiếu có đang trỏ đến cùng 1 đối tượng hay không
 
 	- Arrays
 		+ arrays không thể thay đổi được kích thước mảng( không thể add thêm hoặc xóa phần tử vào một mảng sau khi đã khai báo)
@@ -209,11 +215,11 @@ Chapter 3: Core Java APIs
 			 Khi print 1 mảng thì sẽ có ký tự [L ở đầu
 		+ Hàm trong array
 			 sort(): sắp xếp
-			 binarySearch(): tìm kiếm. Trả về index nếu tìm thấy và sẽ trả về index là số âm nếu không tìm thấy. Trường hợp mảng chứa sắp xếp sẽ dự đoán được kết quả trả về ( nên chọn đáp án đầu ra không xác định được )
+			 binarySearch(): tìm kiếm. ->Khi không tìm thấy index trong mảng thì sẽ sắp xếp phần tử đó trong mảng rồi lấy phủ định index sau khi sắp xếp rồi  trừ thêm 1 -> sẽ tìm được index. Trường hợp mảng chưa sắp xếp sẽ không dự đoán được kết quả trả về ( nên chọn đáp án đầu ra không xác định được )
 			 Mảng là đối tượng, các thành phần của mảng có thể là đối tương -> có thể chứa mảng trong mảng
 		+ Mảng đa chiều: 
 			 Mỗi cặp [] được xác định là 1 chiều ( ví dụ: int[] arr[][]; -> khai báo mảng 3D ( 3 chiều ) )
-			 
+
 	- ArrayList
 		+ Collection nằm trong gói java.util
 		+ được extends AbstractList và AbstractList lại implements từ List, -> ArrayList là một List
@@ -231,16 +237,56 @@ Chapter 3: Core Java APIs
 			 equals(): dùng để so sánh 2 mảng
 		+ Autoboxing:
 			 trường hợp add một giá trị null vào mảng và sau đó sử dụng nó với mục đích khác thì sẽ throw NullPointerException
-			 
+
 	- Dates and Times
-		+ hầu hết nằm trong package java.time.*
+		+ Hầu hết nằm trong package java.time.*
+		+ Các lớp Dates va Times đều là bất biến ( không thay đổi giá trị trừ khi gán lại )
 		+ OCA gồm 3 loại
 			 LocalDate: bao gồm năm tháng ngày (yyyy-MM-dd)
-			 LocalTime: bao gồm giờ phút giây (HH:mm:ss.SSS)
-			 LocalDateTime: bao gồm năm tháng ngày giờ phút giây (yyyy-MM-dd'T'HH:mm:ss.SSS)
+			 LocalTime: bao gồm giờ phút giây nano-giây(HH:mm:ss.SSS)
+			 LocalDateTime: bao gồm năm tháng ngày giờ phút giây nano-giây (yyyy-MM-dd'T'HH:mm:ss.SSS). sử dụng "T" để tách ngày và giờ khi chuyển đổi thành chuỗi
 			 ZonedDateTime: sử dụng theo múi giờ
-   
-   
+		+ Cả 3 lớp LocalDate, LocalTime, LocalDateTime đều có method static of để tạo thời gian. Và không có hàm tạo, và phải sử dụng method of() để tạo thời gian.
+			 Ví dụ: LocalDate d = new LocalDate(); // DOES NOT COMPILE
+		+ Lớp Period
+			Sử dụng các đơn vị năm, tháng và ngày để biểu thị một khoảng thời gian dài hơn
+			Không thể nối nhiều method khi tạo Period vì các method của Period.ofXXX là static. Và nếu cố tình nối thì chỉ method cuối cùng mới được áp dụng.
+				Ví dụ :  Period wrong = Period.ofYears(1).ofMonths(2).ofDays(8); --> chỉ method ofDays mới được áp dụng và khi đó ngày sẽ là 8, còn tháng và năm sẽ bằng 0
+		+ Lớp Duration
+			Sử dụng các đơn vị ngày, giờ ,phút, giây, nano-giây biểu thị một khoảng thời gian nhỏ hơn
+			Duration cũng giống như Period, khác mỗi Duration biểu thị một khoảng thời gian ngắn hơn, còn Period để biểu thị một khoảng thời gian dài hơn
+		+ Sử dụng Period và Duration
+			LocalDate thì sẽ sử dụng với Period, nếu dùng Duration thì throw UnsupportedTemporalTypeException
+			LocalTime thì sẽ sử dụng với Duration, nếu dùng Period thì throw UnsupportedTemporalTypeException
+			LocalDateTime sử dụng được cả Period và Duration
+		+ Format Dates và Times
+			Sử dụng để trả về định dạng thời gian
+			Sử dụng lớp DateTimeFormatter thuộc package java.time.format
+			Có 2 loại format thời gian:  các trường hợp xác định trước format và FormatStyle theo ý muốn
+			Với các trường hợp xác định trước
+				Có nhiều định dạng ngày giờ với 2 tiêu chuẩn ISO và RFC
+					Ví dụ: DateTimeFormatter.ISO_LOCAL_DATE.format(LocalDate.of(2018, 3, 9)); -> return 2018-03-09:
+					ISO-8601 là tiêu chuẩn quốc tế về định dạng ngày và giờ.
+				Chúng ta có thể sử dụng java.time.format.FormatStyle enum (FULL, LONG, MEDIUM, SHORT) 
+			Với FormatStyle : format theo ý muốn.
+				Sử dụng ofPattern() để format ngày giờ theo ý muốn. Ví dụ: ofPattern("MMMM dd, yyyy, hh:mm")    // January 08, 2025, 05:12
+					MMMM: hiển thị tháng. ví dụ: M output 1, MM output 01, MMM output Jan, MMMM output January
+					dd: hiển thị ngày. Ví du: 08
+					yyyy: hiển thị năm. Ví dụ: yy output 25, yyyy output 2025
+					hh: hiển thị giờ. Ví dụ: 05
+				M viết hoa là chỉ tháng, m viết thường là phút
+		+ Phân tích Dates và Times
+			Sử dung method parse() và cũng cần định dạng format, nếu không có định dạng thì sẽ sử dụng định dạng default
+
+Chapter 4: Methods and encapsulation
+	- Designing methods
+		+ Access modifiers
+			public: có thể truy cập ở mọi class
+			protected: có thể truy cập được khi cùng package hoặc là subclasses
+			default: có thể truy cập khi cùng package. Không được khai báo chữ default nếu không sẽ không compile
+			private: chỉ có thể truy cập khi cùng class
+		+ Optional specifiers
+			final: khi method là final thì sẽ ko override được ở subclass
    
    
    
