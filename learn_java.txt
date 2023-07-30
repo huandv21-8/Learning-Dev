@@ -132,7 +132,7 @@ Chapter 2: Toán tử
 		+ kiểu dữ kiệu của các case sẽ phải phù hợp với kiểu của switch
 		+ Giá trị của case phải là hằng số hoặc hằng số enum, hoặc final ( có nghĩa là không thể thay đổi nữa). Nếu khai báo trong 1 biến thì biến đó phải gán final
 		+ Nếu không có case nào phù hợp thì default sẽ được gọi, nếu không có default thì tất cả các case sẽ được bỏ qua.
-		+ Điều kiện của switch không hỗ trợ kiểu boolean và Long hoặc 
+		+ Điều kiện của switch không hỗ trợ kiểu boolean và Long hoặc float, double
 		+ case default sẽ được đặt ở bất cứ đâu trong switch, và nếu default không được đặt ở cuối và không có break thì case tiếp theo vẫn được thực thi cho đến khi có break
 
 	- Vòng lặp:
@@ -156,6 +156,7 @@ Chapter 2: Toán tử
 	- Continue: 
 		+ DÙng để dừng vòng lặp hiện tại
 		+ Không dùng trong switch
+	Chỉ được break hoặc continue labels khi câu lệnh break hoặc continue thuộc vòng lặp đó.
 
 Chapter 3: Core Java APIs
 	- Thao tác với String:
@@ -282,11 +283,57 @@ Chapter 4: Methods and encapsulation
 	- Designing methods
 		+ Access modifiers
 			public: có thể truy cập ở mọi class
-			protected: có thể truy cập được khi cùng package hoặc là subclasses
+			protected: chỉ có thể truy cập được khi cùng package hoặc là subclasses
 			default: có thể truy cập khi cùng package. Không được khai báo chữ default nếu không sẽ không compile
 			private: chỉ có thể truy cập khi cùng class
 		+ Optional specifiers
-			final: khi method là final thì sẽ ko override được ở subclass
+			final: khi method là final thì sẽ không override được ở subclass
+		+ Return Type
+			Chú ý kiểu trả về đúng type
+		+ Method name:
+			 Chỉ được chứa chữ cái, số, "$" và "_". Ngoài ra ko được bắt đầu bằng số ( giống tên biến )
+
+	- Làm việc với Varargs
+		+ Tham số vararg phải là tham số cuối cùng và mỗi method chỉ có thể có 1 tham số vararg
+		+ Tham số vararg có thế được truyền, hoặc không được truyền, hoặc có thể liệt kê các phần tử của vararg khi gọi method
+
+	- static
+		+ mục đích là không cần tạo đối tượng cũng có thể gọi được method hoặc field static
+		+ method và biến static chỉ gọi được các biến và method là static
+		+ Các biến/method static chỉ được khởi tạo một lần, khi bắt đầu tải lớp. Các biến/method này sẽ được khởi tạo trước, trước khi khởi tạo bất kỳ biến instance hoặc method main() nào
+		+ Là một biến/method thuộc về lớp chứ không phải đối tượng
+		+ Một biến/method có thể được truy cập trực tiếp bằng tên lớp và không cần bất kỳ đối tượng nào.
+		+ Value của biến static chỉ được thay đổi khi gán lại giá trị cho nó. kể cả khi đối tượng tham chiếu bị thay đổi thì biến static thuộc class đó cũng không thay đổi nếu không gán lại giá trị cửa biến static
+		+ khi đã import biến/method static thì không được sử dụng className.method hoặc className.variable
+			Ví dụ: import static java.util.Arrays.asList; --> Arrays.asList("one"); // DOES NOT COMPILE
+	- Overloading:
+		+ Method overload xảy ra khi các method có cùng tên nhưng khác tham số truyền vào
+		+ 2 method với param lần lượt là array và vararg thì không phải overload --> sẽ compile lỗi
+	- Constructor
+		+ constructor có thể gọi constructor khác bằng cách tạo mới đối tượng ( sử dụng new ) nhưng với cách này sẽ không tạo đối tượng theo ý muốn. Hãy dùng this() ( khi dùng this() thì phải là câu lệnh đầu tiên trong hàm tạo)
+	- Lambdas
+		+ Không được phép khai báo biến ở trong body có cùng tên với parameter
+
+Chapter 5: Class designer
+	- Kế thừa: inheritance
+		+ lớp final không được extend
+		+ một class to chỉ có thể là public hoặc default
+		+ access modifiers của interfaces cũng giống như class
+		+ java.lang.Object không có bất kì lớp cha nào
+		+ Tất cả các lớp đều được kế thừa từ java.lang.Object
+		+ java compile sẽ tự động gọi super() trong hàm tạo con nếu câu lệnh đầu tiên trong hàm tạo không gọi tới hàm tạo cha
+		+ Class sẽ tự dộng có 1 hàm tạo không đối số khi class đó chưa có bất kì hàm tạo nào, Khi class đã có hàm tạo có đối số thì hàm tạo không đối số sẽ không còn
+		+ Class cha không có hàm tạo không đối số mà class con cũng không có hàm tạo thì sẽ compile error
+		+ Nếu class cha không có hàm tạo không đối số, thì mỗi hàm tạo của lớp con sẽ phải gọi tới cụ thể hàm tạo của lớp cha.
+		+ super() và super
+			 super() chỉ được dùng trong câu lệnh đầu tiên trong hàm tạo của lớp con và dùng để gọi đến hàm tạo của lớp cha
+			 super được dùng ở mọi nơi trong lớp con và được dùng để tham chiếu đến một thành viên được định nghĩa trong lớp cha
+
+	parse hoặc of của LocalDate tạo các đối tượng mới và lưu ở ô nhớ khác nhau
+	D là ngày trong năm, d là ngày trong tháng
+	Hàm tạo gọi đến hàm tạo khác bằng cách sử dụng this()
+	float, double không được dùng trong switch
+	constructor có thể gọi constructor khác bằng cách tạo mới đối tượng ( sử dụng new ) nhưng với cách này sẽ không tạo đối tượng theo ý muốn. Hãy dùng this() ( khi dùng this() thì phải là câu lệnh đầu tiên trong hàm tạo
    
    
    
