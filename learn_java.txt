@@ -324,10 +324,106 @@ Chapter 5: Class designer
 		+ java compile sẽ tự động gọi super() trong hàm tạo con nếu câu lệnh đầu tiên trong hàm tạo không gọi tới hàm tạo cha
 		+ Class sẽ tự dộng có 1 hàm tạo không đối số khi class đó chưa có bất kì hàm tạo nào, Khi class đã có hàm tạo có đối số thì hàm tạo không đối số sẽ không còn
 		+ Class cha không có hàm tạo không đối số mà class con cũng không có hàm tạo thì sẽ compile error
-		+ Nếu class cha không có hàm tạo không đối số, thì mỗi hàm tạo của lớp con sẽ phải gọi tới cụ thể hàm tạo của lớp cha.
+		+ Nếu class cha có hàm tạo có đối số, thì mỗi hàm tạo của lớp con sẽ phải gọi tới cụ thể hàm tạo có đối số của lớp cha.
 		+ super() và super
 			 super() chỉ được dùng trong câu lệnh đầu tiên trong hàm tạo của lớp con và dùng để gọi đến hàm tạo của lớp cha
 			 super được dùng ở mọi nơi trong lớp con và được dùng để tham chiếu đến một thành viên được định nghĩa trong lớp cha
+		+ Khi override phương thức của lớp cha thì method của lớp con phải có khả năng truy cập bằng hoặc dẽ hơn lớp cha ( nếu method của lớp cha là protected thì lớp con phải là protected hoặc public) 
+		+ Ẩn phương thức xảy ra khi override method static của lớp cha, và method của lớp cha và lớp con đều phải có từ khóa static
+
+	- Trừu tượng: Abstract
+		 class abstract có thể không có method abstract và không thể tạo instance
+		 method abstract không có body
+		 class, method là abstract thì không được là private hoặc final
+		 class được extend lớp trừu tượng thì phải implement các method abstract của lớp trừu tượng
+
+	- Interface:
+		interfaces không thể tạo instance 
+		interfaces luôn là public kể cả khi không có access modifiers ( là default ) và không thể là final
+		interfaces chỉ có thể extend các interfaces khác
+		interfaces không thể triển khai method của các interfaces khác khi extend
+		Biến interfaces phải là public static final và phải được gán value khi khai báo
+		Các method default của interfaces là public và khi khai báo hàm phải có từ khóa "default"
+		Các method default không được là static, final và abstract
+		Có thể khai báo lại method default dưới dạng method abstract
+		method static trong interfaces phải là public
+		Muốn gọi method static của interfaces thì phải sử dụng tên của interfaces ( ClassNameInterfaces.method(); )
+
+	- Đa hình: polymorphism
+		Khả năng truy cập đến method, thuộc tính của object phụ thuộc vào loại tham chiếu
+		Khi gán object con sang tham chiếu là lớp cha thì không cần ép kiểu, ngược lại thì phải ép kiểu
+		Nếu bạn gọi một phương thức trên một đối tượng ghi đè một phương thức, thì bạn sẽ nhận được phương thức bị ghi đè, ngay cả khi gọi phương thức là trên một tham chiếu gốc hoặc trong lớp cha.
+			Ví dụ: Bird bird = new Peacock(); sẽ gọi đến các phương thức, thuộc tính của lớp Peacock
+
+
+Chapter 6: Exception
+	- Các loại exception
+		lớp Exception, và lớp Error kế thừa lớp Throwable
+		Exception gồm có checked exception và unchecked exception
+			Checked exception: 
+				Gồm tất cả các exception ngoại trừ runtime exception
+				Phải khai báo exception ở method bằng từ khóa throws
+			Unchecked exception: 
+				Gồm runtime exception
+				Không cần phải khai báo bằng từ khóa throws
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	parse hoặc of của LocalDate tạo các đối tượng mới và lưu ở ô nhớ khác nhau
 	D là ngày trong năm, d là ngày trong tháng
