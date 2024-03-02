@@ -16,7 +16,7 @@
   - có date and time apis
   - optional class : các biến được sử dụng thông qua Optional Class sẽ tránh được lỗi NullPointerException.
    
-   
+
 
 
 **************** Collection **********************
@@ -362,7 +362,7 @@ Chapter 6: Exception
 		Exception gồm có checked exception và unchecked exception
 			Checked exception: 
 				Gồm tất cả các exception ngoại trừ runtime exception
-				Phải khai báo exception ở method bằng từ khóa throws
+				Phải khai báo exception ở method bằng từ khóa throwsmagr
 			Unchecked exception: 
 				Gồm runtime exception
 				Không cần phải khai báo bằng từ khóa throws
@@ -370,7 +370,8 @@ Chapter 6: Exception
 
 
 
-
+***Note:
+	Lớp Number không là final class -> có thể extend từ lớp Number
 
 
 

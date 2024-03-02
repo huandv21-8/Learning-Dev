@@ -1,0 +1,10 @@
+**********Git command *************
+
+
+*revert commit git :
+ - git log --oneline
+ - git reset --hard id_cmt
+ - git push -f
+ 
+* revert commit chưa push
+ -  git reset HEAD~1

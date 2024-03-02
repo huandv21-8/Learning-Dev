@@ -1,0 +1,53 @@
+
+**************************************
+check port Java service : jps -m
+kill process : taskkill /PID {id} /F    ví dụ : taskkill /PID 1234 /F
+
+
+***********Ưu nhược điểm của microservice***************
+- Ưu điểm:
+	chi phí thấp,
+	Dễ dàng mainten, deloy
+	Tự do sử dụng các công nghệ khác nhau ở mỗi service
+	Khó sập hơn kiến trúc monolith
+- Nhược điểm:
+	 Khó đọc code, debug, quản lý khó
+	 Cần dội ngũ team chuyên nghiệp
+
+***********Đặc điểm ***************
+- độc lập mỗi service( kể cả DB)
+- những chức năng liên quan nên thuộc cùng chung 1 service
+
+
+Service Discovery: khám phá dịch vụ 
+Centralize Configuration: cấu hình tập trung
+Load Balancing: căn bằng tải
+Circuit Breaker: cầu trì ngắt lỗi
+Tracing - Monitoring: theo dõi
+Routing: định tuyến
+Message Queue: trao đổi bằng thông điệp
+Event Sourcing - CQRS
+
+
+
++ Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định con service nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
++ service discovery ( Eureka service registry ) : đăng ký các service để các service có thể gọi lẫn nhau 
+   -Feign client : giao tiếp giữa các service ( call lẫn nhau ), nó là thư viện của spring cloud
++ Zuul Proxy : gateway sẽ nhận request và config router xem API của service nào sẽ được call
++ Hystrix : là một thư viện được cung cấp bởi Netflix. Nó được triển khai theo mô hình circuit breaker, giúp cho người dùng không còn phải chờ đợi vô ích những service không phản hồi.
++ fallback :  là một thư viện được cung cấp bởi Netflix. Dùng để giải quyết lỗi Hystrix
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

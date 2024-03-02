@@ -1,0 +1,22 @@
+- Check container đang tồn tại : docker ps -a
+- check images: docker images
+- xóa image : docker rmi -f @imageId
+
+
+*********** Docker **********
+	 - Giúp quá trình triển khai phần mềm đơn giản hơn. Dùng để đóng gói tất cả thư viện, môi trường, code,... vào 1 cái hộp, và dùng hộp đó để chạy trên nhiều môi trường, nhiều máy khác nhau.
+	 
+	 - Docker image:  là một file bất biến - không thay đổi, chứa các source code, libraries, dependencies, tools và các files khác cần thiết cho một ứng dụng để chạy. 
+	 - Docker container: môi trường để chạy 1 ứng dụng độc lập, được tạo bởi docker image
+	 - Docker volume: dùng để lưu trữ data khi container bị xóa, share data cho các container khác
+	 - Docker compose: chạy ứng dụng bằng cách định nghĩa cấu hình các Docker container thông qua file cấu hình ( docker-compose.yml)
+	 - Docker hub: là dịch vụ lưu trữ giúp chứa các Docker image.
+	
+	
+	
+	
+	
+	
+	
+	- Tài liệu về docker file:
+		+ https://viblo.asia/p/docker-nhung-kien-thuc-co-ban-phan-1-bJzKmM1kK9N

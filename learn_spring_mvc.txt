@@ -1,4 +1,17 @@
 
+
+*********** Java EE ********
+- "Java EE" tên đầy đủ là "Java Enterprise Edition" dịch sang tiếng việt có nghĩa là là "Java Phiên Bản Doanh Nghiệp",
+ nó là một nền tảng (platform) dành cho việc xây dựng các ứng dụng (application) cấp doanh nghiệp.
+
+
+
+********** SPRING **********
+- Spring Framework là một khung Java EE được sử dụng rộng rãi để xây dựng các ứng dụng.
+	+ Spring boot là 1 module của Spring framework được sử dụng rộng rãi để phát triển các REST APIs.
+	+ Spring MVC là 1 module của Spring framework với mục đích chính của nó là xây dựng các ứng dụng web dựa trên mô hình MVC (Model - View - Controller)
+
+
 ********** Mô hình three tiers ************
      - 3-Tiers có tính vật lý (physical): là mô hình client-server (mỗi tier có thể đặt chung 1 nơi hoặc nhiều nơi, kết nối với nhau qua Web services, WCF, Remoting...).
         + Presentation tier bao gồm các thành phần phần xử lý giao diện Graphic User Interface (GUI)
@@ -64,9 +77,9 @@ Design Patterns - Repository Pattern
    -session : là đối tượng dùng để hỗ trợ tạo và thực thi câu lệnh sql
    
    
-
- 
- 
+************ authen vs author *******************
+ - Authentication (Who you are ? ) là xác thực, chỉ quá trình định danh (hay xác định) một tài khoản đang vào hệ thống chính là người đó chứ không phải ai khác
+ - Authorization (What you can do ? ) là danh tính, xác định role của người mà đã được authen, xem họ có chức năng gì, và được phép làm gì trong hệ thống.
  
  
  

@@ -1,0 +1,60 @@
+---------------------
+Easy batch vs Spring batch
+https://github.com/fmbenhassine/easy-batch-vs-spring-batch/issues/1
+https://github.com/fmbenhassine/easy-batch-vs-spring-batch/issues/2
+https://docs.spring.io/spring-batch/docs/current/reference/html/domain.html#jobparameters
+
+
+
+
+
+SPRING BATCH
+   + 1 job gồm multi step  hoặc Tasklet
+   + Mỗi 1 job có nhiều JobInstance, mỗi JobInstance được xác định duy nhất bởi JobParameters, mỗi lần chạy JobInstance được gọi là một JobExecution.  
+   + JobInstance : xuất hiện khi xảy ra 1 lỗi, JobInstance có thể được khởi động lại nhiều lần trong trường hợp thực thi không thành công và vòng đời của nó kết thúc với lần thực thi thành công đầu tiên.                   
+   + JobParameters: Phân biết jobInstance bằng JobParameters được truyền vào (Không phải tất cả các tham số truyền vào đều được dùng để xác định một JobInstance.) 
+   + JobExecution : Mỗi JobExecution thường theo dõi những gì đã xảy ra trong quá trình chạy, chẳng hạn như trạng thái hiện tại và trạng thái thoát, thời gian bắt đầu và kết thúc
+   
+   + Step: Một Step có một StepExecution riêng lẻ tương quan với một JobExecution duy nhất,
+   + StepExecution : Một StepExecution mới được tạo mỗi khi một Step được chạy, tương tự như JobExecution.
+                     Tuy nhiên, nếu một bước không thực thi được vì bước trước nó không thành công, thì không có sự thực thi nào được duy trì cho bước đó. 
+					 StepExecution chỉ được tạo khi Step của nó thực sự được bắt đầu.
+					 
+   + ExecutionContext: mỗi StepExecution chứa một ExecutContext, chứa bất kỳ dữ liệu nào mà nhà phát triển cần phải duy trì trong các lần chạy batch, 
+                       chẳng hạn như số liệu thống kê hoặc thông tin trạng thái cần thiết để khởi động lại.
+
+   + Listener : Listener Spring Batch là một cách chặn việc thực hiện Job hoặc Step để thực hiện một số hoạt động hoặc ghi nhật ký tiến trình.
+                Hoặc giúp ta có thể thực hiện 1 hành động tại 1 thời điểm nhất định
+				
+				
+				
+				
+	+ Chunks Approach :  cách tiếp cận này thực hiện các hành động trên khối dữ liệu ( số lượng bản ghi cho phép ).
+                        Sẽ đọc, xử lý và ghi một lượng bản ghi (khối) cố định tại một thời điểm trên cùng 1 step. 
+						( ví dụ: 1 step sẽ thực hiện lần lượt đọc , xử lý, ghi ( tùy thuộc vào số lượng bản ghi cho phép ), cứ thế cho đến khi value được đọc trả về null thì dừng lại và chuyển sang step tiếp theo )
+	
+	
+	+ Tasklets Approach: thực hiện một nhiệm vụ duy nhất trong một bước. 
+	                     Bao gồm nhiều step được thực hiện lần lượt. 
+	                     Mỗi step nên thực hiện một nhiệm vụ được xác định. ( ví dụ 1 step chỉ để đọc, 1 step chỉ để xử lý, 1 step chỉ để ghi)
+
+
+	 
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
