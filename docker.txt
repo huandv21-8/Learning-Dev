@@ -1,3 +1,0 @@
-- Check container đang tồn tại : docker ps -a
-- check images: docker images
-- xóa image : docker rmi -f @imageId
