@@ -83,6 +83,90 @@ Design Patterns - Repository Pattern
  
  
  
+**********JWT******************
+	- Bao gồm 3 phần
+		+ Header : lưu trữ dữ liệu liên quan đến token như thuật toán, loại mã, định dạng,... để tạo ra token
+		+ Payload: lưu trữ thông tin người dùng như email, role, name, ...
+		+ Signature (optional): giúp chúng ta xác thực danh tính người gửi, để tạo ra một signature chính xác, ta cần encode phần header, phần payload,
+ 
+ **********spring security************
+   - example: https://github.com/eazybytes/springsecurity6
+ 
+  - client -> các filter( filter -> filterChainProxy -> filter -> .... ) -> (controller, service, repository)
+	 -> lấy ra username/pass chuyển thành object authentication 
+	 -> gửi cho authentication manager ( sẽ quản lý logic xác thực, và kiểm tra authentication providers có trong ứng dụng web của ta ( quản lý authentication providers) ) 
+	 -> Nhiệm vụ của các authentication providers là xác thực thông tin ( có thể có nhiều authentication providers) 
+	 -> Nếu sử dụng authentication providers mặc định của spring security thì sẽ nhận được sự trợ giúp của UserDetailManager/Service và PaswordEncoder
+	 -> UserDetailManager/Service và PaswordEncoder (mã hóa mật khẩu ) sẽ làm việc cùng nhau để xác định liệu thông tin xác thực nhất định của người dùng cuối có hợp lệ hay không.
+	 -> Theo đó sẽ cho authentication provider biết có hợp lệ hay không 
+	 -> bàn giao lại cho authentication manager 
+	 -> tiếp đến là các lớp filters (spring security filters)
+	 -> trước khi phải hồi lại cho người dùng cuối thì sẽ lưu trữ đối tượng (object authentication ) ở bước 2 vào security context
+	 -> Và từ yêu cầu thứ 2 trở đi người dùng sẽ không cần nhập thông tin đăng nhập nếu xác thực thành công ở trong giai đoạn đầu ( đó là mục đích của bước lưu thông tin vào security context)
+	 
+	 
+	 Vì vậy, trách nhiệm của người quản lý xác thực là xác định tất cả các nhà cung cấp xác thực có sẵn cho yêu cầu cụ thể này. Và theo đó, nó sẽ gửi yêu cầu đến các nhà cung cấp xác thực này cho đến khi đạt đến điểm xác thực thành công hoặc xác thực thất bại.
+Vì vậy, trình quản lý xác thực của tôi sẽ không chỉ gửi yêu cầu đến một trong những nhà cung cấp xác thực, giả sử nghĩ đến một tình huống nó gửi yêu cầu đến nhà cung cấp xác thực đầu tiên và xác thực không thành công. 
+Vì vậy, trong trường hợp này, trình quản lý xác thực của tôi
+sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng thông tin đăng nhập của bạn không thành công. Thay vào đó, nó sẽ thử với tất cả các nhà cung cấp xác thực có sẵn. Vì vậy, khi nó thử tất cả các nhà cung cấp xác thực và không ai trong số họ được xác thực thành công thì chỉ có trình quản lý xác thực của tôi sẽ phản hồi cho người dùng cuối rằng xác thực của bạn không thành công.
+ Đó là vai trò của người quản lý xác thực và đối với nhà cung cấp xác thực mà chúng ta có thể thấy ở đây, có thể có nhiều nhà cung cấp xác thực.
+ 
+- UserDetailsService (interface): có phương thức trừu tượng là loadUserByUsername: lấy thông tin của người dùng từ DB theo username được nhập để so sánh với chi tiết người dùng được lưu trong hệ thống
+- UserDetailsManager (interface)extends UserDetailsService: có thể cập nhật thông tin người dùng ( thêm, sửa, xóa,..)
+- UserDetails là interface: 
+- @PreAuthorize: kiểm tra username, role của người dùng có đúng không thì sẽ đc thực thi method
+- @PostAuthorize: kiểm tra giá trị chả về của method có đúng với giá trị người dùng login không (vẫn thực thi method)
+- @PreFilter: lọc các đối tượng đầu vào ( trước khi thực thi method)
+- @PosFilter: lọc các đối tượng đầu vào (sau khi thực thi method)
+
+********CORS vs CSRF*********
+	CORS: cross origin resource sharing ( là tính năng bảo vệ của trình duyệt)
+		nguồn gốc (origin) là một url gồm giao thức (http, https,...), tên miền (domain) và số cổng( port number )
+		2 nguồn gốc khác nhau khi 1 trong các tiêu chí trên khác nhau -> dẫn đến lỗi CORS
+		Giả sử nếu hai ứng dụng khác nhau đang cố gắng giao tiếp với nhau thì chắc chắn nguồn gốc của chúng sẽ khác nhau vì số cổng sẽ khác hoặc tên máy chủ sẽ khác hoặc giao thức HTTP có thể khác nhau hoặc tất cả chúng có thể khác nhau vì chúng là những ứng dụng rất khác nhau được triển khai trên các máy chủ khác nhau.
+	
+	CSRF: cross site request forgery
+		chèn các đoạn mã scrip nhằm thay đổi thông tin DB, từ đó hacker có chiếm đoạt được tài khoản
+		
+
+*******OAUTH***********
+
+	 Docs: https://topdev.vn/blog/oauth2-la-gi/
+	 Demo: https://www.oauth.com/playground/index.html
+	 Login with GG: https://developers.google.com/identity/protocol/oauth2
+	 
+	 
+	 Ví dụ: ứng dụng của mình đang muốn login bằng tài khoản fb
+		Client: ứng dụng của mình
+		Owner/user: là (mình) người ủy quyền cho phép ứng dụng client để truy cập vào tài khoản của mình trên fb
+		Authorization server (fb): chứng thực yêu cầu từ phía ứng dụng của mình 
+		Resource server (fb): chứa tài nguyên được chia sẻ
+		+ Cách hoạt động:
+			 người dùng click vào đăng nhập
+			 chuyển đến trang login của fb
+			 đăng nhập fb
+			 fb xác thực thông tin đăng nhập và trả về cho ứng dụng của mình đoạn authorization code
+			 ứng dụng của mình sẽ gửi thông tin định danh (ID) và kèm theo authorization code tới fb
+			 fb xác thực thông tin ứng dụng của mình vừa gửi
+			 nếu hợp lệ thì fb sẽ trả access token cho ứng dụng của mình
+			 ứng dụng của mình gửi access token tới resource server (fb)
+			 nếu hợp lệ sẽ trả tài nguyên tương ứng cho ứng dụng của mình
+		Grant type: 
+
+
+
+
+*******OpenID connect (OIDC) vs OAuth2 ***********
+	 OIDC được xây dựng dựa trên OAuth2 và mở rộng các tính năng của nó để hỗ trợ xác thực người dùng.
+	 OIDC: được thiết kế để xác thực người dùng (authentication), tức là xác định danh tính của người dùng đang truy cập vào ứng dụng.
+	 OAuth2: chủ yếu nhằm mục đích ủy quyền (authorization), cho phép client truy cập vào tài nguyên của người dùng mà không cần biết mật khẩu của họ.
+	 OIDC sử dụng ID token (dưới dạng JWT) để đại diện cho thông tin về danh tính của người dùng. ID token được trả về từ authorization server sau khi người dùng đồng ý chia sẻ thông tin cá nhân và quyền truy cập tài nguyên với client
+	 OAuth2 không cung cấp ID token. Thay vào đó, nó sử dụng access token để ủy quyền truy cập tài nguyên.
+	 OIDC sử dụng một số scopes đặc biệt, chẳng hạn như "openid", "profile", "email" và "address", để yêu cầu thông tin người dùng cụ thể từ authorization server.
+	 OAuth2 được sử dụng để yêu cầu quyền truy cập vào tài nguyên cụ thể từ người dùng.
+
+
+
  
  
  

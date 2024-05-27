@@ -31,11 +31,29 @@ Event Sourcing - CQRS
 
 
 + Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định con service nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
+	- Danh sách các máy chủ -> danh sách các máy chủ đã được chọn lọc -> quyết định máy chủ nào sẽ được gọi 
 + service discovery ( Eureka service registry ) : đăng ký các service để các service có thể gọi lẫn nhau 
-   -Feign client : giao tiếp giữa các service ( call lẫn nhau ), nó là thư viện của spring cloud
-+ Zuul Proxy : gateway sẽ nhận request và config router xem API của service nào sẽ được call
+	- Feign client : giao tiếp giữa các service ( call lẫn nhau ), nó là thư viện của spring cloud
+	- Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định bản sao ( 1 con service sẽ có nhiều bản sao ) nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
+	- Danh sách các máy chủ -> danh sách các máy chủ đã được chọn lọc -> quyết định máy chủ nào sẽ được gọi 
++ API gateway
+	+ Zuul Proxy : gateway sẽ nhận request và config router xem API của service nào sẽ được call
 + Hystrix : là một thư viện được cung cấp bởi Netflix. Nó được triển khai theo mô hình circuit breaker, giúp cho người dùng không còn phải chờ đợi vô ích những service không phản hồi.
 + fallback :  là một thư viện được cung cấp bởi Netflix. Dùng để giải quyết lỗi Hystrix
++ Zipkin: là một hệ thống truy tìm phân tán, ghi lại thông tin từ một request như đường dẫn, độ trễ, lỗi gì,... -> tìm ra cách khắc phục.
+	- Spring boot 2: Sleuth (tracing configuration) -> Brave (Tracer library) -> zipkin
+	- Spring boot 3: Micrometer (tracing configuration) -> OpenTelemetry (Tracer library) -> zipkin  ( nên sử dụng )
+
+
+
+
+
+Example document:
+ https://github.com/in28minutes/spring-microservices-v3
+ https://piotrminkowski.com/2017/02/05/part-1-creating-microservice-using-spring-cloud-eureka-and-zuul/
+ tạo image : https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application
+ gen file jar: https://stackoverflow.com/questions/24628402/the-simplest-way-to-create-jar-file
+ push image to docker hub: https://springframework.guru/docker-hub-for-spring-boot/
 
 
 

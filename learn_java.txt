@@ -1,4 +1,36 @@
 
+************* OOP ***************
+	- Đóng gói
+		+ Bảo vệ đối tượng không bị truy cập từ code bên ngoài vào để thay đổi các giá trị thuộc tính của đối tượng. Bảo đảm sự bảo mật, toàn vẹn của đối tượng.
+	- Kế thừa:
+		+ Lớp con kế thừa các thuộc tính, chức năng của lớp cha
+	- Trừu tượng
+		+ Ẩn đi các chi tiết triền khai của method và chỉ hiển tính năng (response) tới người dùng
+		+ Tính trừu tượng giúp bạn tập trung vào những cốt lõi cần thiết của đối tượng thay vì quan tâm đến cách nó thực hiện.
+		+ sử dụng abstract class và abstract interface để có tính trừu tượng.
+	- Đa Hình
+		+ có thể thực hiện 1 hành động bằng nhiều cách khác nhau
+		+ Có thể thực hiện đa hình bằng 2 cách ghi đè và nạp chồng.
+		+ nạp chồng (overloading): Method overload xảy ra khi các method có cùng tên nhưng khác tham số truyền vào
+		+ ghi đè (overriding): định nghĩa lại phương thức của lớp cha
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 **************** NOTE *******
 -static block chạy trước khi chạy 1 project java.
 
