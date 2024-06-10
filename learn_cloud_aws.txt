@@ -1,0 +1,15 @@
+ -Cloud computing: dịch vụ cho phép bạn lưu trữ, quản lý và truy cập dữ liệu trên nền tảng điện toán đám mây. Bạn có thể thuê tài nguyên máy chủ từ các nhà cung cấp dịch vụ như AWS, Azure, Google cloud, ... thay vì sở hữu và quản lý máy chủ riêng
+ -IAM: identity and access management
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

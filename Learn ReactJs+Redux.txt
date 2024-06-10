@@ -7,7 +7,7 @@
     - Run project : npm start
 
 **** State và props
-    - State: dữ liệu nội bộ trong 1 component, có thể thay đổi giá trị, phạm vi private trong 1 component.
+    - State: dữ liệu nội bộ trong 1 component, có thể thay đổi giá trị, phạm vi private trong 1 component. và được quản lý bằng context api
     - props: nhận dữ liệu từ bên ngoài, ko thể thay đổi giá trị trong component con.
 	   + 
 	

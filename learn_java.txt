@@ -16,21 +16,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **************** NOTE *******
 -static block chạy trước khi chạy 1 project java.
 
@@ -50,9 +35,24 @@
    
 
 
-
 **************** Collection **********************
 
+	Có 2 loại cơ bản của Java Collections:
+		+ Collection Interface: 
+			- List : danh sách các phần tử trong đó có thể được trùng lắp
+				ArrayList:lưu trữ các phần tử tương tự nhau, các phần tử có thể được truy cập và thay đổi một cách dễ dàng bằng cách sử dụng index, tự động mở rộng mảng
+				LinkedList: các phần tử được liên kết với nhau thông qua các địa chỉ bộ nhớ, Các phần tử có thể được chèn hoặc xóa bất kỳ lúc nào.
+				Vector: Giống với ArrayList nhưng được đồng bộ ( tại 1 thời điểm chỉ có thể 1 thread được truy cập)
+			- Set : lưu trữ các phần tử không trùng lặp và không có thứ tự cụ thể.
+				HashSet: lưu trữ các phần tử không có thứ tự
+				LinkedHashSet: duy trì thứ tự của các phần tử được thêm vào (FIFO)
+				TreeSet: lưu trữ các phần tử theo thứ tự tăng dần hoặc giảm dần
+			- Queue : lưu trữ và quản lý các phần tử theo thứ tự First in, First out (FIFO)
+		+ Map Interface: biểu diễn một tập hợp các phần tử theo cặp key-value,
+				HashMap: lưu trữ các đối tượng theo cặp key-value
+				LinkedHashMap: kế thừa HashMap, lưu giữ theo thứ tự chèn vào.
+				TreeMap: tự động sắp xếp các phần tử theo thứ tự tăng dần của key
+				
   - stack: vào sau ra trước
   - queue : vào trước ra trước
   
@@ -399,6 +399,7 @@ Chapter 6: Exception
 				Gồm runtime exception
 				Không cần phải khai báo bằng từ khóa throws
 		
+
 
 
 

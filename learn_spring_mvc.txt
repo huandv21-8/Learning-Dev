@@ -1,5 +1,6 @@
 
 
+
 *********** Java EE ********
 - "Java EE" tên đầy đủ là "Java Enterprise Edition" dịch sang tiếng việt có nghĩa là là "Java Phiên Bản Doanh Nghiệp",
  nó là một nền tảng (platform) dành cho việc xây dựng các ứng dụng (application) cấp doanh nghiệp.
@@ -24,46 +25,91 @@
  ************************** SPRING *******************************
  - Spring Framework cung cấp khoảng 20 mô-đun có thể được sử dụng dựa trên yêu cầu ứng dụng: data access/ integration, web(mvc/remoting), core container
  - Hibernate là một triển khai của JPA và sử dụng kỹ thuật ORM.
- - Dependency injection : là khi người dùng có 1 class mà họ ko cần khai báo class đó nhưng họ có thể tiêm các giá trị cho các biến trong  các class đó.
- - IoC là nơi chứa class mà cho phép các bạn tiêm vào.
- - CÓ 3 cách tạo bean: + dùng @Configuration
-                       + dùng @Controller, @Service , @Repository, @Controller
-					   + dùng file xml.
+ - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface, còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), qui chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
+ - ORM (Object-Relational Mapping) là một kỹ thuật trong lập trình để ánh xạ các đối tượng Java vào cơ sở dữ liệu quan hệ. Khi sử dụng ORM, chúng ta có thể làm việc với cơ sở dữ liệu thông qua các đối tượng Java, thay vì phải sử dụng các câu truy vấn SQL trực tiếp.
+ 
+ *SOLID 
+	Document: https://topdev.vn/blog/solid-la-gi/
+	+ Single responsibility priciple (SRP): Mỗi lớp chỉ nên chịu trách nhiệm về một nhiệm vụ cụ thể nào đó mà thôi. 
+	+ Open/Closed principle: Không được sửa đổi một Class có sẵn, nhưng có thể mở rộng bằng kế thừa.
+	+ Liskov substitution principle: Các đối tượng (instance) kiểu class con có thể thay thế các đối tượng kiểu class cha mà không gây ra lỗi.
+	+ Interface segregation principle:  Thay vì dùng 1 interface lớn, ta nên tách thành nhiều interface nhỏ, với nhiều mục đích cụ thể.
+	+ Dependency inversion principle: Các module cấp cao không nên phụ thuộc vào các modules cấp thấp. Cả 2 nên phụ thuộc vào abstraction. Interface (abstraction) không nên phụ thuộc vào chi tiết, mà ngược lại
+
+ - IoC là một nguyên lý thiết kế được tạo ra để các code tuân thủ theo nguyên lý Dependency Inversion (sự thay đổi ở module cấp cao sẽ không ảnh hưởng tới các module cấp thấp hơn)
+ - Dependency injection :được sử dụng để triển khai IoC, và là một design pattern, một kỹ thuật cho phép xóa bỏ sự phụ thuộc giữa các module, làm cho ứng dụng dễ dàng hơn trong việc thay đổi module, bảo trì code và testing.
+ - Spring IoC ( IoC container) trong Spring có 2 kiểu là: BeanFactory và ApplicationContext. BeanFactory hay ApplicationContext đều là các interface thực hiện IoC Container. ApplicationContext được xây dựng như BeanFactory nhưng nó có thêm một vài chức năng mở rộng
+	 + BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
+	 + ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
+
  - @Bean:  Mỗi bean đại diện cho một đối tượng, được lưu trong IoC
- - vòng đời bean: init-method và destroy-method;
-    + init-method: tụ động chạy khi file bean đc load
-	+ destroy-method: chạy khi context được đóng.
+	+ CÓ 3 cách tạo bean: + dùng @Configuration
+                          + dùng @Controller, @Service , @Repository, @Controller
+                          + dùng file xml.
+	+ vòng đời bean: init-method và destroy-method;
+		+ init-method: tự động chạy khi file bean đc load
+		+ destroy-method: chạy khi context được đóng.
+		+ Được đánh dấu trên một method duy nhất bên trong Bean 
+			@PostConstruct: IoC container sẽ gọi hàm này sau khi một Bean được tạo ra và quản lý.
+			@PreDestroy: IoC container sẽ gọi hàm này trước khi một Bean bị xóa hoặc không được quản lý nữa.
+	@scope: @Scope ở đây là phạm vi bean được sinh và và bị phá huỷ dưới sự quản lý của Spring Container
+		 Bean được sinh ra với 5 scope: 
+			+ singleton: là scope mặc định của bean, Singleton bean có nghĩa là bean chỉ tạo ra 1 lần và được sử dụng trong container
+			+ prototype: ngược lại với singleton ta muốn có nhiều bean (đối tượng) thì ta sử dụng scope prototype.
+			+ request: Bean được sinh ra thông qua các request http (yêu cầu) từ người dùng. Chỉ được dùng trong các ứng dụng web.
+			+ session: Bean được sinh ra thông qua các http session
+			+ global-sesion: Bean được sinh ra thông qua các request http (yêu cầu) từ người dùng. Chỉ được dùng trong các ứng dụng web.
  - @autowired : Tự động nhúng các bean được Spring Container sinh ra vào Class có khai báo @Autowire
  - @Configuration : @Configuration sẽ khai báo một hoặc nhiều @Bean method trong class đó
+ - @Primary: là annotation đánh dấu trên một Bean, giúp nó luôn được ưu tiên lựa chọn trong trường hợp có nhiều Bean cùng loại trong Context.
+ - @Qualifier: xác định tên của một Bean mà bạn muốn chỉ định inject.
  - @component: khi run project thì spring sẽ chạy qua hết các class có anotation @component và lưu các bean vào kho chứa (IoC)
+ - @ControllerAdvice: dùng để xử lý các ngoại lệ trên phạm vi toàn bộ ứng dụng hoặc một phần cụ thể của ứng dụng
  - @ComponentScan: để thông báo Spring Container biết phải vào package nào trong dự án để quét các Annotation và tạo Bean. 
     ví dụ : @ComponentScan(basePackages = "levunguyen.spring ")   // Spring sẽ quét tất cả các file trong package levunguyen.spring
 	        Tìm các Class có annotation để tạo bean và các @autowire để nhúng bean ở trong container vào các Class sử dụng autowire
- - @scope: @Scope ở đây là phạm vi bean được sinh và và bị phá huỷ dưới sự quản lý của Spring Container
- - @controller: Một class được đánh dấu là @Controller thì để khai báo Class đó là một controller và có nhiệm vụ mapping request trên url vào các method tương ứng trong controller.
+ - @Controller: Một class được đánh dấu là @Controller thì để khai báo Class đó là một controller và có nhiệm vụ mapping request trên url vào các method tương ứng trong controller.
  - @RequestMapping: Có nhiệm vụ ánh xạ các request (yêu cầu) người dùng vào method tương ứng trong controller.
  - @ModelAttribute: Chúng ta sử dụng ModelAttribute như một cầu nối giữa Controller và View. Từ Controller chúng ta truyền các dữ liệu qua cho View thông qua ModelAttribute.
  - @SessionAttribute: Chúng ta sử dụng @SessionAttribute để lưu trữ các giá trị trong một phiên làm việc
  
- ****************design pattern****************************
-Design Patterns - Factory Pattern
-Design Patterns - Singleton Pattern
-Design Patterns - Composite Pattern
-Design Patterns - Facade Pattern
-Design Patterns - MVC Pattern
-Design Patterns - Observer pattern
-Design Patterns - Strategy Pattern
-Design Patterns - Repository Pattern
- 
-- Signleton pattern:  tạo 1 đối tượng dùng xuyên suốt trong dự án.
-- Composite Pattern : cây thư mục:
-   ví dụ: public class Employee {
-      private String name;
-      private int salary;
-      private List<Employee> subordinates; (đây là cây thư mục) }
-- Factory Pattern: giống tính đa hình trong oop
-- Facede pattern: 
+*********** design pattern *****************
+document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-mau-co-ban-cua-gof-3P0lPQPG5ox
+			https://viblo.asia/p/design-patterns-la-gi-tai-sao-no-lai-la-tro-thu-dac-luc-cua-developers-tong-hop-23-mau-design-pattern-GrLZDBQV5k0
+			https://github.com/doctor-blue/design-patterns
 
+	Giúp code tường minh, dễ dàng teamwork
+	Tái sử dụng code, dễ dàng nâng cấp và bảo trì trong tường lai
+	Có 23 design pattern và được chia làm 3 loại:
+		- Creational Pattern (Nhóm khởi tạo): Cung cấp giải pháp tạo ra các đối tượng và che giấu được logic của việc tạo ra nó
+			+ Singleton: một class chỉ có duy nhất một instance được khởi tạo và nó cung cấp phương thức truy cập đến instance đó từ mọi nơi (global access).
+			+ Factory Method: Pattern này được sinh ra nhằm mục đích khởi tạo đối tượng linh hoạt hơn nhưng vẫn che giấu được class nào được khởi tạo
+			+ Abstract Factory: Tạo ra những super factory để tạo ra những factory
+			+ Builder: Bạn có cảm thấy khó chịu khi một class có quá nhiều thuộc tính mà trong số đó có những thuộc tính bắt buộc cần phải có còn một số thì không,
+				trong trường hợp này chúng ta thường làm gì? Có phải chúng ta sẽ tạo nhiều constructor tùy theo từng trường hợp không?
+				Nếu như vậy có phải nó sẽ cực kì nhiều constructor và code trở nên rắc rối dài dòng đến mức phát bực đúng không?
+				Nếu vậy chúng ta sẽ cần dùng tới Builder.
+			+ Prototype: tạo ra một đối tượng gần giống hoặc giống hoàn toàn với một đối tượng bạn đã tạo trước đó ( bằng cách implements Cloneable)
+		- Structural Pattern (Nhóm cấu trúc): dùng để thiết lập, định nghĩa quan hệ giữa các đối tượng.
+			+ Adapter:  giữ vai trò trung gian giữa hai lớp. Cho phép các lớp có các class, interface không liên quan tới nhau có thể giao tiếp được với nhau.
+			+ Bridge
+			+ Composite: Một đối tượng composite được tạo thành từ một hay nhiều đối tượng tương tự nhau (hoặc có một số chức năng tương tự nhau).
+			+ Decorator
+			+ Facade
+			+ Flyweight
+			+ Proxy
+		- Behavioral Pattern (Nhóm hành vi): dùng trong thực hiện các hành vi của đối tượng, sự giao tiếp giữa các object với nhau.
+			+ Iterpreter
+			+ Template Method
+			+ Chain of Responsibility 
+			+ Command
+			+ Iterator
+			+ Mediator
+			+ Memento
+			+ Observer
+			+ State
+			+ Strategy
+			+ Visitor
 
 
 ********Rest Api/ Soap Api***************
@@ -111,6 +157,7 @@ Vì vậy, trong trường hợp này, trình quản lý xác thực của tôi
 sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng thông tin đăng nhập của bạn không thành công. Thay vào đó, nó sẽ thử với tất cả các nhà cung cấp xác thực có sẵn. Vì vậy, khi nó thử tất cả các nhà cung cấp xác thực và không ai trong số họ được xác thực thành công thì chỉ có trình quản lý xác thực của tôi sẽ phản hồi cho người dùng cuối rằng xác thực của bạn không thành công.
  Đó là vai trò của người quản lý xác thực và đối với nhà cung cấp xác thực mà chúng ta có thể thấy ở đây, có thể có nhiều nhà cung cấp xác thực.
  
+- Refresh Token để gia hạn token mà không cần yêu cầu người dùng đăng nhập lại.
 - UserDetailsService (interface): có phương thức trừu tượng là loadUserByUsername: lấy thông tin của người dùng từ DB theo username được nhập để so sánh với chi tiết người dùng được lưu trong hệ thống
 - UserDetailsManager (interface)extends UserDetailsService: có thể cập nhật thông tin người dùng ( thêm, sửa, xóa,..)
 - UserDetails là interface: 

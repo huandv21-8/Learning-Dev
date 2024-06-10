@@ -1,0 +1,14 @@
+
+
+- Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
+- INNER JOIN: trả về những bản ghi chung của 2 bảng
+- LEFT JOIN: trả về tất cả các hàng của bảng bên trái và chỉ lấy ở bảng bên phải những hàng đáp ứng được điều kiện ON. Và những giá trị ko tồn tại thì sẽ là null
+- RIGHT JOIN: ngược lại với left join
+- FULL OUTER JOIN: lấy tất cả bản ghi ở 2 bảng và giá trị null đặt ở những nơi không đáp ứng được điều kiện ON
+
+
+- UNION : Gộp kết quả giữa 2 bảng, loại bỏ record trùng lặp ( điều kiện: tên, thứ tự, tổng column giống nhau)
+- UNION ALL:  Gộp kết quả giữa 2 bảng, ko loại bỏ record trùng lặp ( điều kiện: tên, thứ tự, tổng column giống nhau)
+
+
+- SQL Injection là một kỹ thuật lợi dụng những lỗ hổng về câu truy vấn của các ứng dụng. Được thực hiện bằng cách chèn thêm một đoạn SQL để làm sai lệnh đi câu truy vấn ban đầu, từ đó có thể khai thác dữ liệu từ database
