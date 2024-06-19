@@ -25,7 +25,7 @@
  ************************** SPRING *******************************
  - Spring Framework cung cấp khoảng 20 mô-đun có thể được sử dụng dựa trên yêu cầu ứng dụng: data access/ integration, web(mvc/remoting), core container
  - Hibernate là một triển khai của JPA và sử dụng kỹ thuật ORM.
- - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface, còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), qui chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
+ - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface , còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), qui chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
  - ORM (Object-Relational Mapping) là một kỹ thuật trong lập trình để ánh xạ các đối tượng Java vào cơ sở dữ liệu quan hệ. Khi sử dụng ORM, chúng ta có thể làm việc với cơ sở dữ liệu thông qua các đối tượng Java, thay vì phải sử dụng các câu truy vấn SQL trực tiếp.
  
  *SOLID 
@@ -38,6 +38,7 @@
 
  - IoC là một nguyên lý thiết kế được tạo ra để các code tuân thủ theo nguyên lý Dependency Inversion (sự thay đổi ở module cấp cao sẽ không ảnh hưởng tới các module cấp thấp hơn)
  - Dependency injection :được sử dụng để triển khai IoC, và là một design pattern, một kỹ thuật cho phép xóa bỏ sự phụ thuộc giữa các module, làm cho ứng dụng dễ dàng hơn trong việc thay đổi module, bảo trì code và testing.
+			Là một kỹ thuật lập trình dùng để giảm thiểu sự phụ thuộc giữa các lớp với nhau. Thay vì tự tạo các dependence của mình thì nó sẽ nó sẽ nhận các đối tượng đó được "tiêm" vào từ bên ngoài
  - Spring IoC ( IoC container) trong Spring có 2 kiểu là: BeanFactory và ApplicationContext. BeanFactory hay ApplicationContext đều là các interface thực hiện IoC Container. ApplicationContext được xây dựng như BeanFactory nhưng nó có thêm một vài chức năng mở rộng
 	 + BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
 	 + ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
@@ -69,7 +70,7 @@
     ví dụ : @ComponentScan(basePackages = "levunguyen.spring ")   // Spring sẽ quét tất cả các file trong package levunguyen.spring
 	        Tìm các Class có annotation để tạo bean và các @autowire để nhúng bean ở trong container vào các Class sử dụng autowire
  - @Controller: Một class được đánh dấu là @Controller thì để khai báo Class đó là một controller và có nhiệm vụ mapping request trên url vào các method tương ứng trong controller.
- - @RequestMapping: Có nhiệm vụ ánh xạ các request (yêu cầu) người dùng vào method tương ứng trong controller.
+ - @RequestMapping: Có nhiệm vụ ánh xạ các request (yêu cầu) người dùng vào method tương ứng trong controller. 
  - @ModelAttribute: Chúng ta sử dụng ModelAttribute như một cầu nối giữa Controller và View. Từ Controller chúng ta truyền các dữ liệu qua cho View thông qua ModelAttribute.
  - @SessionAttribute: Chúng ta sử dụng @SessionAttribute để lưu trữ các giá trị trong một phiên làm việc
  
