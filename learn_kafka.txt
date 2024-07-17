@@ -1,0 +1,29 @@
+
+- Kafka cluster: Là một tập hợp các broker ( nhà môi giới ), và tối thiểu là 3 broker
+- Kafka broker: là máy chủ kafka, là tầng trung gian để trao đổi thông điệp giữa producer và consumer
+- Producer: là ứng dụng tạo ra message và chỉ gửi đến máy chủ kafka(broker)
+- Consumer: là ứng dụng đọc và xử lý message được gửi từ broker
+- Topic: dùng để phân loại message, dữ liệu trong broker. Mỗi topic đều có tên duy nhất. và có thể có nhiều topic trong broker
+- Partition: trong 1 topic thì được chia thành nhiều phân vùng (Partition) chứa các bản ghi theo 1 trình tự không thể thay đổi,
+  mỗi partition chứa một tập hợp con của toàn bộ dữ liệu trong topic. khi dữ liệu được ghi vào partition thì sẽ ko thể thay đổi được
+- Offset là một key được gán cho mỗi thông điệp, offset ko reset mà tiếp tục tăng ngay cả khi message bị xóa, Partition có thể có nhiều offset
+- Consumer group: gồm nhiều consumer. Một consumer có thể nhận message từ nhiều partition. Nhưng một partition không thể gửi message cho nhiều consumer trong cùng consumer group.
+- Consumer offset: giống như một checkpoint hoặc bookmar để đánh dấu vị trí những message cần đọc
+- Message key dùng để điều hướng message được write ở partition nào. nếu key = null -> lưu random, nếu key != null -> nhưng message cùng key sẽ được write cùng broker/partition
+- Zookeeper: lưu thông tin và quản lý broker, topic, partition,... tạo replication leader
+- Partition sẽ có nhiều replication được phân bố cho các broker khác để đảm bảo tính high reliable và high durable.
+  Chỉ có 1 replication leader và nó sẽ có nhiềm vụ read/write dữ liệu. Khi broker chết -> replication leader chết -> zookeeper sẽ chỉ định Partition khác lên làm replication leader
+
+
+
+
+
+
+
+
+
+
+ Start the ZooKeeper service  .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+ start kafka broker .\bin\windows\kafka-server-start.bat .\config\server.properties
+ read topic: .\bin\windows\kafka-console-consumer.bat --topic myTopic --from-beginning --bootstrap-server localhost:9092
+

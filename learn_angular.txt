@@ -53,7 +53,7 @@
 	    - thường dùng dể khởi tạo giá trị.
 		- chỉ gọi 1  lần duy nhất , sau khi hook ngOnChange() được gọi lân đầu tiên.
     * ngOnDestroy:
-        - được goi jkhi component bị hủy
+        - được gọi khi component bị hủy
         - dùng để giải phóng bộ nhớ, và hủy các kết nối. ( vd: component kết nối API,db,route -> nên hủy để giải phóng bộ nhớ.)		    
 	* ngOnChange : 
 	    - được thực hiện khi INPUT có sự thay đổi. Được quản lý thông qua đối tượng SimpleChanges, được gọi trước cả ngOnInit.

@@ -5,6 +5,20 @@
 - "Java EE" tên đầy đủ là "Java Enterprise Edition" dịch sang tiếng việt có nghĩa là là "Java Phiên Bản Doanh Nghiệp",
  nó là một nền tảng (platform) dành cho việc xây dựng các ứng dụng (application) cấp doanh nghiệp.
 
+********** Maven vs Gradle ************
+- Đều là công cụ tự động hóa quá trình build và quản lý các thư viện nhằm tối ưu hóa công đoạn biên dịch, đóng gói, thuận tiện hơn cho việc phát triển phần mềm.
+- Maven: chủ yếu  được sử dụng cho java, còn Gradle hỗ trợ nhiều ngôn ngữ khác nhau
+- Maven: Sử dụng XML (pom.xml), còn Gradle sử dụng DSL (Domain-Specific Language)
+- Maven: Thực hiện các build tuần tự, còn Gradle build song song và caching
+- Maven: sẽ dừng build khi xảy ra lỗi, còn Gradle thực thi hết tất cả các task có thể
+
+
+POJO
+transient/persistent/detached
+lazy load, eager load
+cache server, 
+
+hibernate: native, HQL, Criteria
 
 
 ********** SPRING **********
@@ -22,11 +36,25 @@
 **************************
  - sitemesh decorator : tùy chỉnh giao diện
  
- ************************** SPRING *******************************
+ ************************** JPA *******************************
+ - POJO: ánh xạ các đối tượng Java vào các table trong DB
  - Spring Framework cung cấp khoảng 20 mô-đun có thể được sử dụng dựa trên yêu cầu ứng dụng: data access/ integration, web(mvc/remoting), core container
  - Hibernate là một triển khai của JPA và sử dụng kỹ thuật ORM.
- - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface , còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), qui chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
+ - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface , còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), quy chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
  - ORM (Object-Relational Mapping) là một kỹ thuật trong lập trình để ánh xạ các đối tượng Java vào cơ sở dữ liệu quan hệ. Khi sử dụng ORM, chúng ta có thể làm việc với cơ sở dữ liệu thông qua các đối tượng Java, thay vì phải sử dụng các câu truy vấn SQL trực tiếp.
+ - có 3 loại query trong hibernate: 
+	native: sử dụng câu truy vấn bình thường như sql
+	HQL: sử dụng các thuộc tính, đối tượng để truy vấn, nhưng dưới dạng chuỗi
+	Criteria: sử dụng các thuộc tính, đối tượng  để truy vấn, nhưng dưới code java
+ - Các trạng thái của đối tượng:
+	Transient: object được tạo ra những chưa đc lưu trong DB và ko được quản lý bởi hibernate
+	Persistent: object đã được lưu trong DB và được quản lý bởi hibernate
+	Detached: object từng ở trạng thái persistent nhưng phiên Hibernate quản lý nó đã kết thúc.
+ - Kỹ thuật lazy loading và eager loading
+	lazy load: dữ liệu chỉ được tải về khi chúng được dùng đến( được truy cập)
+	eager load: tất cả dữ liệu sẽ được tải về	
+	Ví dụ: có 2 bảng user và address: user bao gồm address, address sẽ không được tải về khi User được truy vấn -> lazy. Address được tải về khi User được truy vấn -> eager
+ 
  
  *SOLID 
 	Document: https://topdev.vn/blog/solid-la-gi/
@@ -38,7 +66,7 @@
 
  - IoC là một nguyên lý thiết kế được tạo ra để các code tuân thủ theo nguyên lý Dependency Inversion (sự thay đổi ở module cấp cao sẽ không ảnh hưởng tới các module cấp thấp hơn)
  - Dependency injection :được sử dụng để triển khai IoC, và là một design pattern, một kỹ thuật cho phép xóa bỏ sự phụ thuộc giữa các module, làm cho ứng dụng dễ dàng hơn trong việc thay đổi module, bảo trì code và testing.
-			Là một kỹ thuật lập trình dùng để giảm thiểu sự phụ thuộc giữa các lớp với nhau. Thay vì tự tạo các dependence của mình thì nó sẽ nó sẽ nhận các đối tượng đó được "tiêm" vào từ bên ngoài
+			Là một kỹ thuật lập trình dùng để giảm thiểu sự phụ thuộc giữa các lớp với nhau. Thay vì tự tạo các dependence của mình thì nó sẽ nhận các đối tượng đó được "tiêm" vào từ bên ngoài
  - Spring IoC ( IoC container) trong Spring có 2 kiểu là: BeanFactory và ApplicationContext. BeanFactory hay ApplicationContext đều là các interface thực hiện IoC Container. ApplicationContext được xây dựng như BeanFactory nhưng nó có thêm một vài chức năng mở rộng
 	 + BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
 	 + ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
@@ -136,7 +164,7 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 		+ Payload: lưu trữ thông tin người dùng như email, role, name, ...
 		+ Signature (optional): giúp chúng ta xác thực danh tính người gửi, để tạo ra một signature chính xác, ta cần encode phần header, phần payload,
  
- **********spring security************
+********** SPRING SECURITY ************
    - example: https://github.com/eazybytes/springsecurity6
  
   - client -> các filter( filter -> filterChainProxy -> filter -> .... ) -> (controller, service, repository)
@@ -161,11 +189,19 @@ sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng
 - Refresh Token để gia hạn token mà không cần yêu cầu người dùng đăng nhập lại.
 - UserDetailsService (interface): có phương thức trừu tượng là loadUserByUsername: lấy thông tin của người dùng từ DB theo username được nhập để so sánh với chi tiết người dùng được lưu trong hệ thống
 - UserDetailsManager (interface)extends UserDetailsService: có thể cập nhật thông tin người dùng ( thêm, sửa, xóa,..)
-- UserDetails là interface: 
+- Có 3 cách triển khai UserDetailsManager :InMemoryUserDetailsManager, JdbcUserDetailsManager, LdapUserdetailsManager
+- UserDetails (interface): dùng để tải chi tiết của người dùng từ hệ thống lưu trữ ( db,...)
+- User (class):  implements UserDetails.
 - @PreAuthorize: kiểm tra username, role của người dùng có đúng không thì sẽ đc thực thi method
 - @PostAuthorize: kiểm tra giá trị chả về của method có đúng với giá trị người dùng login không (vẫn thực thi method)
 - @PreFilter: lọc các đối tượng đầu vào ( trước khi thực thi method)
 - @PosFilter: lọc các đối tượng đầu vào (sau khi thực thi method)
+
+- có 3 cách thêm bộ lọc vào Spring Security FilterChain: addFilterBefore(). addFilterAfter(), addFilterAt().
+
+- Authority: Quyền cụ thể, chi tiết hơn, thường được sử dụng để kiểm tra các quyền truy cập chi tiết. ví dụ: VIEW_JOB, ADD_JOB,...
+- Role: Vai trò của người dùng, thường là một tập hợp các authorities và giúp đơn giản hóa việc quản lý quyền truy cập. ví dụ: ROLE_USER, ROLE_ADMIN,...
+
 
 ********CORS vs CSRF*********
 	CORS: cross origin resource sharing ( là tính năng bảo vệ của trình duyệt)

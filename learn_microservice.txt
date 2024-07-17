@@ -19,37 +19,48 @@ kill process : taskkill /PID {id} /F    ví dụ : taskkill /PID 1234 /F
 - những chức năng liên quan nên thuộc cùng chung 1 service
 
 
-Service Discovery: khám phá dịch vụ 
-Centralize Configuration: cấu hình tập trung
-Load Balancing: căn bằng tải
-Circuit Breaker: cầu trì ngắt lỗi
-Tracing - Monitoring: theo dõi
-Routing: định tuyến
-Message Queue: trao đổi bằng thông điệp
-Event Sourcing - CQRS
++ Có 2 loại giao tiếp giữa các service là đồng bộ và không đồng bộ
+	- Đồng bộ: service 1 gọi service 2, chờ phản hồi từ service 2: sử dụng RestTemplate hoặc WebClient hoặc thư viện Feign client 
+	- Không đồng bộ: service 1 gọi service 2, service 1 không chờ phản hồi từ service 2: sử dụng messgae để giao tiếp ( rabbitMQ hoặc Kafka )
 
 
 
-+ Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định con service nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
-	- Danh sách các máy chủ -> danh sách các máy chủ đã được chọn lọc -> quyết định máy chủ nào sẽ được gọi 
-+ service discovery ( Eureka service registry ) : đăng ký các service để các service có thể gọi lẫn nhau 
+
++ service discovery ( Eureka service registry ) : đăng ký các service để các service có thể gọi lẫn nhau, cần bằng tải, kiểm soát xem hoạt động của các service
 	- Feign client : giao tiếp giữa các service ( call lẫn nhau ), nó là thư viện của spring cloud
 	- Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định bản sao ( 1 con service sẽ có nhiều bản sao ) nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
 	- Danh sách các máy chủ -> danh sách các máy chủ đã được chọn lọc -> quyết định máy chủ nào sẽ được gọi 
-+ API gateway
-	+ Zuul Proxy : gateway sẽ nhận request và config router xem API của service nào sẽ được call
-+ Hystrix : là một thư viện được cung cấp bởi Netflix. Nó được triển khai theo mô hình circuit breaker, giúp cho người dùng không còn phải chờ đợi vô ích những service không phản hồi.
-+ fallback :  là một thư viện được cung cấp bởi Netflix. Dùng để giải quyết lỗi Hystrix
-+ Zipkin: là một hệ thống truy tìm phân tán, ghi lại thông tin từ một request như đường dẫn, độ trễ, lỗi gì,... -> tìm ra cách khắc phục.
++ Config server: 
+	- Sẽ ko phải khởi động lại toàn bộ instances của service đó khi thay đổi config -> Sử dụng spring cloud bus để giải quyết
+	- Cấu hình chung cho toàn bộ các service, không cần phải đi sâu vào từng service
+
++ API gateway: config router xem API của service nào sẽ được call ( điều hướng đến service được call )
+	- Zuul Proxy : gateway sẽ nhận request và config router xem API của service nào sẽ được call
++ Circuit Breaker: cầu trì ngắt lỗi. Là mô hình circuit breaker, giúp cho người dùng không còn phải chờ đợi vô ích những service không phản hồi.
+	- Có 3 trạng thái là closed, open, half-open: Khi ở trạng thái bình thường thì mạch được closed, các yêu cầu đang được xử lý bình thường. 
+	  Trạng thái Closed sẽ chuyển qua Open nếu như số lượng các yêu cầu được xử lý tăng đột biến hoặc một lỗi xảy ra vượt quá ngưỡng mà mạch đề ra.
+	  Sau một khoảng thời gian nhất định, mạch sẽ thử mở lại cho một vài yêu cầu để kiểm tra tính khả dụng của các dịch vụ. Trạng thái này gọi là Half-Open. 
+	  Nếu mọi thứ bình thường trở lại, mạch sẽ trở về trạng thái Closed, lúc này hệ thống của chúng ta sẽ trở lại như ban đầu. 
+	  Còn nếu không, mạch sẽ tiếp tục Open cho đến lần kiểm tra tiếp theo.
+	- Sử dụng resilience4j để giải quyết vấn đề này.
+	
++ Distributed tracing: giúp xác định chính xác service nào xảy ra lỗi và điều gì đang gây ảnh hưởng tới performance của ứng dụng. Xác định thời gian xử lý yêu cầu của service
+	- ví dụ có service1 call service2, service2 call service3, service3 call service4,... trường hợp có lỗi thì rất khó để xác định lỗi ở chỗ nào. 
+	  Mô hình phân tán sinh ra để giải quyết vấn đề này. -> sử dụng Zipkin và Sleuth ( ko hỗ trợ từ spring 3. trở đi) và Micrometer ( từ spring 3 trở đi )
 	- Spring boot 2: Sleuth (tracing configuration) -> Brave (Tracer library) -> zipkin
 	- Spring boot 3: Micrometer (tracing configuration) -> OpenTelemetry (Tracer library) -> zipkin  ( nên sử dụng )
 
-
++ SAGA Pattern trong Microservices:
+	Đảm bảo tính nhất quán của dữ liệu
+ 
+ Mô hình Saga là một kiểu thiết kế kiến trúc trong lĩnh vực microservices, nơi các service nhỏ và độc lập tương tác với nhau thông qua các event. 
+  Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán trong hệ thống
 
 
 
 Example document:
  https://github.com/in28minutes/spring-microservices-v3
+ https://github.com/RameshMF/springboot-microservices/tree/main/v3/springboot-microservices
  https://piotrminkowski.com/2017/02/05/part-1-creating-microservice-using-spring-cloud-eureka-and-zuul/
  tạo image : https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application
  gen file jar: https://stackoverflow.com/questions/24628402/the-simplest-way-to-create-jar-file
@@ -59,6 +70,15 @@ Example document:
 
 
 
+
+Service Discovery: khám phá dịch vụ 
+Centralize Configuration: cấu hình tập trung
+Load Balancing: căn bằng tải
+Circuit Breaker: cầu trì ngắt lỗi
+Tracing - Monitoring: theo dõi
+Routing: định tuyến
+Message Queue: trao đổi bằng thông điệp
+Event Sourcing - CQRS
 
 
 

@@ -49,15 +49,13 @@
 				TreeSet: lưu trữ các phần tử theo thứ tự tăng dần hoặc giảm dần
 			- Queue : lưu trữ và quản lý các phần tử theo thứ tự First in, First out (FIFO)
 		+ Map Interface: biểu diễn một tập hợp các phần tử theo cặp key-value,
-				HashMap: lưu trữ các đối tượng theo cặp key-value
 				LinkedHashMap: kế thừa HashMap, lưu giữ theo thứ tự chèn vào.
 				TreeMap: tự động sắp xếp các phần tử theo thứ tự tăng dần của key
+				hashMap:  cho phép một key là null và nhiều giá trị null.
+				hashTable: không cho phép bất kỳ key hoặc giá trị null.
 				
   - stack: vào sau ra trước
   - queue : vào trước ra trước
-  
-  - hashMap:  cho phép một key là null và nhiều giá trị null.
-  - hashTable: không cho phép bất kỳ key hoặc giá trị null.
   
   
 ***************** compile time và run time ****************
