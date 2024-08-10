@@ -14,7 +14,10 @@
 		+ nạp chồng (overloading): Method overload xảy ra khi các method có cùng tên nhưng khác tham số truyền vào
 		+ ghi đè (overriding): định nghĩa lại phương thức của lớp cha
 
-
+********** Serialization và Deserialization*************
+- Serialization: chuyển đổi object thành chuỗi byte
+- Deserialization: chuyển đổi chuỗi byte thành object
+	-> mục đích dùng là do khi trao đổi dữ liệu giữa các module khác nhau thì dữ liệu ở dạng byte chứ không phải object
 
 **************** NOTE *******
 -static block chạy trước khi chạy 1 project java.

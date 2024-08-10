@@ -12,3 +12,8 @@
 
 
 - SQL Injection là một kỹ thuật lợi dụng những lỗ hổng về câu truy vấn của các ứng dụng. Được thực hiện bằng cách chèn thêm một đoạn SQL để làm sai lệnh đi câu truy vấn ban đầu, từ đó có thể khai thác dữ liệu từ database
+
+- SQL chậm là do:
+	+ không đánh index
+	+ các câu sql lồng nhau (sub query) -> nên dùng join
+	+ 
