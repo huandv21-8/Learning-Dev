@@ -1,0 +1,32 @@
+
+ ctrl + j : new layer
+ shift + f6: tạo độ mềm cho viền layer (càng cao thì càng mềm) ( để 40-50 )
+ ctrl + m hoặc ctrl + L: chỉnh độ sáng tối
+ ctrl + b: chỉnh màu
+ ctrl + t: phóng to
+ ctrl + d : tắt vùng chọn
+ ctrl + shift + enter : thêm vùng chọn
+ ctrl + alt + enter: xóa bớt vùng chọn
+ ctrl + d : tắt vùng chọn
+ ctrl + shift + i : đảo ngược vùng chọn
+ ctrl + shift + f: Chỉnh Opacity Brush
+ 
+  
+  
+ ctrl + shift + x: liquify: chỉnh dáng thon gọn, kéo dáng
+ M + chuột phải + color range : chọn vùng chọn theo màu
+ 3D -> blue-> Gausian, radial: làm mờ ảnh
+ G: đổ màu nền cho ảnh, tạo chiều sâu cho ảnh
+ alt+ click mặt lạ -> b : xóa phần nham nhở
+ B + Q + tô vùng chọn + Q: tạo vùng chọn -> chỉnh riêng vùng chọn
+ ctrl + u : chỉnh màu vùng chọn
+ pachtool : j : chọn công cụ thứ 3: xóa vùng chọn và copy giống vùng chọn khác
+ clone stamp: s : công cụ clone -> xóa vật : opacity : 100,
+								-> xóa mụn : opacity : khoảng 30,
+làm mờ ảnh: filter -> blur -> gaussian
+tạo viền : chọn vùng chọn + chuột phải + stroke
+load bruh : tạo mây,...
+
+
+
+BÀi tập phối màu : ctrl U, ctrl M, ctrl L, ctrl B

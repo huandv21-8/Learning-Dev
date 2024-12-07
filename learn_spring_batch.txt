@@ -39,22 +39,3 @@ SPRING BATCH
 	                     Mỗi step nên thực hiện một nhiệm vụ được xác định. ( ví dụ 1 step chỉ để đọc, 1 step chỉ để xử lý, 1 step chỉ để ghi)
 
 
-	 
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
