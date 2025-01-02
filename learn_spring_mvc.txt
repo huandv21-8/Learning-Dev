@@ -1,5 +1,4 @@
 
-
 ******* JRE version và JDK version *************
 	 49 = Java 5
 	 50 = Java 6
@@ -79,9 +78,15 @@
  - Dependency injection :được sử dụng để triển khai IoC, một kỹ thuật cho phép xóa bỏ sự phụ thuộc giữa các module, làm cho ứng dụng dễ dàng hơn trong việc thay đổi module, bảo trì code và testing.
 			Là một kỹ thuật lập trình dùng để giảm thiểu sự phụ thuộc giữa các lớp với nhau. Thay vì tự tạo các dependence của mình thì nó sẽ nhận các đối tượng đó được "tiêm" vào từ bên ngoài
 			Ví dụng: Khi mà class A sử dụng một số method class B, thì có thể nói là class A có quan hệ phụ thuộc với class B. Trước khi sử dụng thì A cần phải tạo 1 thực thể của B
+	+ Có các cách thực hiện Dependency injection:
+			+ Constructor
+			+ Setter
+			+ Field Injection(@Autowired)
+			+ Interface Injection: Đối tượng phụ thuộc được truyền vào thông qua một interface.
+
  - Spring IoC ( IoC container) trong Spring có 2 kiểu là: BeanFactory và ApplicationContext. BeanFactory hay ApplicationContext đều là các interface thực hiện IoC Container. ApplicationContext được xây dựng như BeanFactory nhưng nó có thêm một vài chức năng mở rộng
-	 + BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
-	 + ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
+	+ BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
+	+ ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
 
  - @Bean:  Mỗi bean đại diện cho một đối tượng, được lưu trong IoC
 	+ CÓ 3 cách tạo bean: + dùng @Configuration

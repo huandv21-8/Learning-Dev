@@ -1,5 +1,6 @@
 
 
+
 ********** ACID trong database **************
 - A:Atomicity : Tính nguyên tử : Tính nguyên tử đảm bảo rằng hoặc tất cả các giao dịch đều được thực thi, hoặc không có giao dịch nào được thực thi cả.
 	 VD: A chuyển khoảng sang B: 1 là A bị trừ tiền, B cộng tiền. 2 là không có gì xảy ra (nếu A hoặc B bị lỗi thì sẽ hủy )
@@ -10,7 +11,8 @@
 - D:Durability : Tính bền vững: đảm bảo rằng sau khi một giao dịch đã được commit, thay đổi của nó sẽ được lưu trữ vĩnh viễn trong hệ thống, ngay cả khi hệ thống gặp sự cố
 	 VD: Sau khi hoàn tất giao dịch chuyển tiền, dù hệ thống gặp sự cố sau đó (như mất điện), thay đổi (số tiền đã chuyển) vẫn sẽ tồn tại và không bị mất.
 
-*********************
+
+
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
 - INNER JOIN: trả về những bản ghi chung của 2 bảng
 - LEFT JOIN: trả về tất cả các hàng của bảng bên trái và chỉ lấy ở bảng bên phải những hàng đáp ứng được điều kiện ON. Và những giá trị ko tồn tại thì sẽ là null
@@ -27,4 +29,9 @@
 - SQL chậm là do:
 	+ không đánh index
 	+ các câu sql lồng nhau (sub query) -> nên dùng join
- 
+
+	
+
+
+
+
