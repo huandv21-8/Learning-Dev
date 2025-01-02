@@ -1,5 +1,16 @@
 
 
+********** ACID trong database **************
+- A:Atomicity : Tính nguyên tử : Tính nguyên tử đảm bảo rằng hoặc tất cả các giao dịch đều được thực thi, hoặc không có giao dịch nào được thực thi cả.
+	 VD: A chuyển khoảng sang B: 1 là A bị trừ tiền, B cộng tiền. 2 là không có gì xảy ra (nếu A hoặc B bị lỗi thì sẽ hủy )
+- C:Consistency : Tính nhất quán: Data trong cơ sở dữ liệu phải luôn được đặt trong trạng thái hợp lệ ở bất kỳ thời điểm nào, trước và sau khi thực hiện mỗi hành động Transaction. 
+	 VD: Điều này có nghĩa là nếu hành động đầu tiên của tiến trình gặp lỗi thì hoặc là rollback lại, hoặc là tiến trình tiếp theo sẽ không được thực hiện.
+- I:Isolation: Tính độc lập: đảm bảo rằng các giao dịch cùng một thời điểm sẽ không ảnh hưởng đến nhau
+	 VD: Giao dịch A đang cập nhật số dư tài khoản, trong khi giao dịch B đang đọc số dư tài khoản đó. Tính cô lập đảm bảo rằng giao dịch B sẽ không thấy số dư chưa được cập nhật đầy đủ từ giao dịch A.
+- D:Durability : Tính bền vững: đảm bảo rằng sau khi một giao dịch đã được commit, thay đổi của nó sẽ được lưu trữ vĩnh viễn trong hệ thống, ngay cả khi hệ thống gặp sự cố
+	 VD: Sau khi hoàn tất giao dịch chuyển tiền, dù hệ thống gặp sự cố sau đó (như mất điện), thay đổi (số tiền đã chuyển) vẫn sẽ tồn tại và không bị mất.
+
+*********************
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
 - INNER JOIN: trả về những bản ghi chung của 2 bảng
 - LEFT JOIN: trả về tất cả các hàng của bảng bên trái và chỉ lấy ở bảng bên phải những hàng đáp ứng được điều kiện ON. Và những giá trị ko tồn tại thì sẽ là null
@@ -16,4 +27,4 @@
 - SQL chậm là do:
 	+ không đánh index
 	+ các câu sql lồng nhau (sub query) -> nên dùng join
-	+ 
+ 

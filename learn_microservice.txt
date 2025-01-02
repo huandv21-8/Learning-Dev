@@ -54,7 +54,7 @@ kill process : taskkill /PID {id} /F    ví dụ : taskkill /PID 1234 /F
 	Đảm bảo tính nhất quán của dữ liệu
  
  Mô hình Saga là một kiểu thiết kế kiến trúc trong lĩnh vực microservices, nơi các service nhỏ và độc lập tương tác với nhau thông qua các event. 
-  Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán trong hệ thống
+ Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán trong hệ thống
 
 + Các nguyên lý thiết kế microservices
 	- mỗi service chỉ nên handle 1 nhiệm vụ duy nhất
