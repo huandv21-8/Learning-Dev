@@ -19,13 +19,21 @@ kill process : taskkill /PID {id} /F    ví dụ : taskkill /PID 1234 /F
 - những chức năng liên quan nên thuộc cùng chung 1 service
 
 
+
++ Các nguyên lý thiết kế microservices
+	- mỗi service chỉ nên handle 1 nhiệm vụ duy nhất
+	- mỗi service nên độc lập dữ liệu, quản lý dữ liệu riêng của nó ( mỗi service nên có 1 DB riêng )
+	- mỗi service nên cung cấp rõ ràng một bộ API để giao tiếp với các service khác. 
+	- Stateless
+	- Loose Coupling
+	- Auto scaling
+
+
 + Có 2 loại giao tiếp giữa các service là đồng bộ và không đồng bộ
 	- Đồng bộ: service 1 gọi service 2, chờ phản hồi từ service 2: sử dụng RestTemplate hoặc WebClient hoặc thư viện Feign client 
 	- Không đồng bộ: service 1 gọi service 2, service 1 không chờ phản hồi từ service 2: sử dụng messgae để giao tiếp ( rabbitMQ hoặc Kafka )
 
-
-
-
+Detail:
 + service discovery ( Eureka service registry ) : đăng ký các service để các service có thể gọi lẫn nhau, cần bằng tải, kiểm soát xem hoạt động của các service
 	- Feign client : giao tiếp giữa các service ( call lẫn nhau ), nó là thư viện của spring cloud
 	- Load balancer : cân bằng tải. khi có 1 request thì Ribbon load ( thư viện spring) sẽ chỉ định bản sao ( 1 con service sẽ có nhiều bản sao ) nào sẽ được gọi dựa trên các tiêu chí (với spring thì là  ZoneAwareLoadBalancer (Các máy chủ cùng khu vực (zone) với Client).)
@@ -50,19 +58,22 @@ kill process : taskkill /PID {id} /F    ví dụ : taskkill /PID 1234 /F
 	- Spring boot 2: Sleuth (tracing configuration) -> Brave (Tracer library) -> zipkin
 	- Spring boot 3: Micrometer (tracing configuration) -> OpenTelemetry (Tracer library) -> zipkin  ( nên sử dụng )
 
+********* CQRS + SAGA + Event driven **********
++ CQRS pattern: Command Query Responsibility Segregation: phân tách trách nhiệm của query và command : HTTP method
+	- Query : GET
+	- Command: PUSH, PUT, DELETE, PATH
+		Giảm performance, giảm độ phức tạp, khả năng mở rộng độc lập
+		Với CQRS ta sẽ sử dụng 2 DB khác nhau cho reading và writing -> vấn đề đồng bộ data từ DB writing sang DB reading -> sử dụng event driven
+	- Event sourcing : lưu hết lịch sử thay đổi vào DB, thay vì sử dụng PUT,DELETE để update thì sẽ dùng POST để insert record  mới và giữ nguyên record cũ
+	Axon Framework hỗ trợ phát triển các ứng dụng sử dụng các kiến trúc như CQRS
 + SAGA Pattern trong Microservices:
 	Đảm bảo tính nhất quán của dữ liệu
- 
- Mô hình Saga là một kiểu thiết kế kiến trúc trong lĩnh vực microservices, nơi các service nhỏ và độc lập tương tác với nhau thông qua các event. 
- Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán trong hệ thống
+	Mô hình Saga là một kiểu thiết kế kiến trúc trong lĩnh vực microservices, nơi các service nhỏ và độc lập tương tác với nhau thông qua các event. 
+	Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán dữ liệu trong hệ thống
+	2 cách thực hiện SAGA pattern:
 
-+ Các nguyên lý thiết kế microservices
-	- mỗi service chỉ nên handle 1 nhiệm vụ duy nhất
-	- mỗi service nên độc lập dữ liệu, quản lý dữ liệu riêng của nó ( mỗi service nên có 1 DB riêng )
-	- mỗi service nên cung cấp rõ ràng một bộ API để giao tiếp với các service khác. 
-	- Stateless
-	- Loose Coupling
-	- Auto scaling
+
+
 
 Example document:
  https://github.com/in28minutes/spring-microservices-v3
@@ -71,7 +82,7 @@ Example document:
  tạo image : https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application
  gen file jar: https://stackoverflow.com/questions/24628402/the-simplest-way-to-create-jar-file
  push image to docker hub: https://springframework.guru/docker-hub-for-spring-boot/
-
+ patternes microservice : https://github.com/eazybytes/event-driven-microservices
 
 
 
