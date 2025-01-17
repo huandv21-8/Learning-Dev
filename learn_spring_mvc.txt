@@ -32,7 +32,7 @@
 
 
 ********** SPRING **********
-- Spring Framework là một khung Java EE được sử dụng rộng rãi để xây dựng các ứng dụng.
+- Spring Framework là một khung Java EE được sử dụng rộng rãi để xây dựng các ứng dụng. Được chia thành khoảng 20 module quan trọng như : data access/ integration (ORM, JDBC, Transactions), web(web/struts, servlet), core container (beans, core, context) , Test,...
 	+ Spring boot là 1 module của Spring framework được sử dụng rộng rãi để phát triển các REST APIs.
 	+ Spring MVC là 1 module của Spring framework với mục đích chính của nó là xây dựng các ứng dụng web dựa trên mô hình MVC (Model - View - Controller)
 
@@ -48,7 +48,6 @@
  
  ************************** JPA *******************************
  - POJO: ánh xạ các đối tượng Java vào các table trong DB
- - Spring Framework cung cấp khoảng 20 mô-đun có thể được sử dụng dựa trên yêu cầu ứng dụng: data access/ integration, web(mvc/remoting), core container
  - Hibernate là một triển khai của JPA và sử dụng kỹ thuật ORM.
  - Hibernate chính là cài đặt của JPA (JPA là 1 tập các interface , còn Hibernate implements các interface ấy 1 cách chi tiết). JPA là tập các giao diện (interfaces), quy chuẩn, định nghĩa. còn Hibernate thực hiện cài đặt (implements) các giao diện đó, định nghĩa đó.
  - ORM (Object-Relational Mapping) là một kỹ thuật trong lập trình để ánh xạ các đối tượng Java vào cơ sở dữ liệu quan hệ. Khi sử dụng ORM, chúng ta có thể làm việc với cơ sở dữ liệu thông qua các đối tượng Java, thay vì phải sử dụng các câu truy vấn SQL trực tiếp.
@@ -81,15 +80,15 @@
 	+ Có các cách thực hiện Dependency injection:
 			+ Constructor
 			+ Setter
-			+ Field Injection(@Autowired)
 			+ Interface Injection: Đối tượng phụ thuộc được truyền vào thông qua một interface.
+			+ Field Injection(@Autowired)
 
  - Spring IoC ( IoC container) trong Spring có 2 kiểu là: BeanFactory và ApplicationContext. BeanFactory hay ApplicationContext đều là các interface thực hiện IoC Container. ApplicationContext được xây dựng như BeanFactory nhưng nó có thêm một vài chức năng mở rộng
 	+ BeanFactory: là giao diện cung cấp cấu hình và quản lý bean cơ bản. Nó cung cấp các phương thức để truy cập các bean được cấu hình trong container.
 	+ ApplicationContext : mở rộng từ BeanFactory, cung cấp nhiều tính năng nâng cao hơn cho việc quản lý bean 
 
  - @Bean:  Mỗi bean đại diện cho một đối tượng, được lưu trong IoC
-	+ CÓ 3 cách tạo bean: + dùng @Configuration
+	+ Có 3 cách tạo bean: + dùng @Configuration
                           + dùng @Controller, @Service , @Repository, @Controller
                           + dùng file xml.
 	+ vòng đời bean: init-method và destroy-method;

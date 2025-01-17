@@ -63,7 +63,7 @@ Detail:
 	- Query : GET
 	- Command: PUSH, PUT, DELETE, PATH
 		Giảm performance, giảm độ phức tạp, khả năng mở rộng độc lập
-		Với CQRS ta sẽ sử dụng 2 DB khác nhau cho reading và writing -> vấn đề đồng bộ data từ DB writing sang DB reading -> sử dụng event driven
+		Với CQRS ta sẽ sử dụng 2 DB khác nhau cho reading và writing -> vấn đề đồng bộ data từ DB writing sang DB reading -> sử dụng event driven (kafka, MQ)
 	- Event sourcing : lưu hết lịch sử thay đổi vào DB, thay vì sử dụng PUT,DELETE để update thì sẽ dùng POST để insert record  mới và giữ nguyên record cũ
 	Axon Framework hỗ trợ phát triển các ứng dụng sử dụng các kiến trúc như CQRS
 + SAGA Pattern trong Microservices:
@@ -73,6 +73,7 @@ Detail:
 	2 cách thực hiện SAGA pattern:
 
 
+********** Domain Driven Design (DDD) ************
 
 
 Example document:
@@ -83,9 +84,7 @@ Example document:
  gen file jar: https://stackoverflow.com/questions/24628402/the-simplest-way-to-create-jar-file
  push image to docker hub: https://springframework.guru/docker-hub-for-spring-boot/
  patternes microservice : https://github.com/eazybytes/event-driven-microservices
-
-
-
+ DDD: https://tech.cybozu.vn/trai-nghiem-chuyen-sau-domain-driven-design-6eef4/
 
 
 Service Discovery: khám phá dịch vụ 
