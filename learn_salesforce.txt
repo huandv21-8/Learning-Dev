@@ -1,0 +1,21 @@
+
+
+- Salesforce là một nền tảng CRM (Customer Relationship Management) hàng đầu thế giới, giúp doanh nghiệp quản lý khách hàng, bán hàng, dịch vụ, tiếp thị và nhiều quy trình khác một cách hiệu quả.
+
+
+****** SOQL và SOSL *******
+- SOQL: Dùng để truy vấn dữ liệu từ một hoặc nhiều Objects cụ thể.
+- standard object: là đối tượng có sẵn trong Salesforce
+- custom object: là đối tượng do người dùng tự tạo trong Salesforce để lưu trữ thông tin riêng, có hậu tố là __c
+- Relationship Query : Truy vấn quan hệ thì dùng hậu tố __r
+- lookup : quan hệ 1-n nhưng ko ràng buộc dữ liệu, dữ liệu của Object con không phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con không bị xóa (trừ khi bạn bật "Delete this record also"), không kế thừa quyền từ Object cha
+- master detail: quan hệ 1-n có ràng buộc dữ liệu, dữ liệu của Object con phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con bị xóa, kế thừa quyền từ Object cha
+
+- SOSL: Dùng để tìm kiếm toàn cục trên nhiều Objects cùng lúc.
+	ví dụ: tìm kiếm tất cả các bản ghi có từ "huando" trong các trường name của Account và FirstName, LastName của Contract: FIND 'huando' IN ALL FIELDS RETURNING Account(Name), Contact(FirstName, LastName)
+
+- DML (Data Manipulation Language) là tập hợp các lệnh trong Apex để thao tác dữ liệu trên Salesforce Database, bao gồm INSERT, UPDATE, DELETE, UPSERT, MERGE, UNDELETE.
+
+
+
+

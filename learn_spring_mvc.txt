@@ -54,14 +54,14 @@
  - có 3 loại query trong hibernate: 
 	native: sử dụng câu truy vấn bình thường như sql
 	HQL: sử dụng các thuộc tính, đối tượng để truy vấn, nhưng dưới dạng chuỗi
-	Criteria: sử dụng các thuộc tính, đối tượng  để truy vấn, nhưng dưới code java
+	Criteria: sử dụng các thuộc tính, đối tượng để truy vấn, nhưng dưới code java
  - Các trạng thái của đối tượng:
 	Transient: object được tạo ra những chưa đc lưu trong DB và ko được quản lý bởi hibernate
 	Persistent: object đã được lưu trong DB và được quản lý bởi hibernate
 	Detached: object từng ở trạng thái persistent nhưng phiên Hibernate quản lý nó đã kết thúc.
  - Kỹ thuật lazy loading và eager loading
 	lazy load: dữ liệu chỉ được tải về khi chúng được dùng đến( được truy cập)
-	eager load: tất cả dữ liệu sẽ được tải về	
+	eager load: tất cả dữ liệu sẽ được tải về
 	Ví dụ: có 2 bảng user và address: user bao gồm address, address sẽ không được tải về khi User được truy vấn -> lazy. Address được tải về khi User được truy vấn -> eager
  
  
@@ -124,7 +124,7 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 			https://github.com/doctor-blue/design-patterns
 
 	Giúp code tường minh, dễ dàng teamwork
-	Tái sử dụng code, dễ dàng nâng cấp và bảo trì trong tường lai
+	Tái sử dụng code, dễ dàng nâng cấp và bảo trì trong tương lai
 	Có 23 design pattern và được chia làm 3 loại:
 		- Creational Pattern (Nhóm khởi tạo): Cung cấp giải pháp tạo ra các đối tượng và che giấu được logic của việc tạo ra nó
 			+ Singleton: một class chỉ có duy nhất một instance được khởi tạo và nó cung cấp phương thức truy cập đến instance đó từ mọi nơi (global access).
@@ -159,7 +159,7 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 
 ********Rest Api/ Soap Api***************
 -khác nhau:
- +rest: gọi api đc bên fontend,  api có thể giống nhau (khác method), dữ liệu thường trả về là json
+ +rest: gọi api đc bên fontend,  api có thể giống nhau (khác method), dữ liệu thường trả về là json. Cho phép các hệ thống giao tiếp với nhau thông qua giao thức HTTP
  +soap: chỉ gọi đc bên Backend, ko hỗ trợ các method, dữ liệu trả về là xml
  
  

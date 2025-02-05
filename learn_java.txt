@@ -404,7 +404,7 @@ Chapter 6: Exception
 		Exception gồm có checked exception và unchecked exception
 			Checked exception: 
 				Gồm tất cả các exception ngoại trừ runtime exception
-				Phải khai báo exception ở method bằng từ khóa throwsmagr
+				Phải khai báo exception ở method bằng từ khóa throws
 			Unchecked exception: 
 				Gồm runtime exception
 				Không cần phải khai báo bằng từ khóa throws
