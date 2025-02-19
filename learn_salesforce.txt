@@ -3,6 +3,37 @@
 - Salesforce là một nền tảng CRM (Customer Relationship Management) hàng đầu thế giới, giúp doanh nghiệp quản lý khách hàng, bán hàng, dịch vụ, tiếp thị và nhiều quy trình khác một cách hiệu quả.
 
 
+**** Apex *******
+- Batch: xử lý trên một lượng lớn record và bất đồng bộ
+- Schedule: setup thời gian chạy tự động apex code
+
+- @AuraEnabled 
+- Trong Apex có 2 cách để thao tác với Object
+	- DML statements: insert, update, delete, upsert, updelete, merge: Nếu lỗi xảy ra, toàn bộ giao dịch bị rollback.
+	- Database method: Database.insert(),Database.update(), Database.executeBatch() ... :Có thể cho phép một số bản ghi thành công, một số thất bại, Có thể chỉ định batch size, Trả về Database.SaveResult[] giúp kiểm tra lỗi chi tiết.
+
+- Asynchronous Apex: 
+	 @future: Các phương thức là các phương thức static và chỉ có thể trả về kiểu void và param ko được là các object, chỉ có thể là nguyên thủy hoặc list nguyên thủy
+
+
+**** Trigger *******
+- Trigger là một đoạn mã Apex tự động thực thi khi có sự kiện xảy ra trên một đối tượng (Object), chẳng hạn như insert, update, delete...
+- Có 2 loại chính là 
+	 before trigger: Chạy trước khi dữ liệu được lưu vào database → Dùng để kiểm tra, thay đổi giá trị của bản ghi trước khi lưu.
+	 after trigger:  Chạy sau khi dữ liệu đã được lưu vào database → Dùng để thực hiện thao tác với bản ghi khác hoặc gọi DML statements (insert, update, delete... trên các bản ghi khác).
+- Các sự kiện: 
+	before insert	Chạy trước khi chèn dữ liệu vào database
+	before update	Chạy trước khi cập nhật dữ liệu
+	before delete	Chạy trước khi xóa bản ghi
+	after insert	Chạy sau khi bản ghi đã được chèn vào database
+	after update	Chạy sau khi bản ghi đã được cập nhật
+	after delete	Chạy sau khi bản ghi đã bị xóa
+	after undelete	Chạy khi khôi phục bản ghi từ thùng rác
+- Lưu ý:
+	Bất tăt trigger khi sử dụng
+	Luôn suy nghĩ về xử lý trên list record khi làm với trigger
+	Tránh bị loop khi chạy trigger
+
 ****** SOQL và SOSL *******
 - SOQL: Dùng để truy vấn dữ liệu từ một hoặc nhiều Objects cụ thể.
 - standard object: là đối tượng có sẵn trong Salesforce
@@ -10,12 +41,43 @@
 - Relationship Query : Truy vấn quan hệ thì dùng hậu tố __r
 - lookup : quan hệ 1-n nhưng ko ràng buộc dữ liệu, dữ liệu của Object con không phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con không bị xóa (trừ khi bạn bật "Delete this record also"), không kế thừa quyền từ Object cha
 - master detail: quan hệ 1-n có ràng buộc dữ liệu, dữ liệu của Object con phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con bị xóa, kế thừa quyền từ Object cha
-
 - SOSL: Dùng để tìm kiếm toàn cục trên nhiều Objects cùng lúc.
 	ví dụ: tìm kiếm tất cả các bản ghi có từ "huando" trong các trường name của Account và FirstName, LastName của Contract: FIND 'huando' IN ALL FIELDS RETURNING Account(Name), Contact(FirstName, LastName)
 
 - DML (Data Manipulation Language) là tập hợp các lệnh trong Apex để thao tác dữ liệu trên Salesforce Database, bao gồm INSERT, UPDATE, DELETE, UPSERT, MERGE, UNDELETE.
 
 
+****** Test ******
+- @testSetup: dùng để tạo data test
+- @isTest:  một class hoặc method là test method.
+- Test.startTest(): Bắt đầu chạy test chính
+- Test.stopTest(): kết thúc phần test
+	  Dùng để tách biệt phần thiết lập dữ liệu và phần chạy logic chính trong test.
+- Test.loadData(): dùng để load data test từ CSV file 
+- Test.isRunningTest(): Dùng để kiểm tra xem code đang chạy trong môi trường test hay không.
 
 
+
+******* Flow *****
+- Flow là một công cụ tự động hóa mạnh mẽ giúp xử lý các quy trình nghiệp vụ mà không cần code
+- Các loại flow:
+	Screen flow (Flow có giao diện): dùng khi tương tác với người dùng
+	Record-Triggered Flow (Flow tự động khi bản ghi thay đổi): Tự động chạy khi một bản ghi được Insert, Update, Delete.
+	Schedule-Trggered flow (Flow chạy theo lịch): Tự động chạy theo thời gian định sẵn, không phụ thuộc vào thay đổi bản ghi.
+	Auto-Launched Flow (Flow chạy tự động không cần UI): Flow tự động hóa mà không cần tương tác với người dùng.
+	Platform Event-Triggered Flow (Flow chạy khi có sự kiện): Dùng khi muốn phản ứng với một sự kiện trên hệ thống.
+	Record-Triggered Flow (Before Delete) (Flow chạy trước khi xóa bản ghi): Dùng để kiểm soát hoặc ngăn chặn việc xóa bản ghi.
+- Element: 
+	action dùng để gửi email, gọi apex class, cập nhật dữ liệu, tích hợp hệ thống bên ngoài,... -> ko cần dùng code apex
+	- subflow: Subflow là một Flow được gọi bên trong một Flow khác. Nó giúp tái sử dụng logic, giảm lặp lại và giúp Flow chính gọn gàng hơn.
+
+- schedule path: Scheduled Path trong Salesforce Flow giúp bạn trì hoãn (delay) một hành động thay vì chạy ngay lập tức.
+	Nó giống như một bộ hẹn giờ, giúp Flow tự động thực thi vào một thời điểm cụ thể trong tương lai. ( không thể dùng trong quá khứ )
+
+
+***** Visualforce, Aura, lighninght web *****
+- Visualforce là một framework trong Salesforce dùng để tạo giao diện tùy chỉnh (custom UI) bằng cách sử dụng HTML-like markup và Apex controllers.
+- Aura phiên bản mớ hơn visualforce nhờ  Aura Framework
+- Lighninght web là phiên bản mới nhất, nhanh nhất
+
+-
