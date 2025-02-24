@@ -12,6 +12,8 @@
 	 VD: Sau khi hoàn tất giao dịch chuyển tiền, dù hệ thống gặp sự cố sau đó (như mất điện), thay đổi (số tiền đã chuyển) vẫn sẽ tồn tại và không bị mất.
 
 
+- DDL (Data Definition Language): là tập hợp các câu lệnh SQL để tạo, sửa, xóa,... cấu trúc của database. Ví dụ như Create table, alter table, drop table,...)
+- DML (Data Manipulation Language) : là tập hợp các câu lệnh thao tác với dữ liệu như select, insert, delete, update
 
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
 - INNER JOIN: trả về những bản ghi chung của 2 bảng

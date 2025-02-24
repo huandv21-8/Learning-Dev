@@ -4,8 +4,6 @@
 
 
 **** Apex *******
-- Batch: xử lý trên một lượng lớn record và bất đồng bộ
-- Schedule: setup thời gian chạy tự động apex code
 
 - @AuraEnabled 
 - Trong Apex có 2 cách để thao tác với Object
@@ -13,7 +11,17 @@
 	- Database method: Database.insert(),Database.update(), Database.executeBatch() ... :Có thể cho phép một số bản ghi thành công, một số thất bại, Có thể chỉ định batch size, Trả về Database.SaveResult[] giúp kiểm tra lỗi chi tiết.
 
 - Asynchronous Apex: 
-	 @future: Các phương thức là các phương thức static và chỉ có thể trả về kiểu void và param ko được là các object, chỉ có thể là nguyên thủy hoặc list nguyên thủy
+	 Future method: 
+		thường dùng để call api thừ trigger, xử lý nặng như cập nhật nhiểu records cùng lúc, tránh lỗi governor limit ( giới hạn của salesforce)
+		@future: Các phương thức là các phương thức static và chỉ có thể trả về kiểu void và param ko được là các object, chỉ có thể là nguyên thủy hoặc list nguyên thủy
+	 Batch: xử lý trên một lượng lớn record và bất đồng bộ
+		 có 3 method chính
+			 start : chuẩn bị dữ liệu ( ví dụ lấy dữ liệu từ DB,...)
+			 execute: xử lý dữ liệu theo batch size, ví dụ start có chuẩn bị 100 bản ghi nhưng execute có batch size là 20 thì khi đó method này sẽ thực thi 5 lần. ( và ở đây lỗi governor limit chỉ áp dụng cho từng lần thực thi )
+			 finish: chỉ thực hiện 1 lần khi execute xong, thường được dùng để gửi email, hay gọi 1 lớp khác sau khi execute xong.
+	 Schedule: setup thời gian chạy tự động apex code
+	 
+	 Queueable: 
 
 
 **** Trigger *******
@@ -29,7 +37,9 @@
 	after update	Chạy sau khi bản ghi đã được cập nhật
 	after delete	Chạy sau khi bản ghi đã bị xóa
 	after undelete	Chạy khi khôi phục bản ghi từ thùng rác
+
 - Lưu ý:
+	Nếu 1 object có nhiều trigger thì sẽ không kiểm soát được cái trigger nào sẽ chạy trước
 	Bất tăt trigger khi sử dụng
 	Luôn suy nghĩ về xử lý trên list record khi làm với trigger
 	Tránh bị loop khi chạy trigger
@@ -45,7 +55,6 @@
 	ví dụ: tìm kiếm tất cả các bản ghi có từ "huando" trong các trường name của Account và FirstName, LastName của Contract: FIND 'huando' IN ALL FIELDS RETURNING Account(Name), Contact(FirstName, LastName)
 
 - DML (Data Manipulation Language) là tập hợp các lệnh trong Apex để thao tác dữ liệu trên Salesforce Database, bao gồm INSERT, UPDATE, DELETE, UPSERT, MERGE, UNDELETE.
-
 
 ****** Test ******
 - @testSetup: dùng để tạo data test
