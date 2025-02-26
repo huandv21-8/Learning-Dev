@@ -21,7 +21,23 @@
 			 finish: chỉ thực hiện 1 lần khi execute xong, thường được dùng để gửi email, hay gọi 1 lớp khác sau khi execute xong.
 	 Schedule: setup thời gian chạy tự động apex code
 	 
-	 Queueable: 
+	 Queueable: Giống với Future method nhưng mạnh mẽ hơn. Nên dùng khi
+		 Cần xử lý không đồng bộ nhưng cần truyền tham số phức tạp: sObjects, List, Map
+		 Muốn gọi một job khác sau khi job hiện tại hoàn thành (chaining).
+		 Khi bạn có tác vụ dài, nhưng Governor Limits của Batch Apex là quá lớn.
+	So sánh:
+	| STT | Tính năng                           | Future Method       | Queueable             | Schedulable              | Batch Apex                   |
+	|-----|-------------------------------------|---------------------|----------------------|---------------------------|------------------------------|
+	| 1   | Cách sử dụng                        | Xử lý async nhanh   | Xử lý async nâng cao | Lên lịch chạy job         | Xử lý dữ liệu lớn           |
+	| 2   | Cách triển khai                     | `@future`           | `implements Queueable`| `implements Schedulable` | `implements Database.Batchable`|
+	| 3   | Có thể xếp hàng (Queue)?            | ❌ Không            | ✅ Có                | ✅ Có (chạy theo lịch)   | ✅ Có                        |
+	| 4   | Có thể truyền tham số phức tạp?     | ❌ Không            | ✅ Có                | ✅ Có                    | ✅ Có                        |
+	| 5   | Có thể gọi lại từ một job async khác? | ❌ Không          | ✅ Có (chaining)     | ✅ Có                    | ✅ Có                        |
+	| 6   | Có thể chạy nhiều lần?              | ❌ Không            | ❌ Không             | ✅ Có (theo lịch)        | ✅ Có                        |
+	| 7   | Governor Limits                     | Trung bình          | Cao hơn Future        | Cao hơn Future           | Cao nhất                    |
+	| 8   | Tốt cho xử lý dữ liệu lớn?          | ❌ Không            | ❌ Không             | ❌ Không                 | ✅ Có (batch 200 record/lần) |
+	| 9   | Có thể lên lịch chạy?               | ❌ Không            | ❌ Không             | ✅ Có                    | ✅ Có (gọi từ Schedulable)   |
+	| 10  | Ví dụ sử dụng                       | Gửi email async     | Xử lý logic phức tạp  | Chạy job mỗi ngày        | Xử lý hàng triệu bản ghi     |
 
 
 **** Trigger *******
@@ -89,4 +105,3 @@
 - Aura phiên bản mớ hơn visualforce nhờ  Aura Framework
 - Lighninght web là phiên bản mới nhất, nhanh nhất
 
--
