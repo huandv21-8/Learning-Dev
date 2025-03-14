@@ -105,3 +105,7 @@
 - Aura phiên bản mớ hơn visualforce nhờ  Aura Framework
 - Lighninght web là phiên bản mới nhất, nhanh nhất
 
+
+
+******** REST API vs SOAP API ***********
+- SOAP API: 
