@@ -1,5 +1,8 @@
 
 
+- Transaction là các thao tác SQL như thêm sửa xóa,...-> 1 transaction phải đảm bảo tính toàn vẹn của dữ liệu (ACID) -> ví dụ chuyển tiền:  A trừ tiền thì B cộng tiền
+
+
 ******** ACID trong database ************
 - A:Atomicity : Tính nguyên tử : Tính nguyên tử đảm bảo rằng hoặc tất cả các giao dịch đều được thực thi, hoặc không có giao dịch nào được thực thi cả.
 	 VD: A chuyển khoảng sang B: 1 là A bị trừ tiền, B cộng tiền. 2 là không có gì xảy ra (nếu A hoặc B bị lỗi thì sẽ hủy )
@@ -12,7 +15,18 @@
 
 
 
+********Data base **********
+- có 3 loại quan hệ chính : 1-1, 1-n, n-n
+
+- Các loại index: 
+	+ Tree index: Tốt cho các truy vấn bằng toán tử so sánh (=, <, >, BETWEEN) và truy vấn khoảng
+	+ Hash index: Tốt cho truy vấn bằng toán tử bằng (=), không hỗ trợ truy vấn khoảng (range)
+	+ unique index: Được dùng để ràng buộc tính duy nhất (UNIQUE constraint)
+	...
+
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
+- GROUP BY: Dùng để gom nhóm các bản ghi dựa trên một hoặc nhiều cột
+- DISTINCT: loại bỏ bản ghi trùng lăpj
 - INNER JOIN: trả về những bản ghi chung của 2 bảng
 - LEFT JOIN: trả về tất cả các hàng của bảng bên trái và chỉ lấy ở bảng bên phải những hàng đáp ứng được điều kiện ON. Và những giá trị ko tồn tại thì sẽ là null
 - RIGHT JOIN: ngược lại với left join
@@ -26,11 +40,27 @@
 - SQL Injection là một kỹ thuật lợi dụng những lỗ hổng về câu truy vấn của các ứng dụng. Được thực hiện bằng cách chèn thêm một đoạn SQL để làm sai lệnh đi câu truy vấn ban đầu, từ đó có thể khai thác dữ liệu từ database
 
 - SQL chậm là do:
-	+ không đánh index
+	+ không đánh index -> Tạo index trên các cột thường được dùng trong WHERE, JOIN, ORDER BY.
 	+ các câu sql lồng nhau (sub query) -> nên dùng join
-	
+	+ select * -> nên lấy những cột cần thiết.
 
 
+
+Thứ tự chạy các thành phần trong câu SELECT
+Thứ tự	Thành phần	Mô tả
+1	FROM	Xác định bảng hoặc các bảng liên kết, load dữ liệu nguồn
+2	JOIN	Thực hiện các phép nối giữa các bảng
+3	WHERE	Lọc các bản ghi thỏa mãn điều kiện
+4	GROUP BY	Gom nhóm dữ liệu theo cột chỉ định
+5	HAVING	Lọc nhóm dữ liệu sau khi GROUP BY
+6	SELECT	Chọn cột cần hiển thị (và tính toán biểu thức)
+7	ORDER BY	Sắp xếp kết quả theo cột chỉ định
+8	LIMIT / OFFSET	Giới hạn số bản ghi trả về
+
+
+WHERE và HAVING
+WHERE + GROUP BY + hàm tổng hợp -> lỗi
+HAVING + GROUP BY + hàm tổng hợp -> OK
 
 
 

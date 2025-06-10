@@ -13,4 +13,10 @@
 * branch A -> branch B
 - git merge: tạo ra 1 commit mới để merge tất cả các commit ở nhánh A vào nhánh B, và các commit ở B được sắp xếp theo thứ tự thời gian
 - git rebase: merge lần lượt từng commit của A vào B, các commit của A sẽ được sắp xếp lên đầu
- 
+
+
+- git cherry-pick: Lấy 1 commit cụ thể từ một nhánh khác và áp dụng nó vào nhánh hiện tại
+- git reset: Quay lại trạng thái trước của commit/staging/index.
+- git squash: Gộp nhiều commit thành một commit duy nhất — giúp lịch sử git sạch sẽ hơn
+
+

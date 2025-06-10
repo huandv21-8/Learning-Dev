@@ -10,6 +10,7 @@
  ctrl + d : tắt vùng chọn
  ctrl + shift + i : đảo ngược vùng chọn
  ctrl + shift + f: Chỉnh Opacity Brush
+ ctrl + E : gộp các layer
  
   
   
