@@ -21,9 +21,11 @@
 
 
 
+Run kafka: https://www.geeksforgeeks.org/how-to-install-and-run-apache-kafka-on-windows/
 
-
-
+ Download Kafka from the Apache Kafka Downloads page.
+ Extract the downloaded file.
+ Navigate to the Kafka directory.
  Start the ZooKeeper service  .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
  start kafka broker .\bin\windows\kafka-server-start.bat .\config\server.properties
  read topic: .\bin\windows\kafka-console-consumer.bat --topic myTopic --from-beginning --bootstrap-server localhost:9092

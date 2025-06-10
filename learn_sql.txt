@@ -1,6 +1,8 @@
 
 
 - Transaction là các thao tác SQL như thêm sửa xóa,...-> 1 transaction phải đảm bảo tính toàn vẹn của dữ liệu (ACID) -> ví dụ chuyển tiền:  A trừ tiền thì B cộng tiền
+- DDL (Data Definition Language): là tập hợp các câu lệnh SQL để tạo, sửa, xóa,... cấu trúc của database. Ví dụ như Create table, alter table, drop table,...)
+- DML (Data Manipulation Language) : là tập hợp các câu lệnh thao tác với dữ liệu như select, insert, delete, update
 
 
 ******** ACID trong database ************
@@ -14,11 +16,10 @@
 	 VD: Sau khi hoàn tất giao dịch chuyển tiền, dù hệ thống gặp sự cố sau đó (như mất điện), thay đổi (số tiền đã chuyển) vẫn sẽ tồn tại và không bị mất.
 
 
-
 ********Data base **********
 - có 3 loại quan hệ chính : 1-1, 1-n, n-n
 
-- Các loại index: 
+- Các loại index:
 	+ Tree index: Tốt cho các truy vấn bằng toán tử so sánh (=, <, >, BETWEEN) và truy vấn khoảng
 	+ Hash index: Tốt cho truy vấn bằng toán tử bằng (=), không hỗ trợ truy vấn khoảng (range)
 	+ unique index: Được dùng để ràng buộc tính duy nhất (UNIQUE constraint)
@@ -37,7 +38,8 @@
 - UNION ALL:  Gộp kết quả giữa 2 bảng, ko loại bỏ record trùng lặp ( điều kiện: tên, thứ tự, tổng column giống nhau)
 
 
-- SQL Injection là một kỹ thuật lợi dụng những lỗ hổng về câu truy vấn của các ứng dụng. Được thực hiện bằng cách chèn thêm một đoạn SQL để làm sai lệnh đi câu truy vấn ban đầu, từ đó có thể khai thác dữ liệu từ database
+- SQL Injection là một kỹ thuật lợi dụng những lỗ hổng về câu truy vấn của các ứng dụng.
+  Được thực hiện bằng cách chèn thêm một đoạn SQL để làm sai lệnh đi câu truy vấn ban đầu, từ đó có thể khai thác dữ liệu từ database
 
 - SQL chậm là do:
 	+ không đánh index -> Tạo index trên các cột thường được dùng trong WHERE, JOIN, ORDER BY.
@@ -61,8 +63,6 @@ Thứ tự	Thành phần	Mô tả
 WHERE và HAVING
 WHERE + GROUP BY + hàm tổng hợp -> lỗi
 HAVING + GROUP BY + hàm tổng hợp -> OK
-
-
 
 
 

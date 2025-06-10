@@ -1,0 +1,111 @@
+
+
+- Salesforce là một nền tảng CRM (Customer Relationship Management) hàng đầu thế giới, giúp doanh nghiệp quản lý khách hàng, bán hàng, dịch vụ, tiếp thị và nhiều quy trình khác một cách hiệu quả.
+
+
+**** Apex *******
+
+- @AuraEnabled 
+- Trong Apex có 2 cách để thao tác với Object
+	- DML statements: insert, update, delete, upsert, updelete, merge: Nếu lỗi xảy ra, toàn bộ giao dịch bị rollback.
+	- Database method: Database.insert(),Database.update(), Database.executeBatch() ... :Có thể cho phép một số bản ghi thành công, một số thất bại, Có thể chỉ định batch size, Trả về Database.SaveResult[] giúp kiểm tra lỗi chi tiết.
+
+- Asynchronous Apex: 
+	 Future method: 
+		thường dùng để call api thừ trigger, xử lý nặng như cập nhật nhiểu records cùng lúc, tránh lỗi governor limit ( giới hạn của salesforce)
+		@future: Các phương thức là các phương thức static và chỉ có thể trả về kiểu void và param ko được là các object, chỉ có thể là nguyên thủy hoặc list nguyên thủy
+	 Batch: xử lý trên một lượng lớn record và bất đồng bộ
+		 có 3 method chính
+			 start : chuẩn bị dữ liệu ( ví dụ lấy dữ liệu từ DB,...)
+			 execute: xử lý dữ liệu theo batch size, ví dụ start có chuẩn bị 100 bản ghi nhưng execute có batch size là 20 thì khi đó method này sẽ thực thi 5 lần. ( và ở đây lỗi governor limit chỉ áp dụng cho từng lần thực thi )
+			 finish: chỉ thực hiện 1 lần khi execute xong, thường được dùng để gửi email, hay gọi 1 lớp khác sau khi execute xong.
+	 Schedule: setup thời gian chạy tự động apex code
+	 
+	 Queueable: Giống với Future method nhưng mạnh mẽ hơn. Nên dùng khi
+		 Cần xử lý không đồng bộ nhưng cần truyền tham số phức tạp: sObjects, List, Map
+		 Muốn gọi một job khác sau khi job hiện tại hoàn thành (chaining).
+		 Khi bạn có tác vụ dài, nhưng Governor Limits của Batch Apex là quá lớn.
+	So sánh:
+	| STT | Tính năng                           | Future Method       | Queueable             | Schedulable              | Batch Apex                   |
+	|-----|-------------------------------------|---------------------|----------------------|---------------------------|------------------------------|
+	| 1   | Cách sử dụng                        | Xử lý async nhanh   | Xử lý async nâng cao | Lên lịch chạy job         | Xử lý dữ liệu lớn           |
+	| 2   | Cách triển khai                     | `@future`           | `implements Queueable`| `implements Schedulable` | `implements Database.Batchable`|
+	| 3   | Có thể xếp hàng (Queue)?            | ❌ Không            | ✅ Có                | ✅ Có (chạy theo lịch)   | ✅ Có                        |
+	| 4   | Có thể truyền tham số phức tạp?     | ❌ Không            | ✅ Có                | ✅ Có                    | ✅ Có                        |
+	| 5   | Có thể gọi lại từ một job async khác? | ❌ Không          | ✅ Có (chaining)     | ✅ Có                    | ✅ Có                        |
+	| 6   | Có thể chạy nhiều lần?              | ❌ Không            | ❌ Không             | ✅ Có (theo lịch)        | ✅ Có                        |
+	| 7   | Governor Limits                     | Trung bình          | Cao hơn Future        | Cao hơn Future           | Cao nhất                    |
+	| 8   | Tốt cho xử lý dữ liệu lớn?          | ❌ Không            | ❌ Không             | ❌ Không                 | ✅ Có (batch 200 record/lần) |
+	| 9   | Có thể lên lịch chạy?               | ❌ Không            | ❌ Không             | ✅ Có                    | ✅ Có (gọi từ Schedulable)   |
+	| 10  | Ví dụ sử dụng                       | Gửi email async     | Xử lý logic phức tạp  | Chạy job mỗi ngày        | Xử lý hàng triệu bản ghi     |
+
+
+**** Trigger *******
+- Trigger là một đoạn mã Apex tự động thực thi khi có sự kiện xảy ra trên một đối tượng (Object), chẳng hạn như insert, update, delete...
+- Có 2 loại chính là 
+	 before trigger: Chạy trước khi dữ liệu được lưu vào database → Dùng để kiểm tra, thay đổi giá trị của bản ghi trước khi lưu.
+	 after trigger:  Chạy sau khi dữ liệu đã được lưu vào database → Dùng để thực hiện thao tác với bản ghi khác hoặc gọi DML statements (insert, update, delete... trên các bản ghi khác).
+- Các sự kiện: 
+	before insert	Chạy trước khi chèn dữ liệu vào database
+	before update	Chạy trước khi cập nhật dữ liệu
+	before delete	Chạy trước khi xóa bản ghi
+	after insert	Chạy sau khi bản ghi đã được chèn vào database
+	after update	Chạy sau khi bản ghi đã được cập nhật
+	after delete	Chạy sau khi bản ghi đã bị xóa
+	after undelete	Chạy khi khôi phục bản ghi từ thùng rác
+
+- Lưu ý:
+	Nếu 1 object có nhiều trigger thì sẽ không kiểm soát được cái trigger nào sẽ chạy trước
+	Bất tăt trigger khi sử dụng
+	Luôn suy nghĩ về xử lý trên list record khi làm với trigger
+	Tránh bị loop khi chạy trigger
+
+****** SOQL và SOSL *******
+- SOQL: Dùng để truy vấn dữ liệu từ một hoặc nhiều Objects cụ thể.
+- standard object: là đối tượng có sẵn trong Salesforce
+- custom object: là đối tượng do người dùng tự tạo trong Salesforce để lưu trữ thông tin riêng, có hậu tố là __c
+- Relationship Query : Truy vấn quan hệ thì dùng hậu tố __r
+- lookup : quan hệ 1-n nhưng ko ràng buộc dữ liệu, dữ liệu của Object con không phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con không bị xóa (trừ khi bạn bật "Delete this record also"), không kế thừa quyền từ Object cha
+- master detail: quan hệ 1-n có ràng buộc dữ liệu, dữ liệu của Object con phụ thuộc vào Object cha. Nếu bản ghi cha bị xóa, bản ghi con bị xóa, kế thừa quyền từ Object cha
+- SOSL: Dùng để tìm kiếm toàn cục trên nhiều Objects cùng lúc.
+	ví dụ: tìm kiếm tất cả các bản ghi có từ "huando" trong các trường name của Account và FirstName, LastName của Contract: FIND 'huando' IN ALL FIELDS RETURNING Account(Name), Contact(FirstName, LastName)
+
+- DML (Data Manipulation Language) là tập hợp các lệnh trong Apex để thao tác dữ liệu trên Salesforce Database, bao gồm INSERT, UPDATE, DELETE, UPSERT, MERGE, UNDELETE.
+
+****** Test ******
+- @testSetup: dùng để tạo data test
+- @isTest:  một class hoặc method là test method.
+- Test.startTest(): Bắt đầu chạy test chính
+- Test.stopTest(): kết thúc phần test
+	  Dùng để tách biệt phần thiết lập dữ liệu và phần chạy logic chính trong test.
+- Test.loadData(): dùng để load data test từ CSV file 
+- Test.isRunningTest(): Dùng để kiểm tra xem code đang chạy trong môi trường test hay không.
+
+
+
+******* Flow *****
+- Flow là một công cụ tự động hóa mạnh mẽ giúp xử lý các quy trình nghiệp vụ mà không cần code
+- Các loại flow:
+	Screen flow (Flow có giao diện): dùng khi tương tác với người dùng
+	Record-Triggered Flow (Flow tự động khi bản ghi thay đổi): Tự động chạy khi một bản ghi được Insert, Update, Delete.
+	Schedule-Trggered flow (Flow chạy theo lịch): Tự động chạy theo thời gian định sẵn, không phụ thuộc vào thay đổi bản ghi.
+	Auto-Launched Flow (Flow chạy tự động không cần UI): Flow tự động hóa mà không cần tương tác với người dùng.
+	Platform Event-Triggered Flow (Flow chạy khi có sự kiện): Dùng khi muốn phản ứng với một sự kiện trên hệ thống.
+	Record-Triggered Flow (Before Delete) (Flow chạy trước khi xóa bản ghi): Dùng để kiểm soát hoặc ngăn chặn việc xóa bản ghi.
+- Element: 
+	action dùng để gửi email, gọi apex class, cập nhật dữ liệu, tích hợp hệ thống bên ngoài,... -> ko cần dùng code apex
+	- subflow: Subflow là một Flow được gọi bên trong một Flow khác. Nó giúp tái sử dụng logic, giảm lặp lại và giúp Flow chính gọn gàng hơn.
+
+- schedule path: Scheduled Path trong Salesforce Flow giúp bạn trì hoãn (delay) một hành động thay vì chạy ngay lập tức.
+	Nó giống như một bộ hẹn giờ, giúp Flow tự động thực thi vào một thời điểm cụ thể trong tương lai. ( không thể dùng trong quá khứ )
+
+
+***** Visualforce, Aura, lighninght web *****
+- Visualforce là một framework trong Salesforce dùng để tạo giao diện tùy chỉnh (custom UI) bằng cách sử dụng HTML-like markup và Apex controllers.
+- Aura phiên bản mớ hơn visualforce nhờ  Aura Framework
+- Lighninght web là phiên bản mới nhất, nhanh nhất
+
+
+
+******** REST API vs SOAP API ***********
+- SOAP API: 

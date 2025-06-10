@@ -5,31 +5,36 @@
 	- Kế thừa:
 		+ Lớp con kế thừa các thuộc tính, chức năng của lớp cha
 	- Trừu tượng
+		+ Cho phép tạo ra các lớp trừu tượng mà không cần định nghĩa chi tiết cách thức thực thi của các phương thức
 		+ Ẩn đi các chi tiết triền khai của method và chỉ hiển tính năng (response) tới người dùng
 		+ Tính trừu tượng giúp bạn tập trung vào những cốt lõi cần thiết của đối tượng thay vì quan tâm đến cách nó thực hiện.
 		+ sử dụng abstract class và abstract interface để có tính trừu tượng.
 	- Đa Hình
-		+ có thể thực hiện 1 hành động bằng nhiều cách khác nhau
+		+ Cho phép 1 phương thức có nhiều cách thực thi khác nhau dựa trên đối tượng mà nó được gọi
 		+ Có thể thực hiện đa hình bằng 2 cách ghi đè và nạp chồng.
 		+ nạp chồng (overloading): Method overload xảy ra khi các method có cùng tên nhưng khác tham số truyền vào
 		+ ghi đè (overriding): định nghĩa lại phương thức của lớp cha
 
 ************* AOP ***************
-- là một kỹ thuật lập trình nhằm phân tách chương trình thành cách moudule riêng rẽ, phân biệt, không phụ thuộc nhau.
-- AOP không phải dùng để thay thế OOP mà để bổ sung cho OOP
+- Là kỹ thuật lập trình chia nhỏ chương trình thành các module riêng rẽ, ko phụ thuộc vào nhau.
+  Khi hoạt động thì sẽ kết hợp các module lại để thực hiện chức năng, nhưng khi sửa đổi thì chỉ cần sửa đổi trên 1 module cụ thể.
+	Ví dụ: thực hiện chức năng insert bản ghi vào DB thì có thể bao gôm những nhiệm vụ như: Ghi log, mở/đóng transaction, xứ lý exception,...
+		Sử dụng AOP thì sẽ tách những nhiệm vụ trên thành các module riêng biệt, và gộp các module đó lại thì được chức năng insert.
+		Cho dù có sửa 1 trong các module thì các module còn lại cũng không ảnh hưởng.
+
+
 
 ********** Serialization và Deserialization*************
 - Serialization: chuyển đổi object thành chuỗi byte
 - Deserialization: chuyển đổi chuỗi byte thành object
 	-> mục đích dùng là do khi trao đổi dữ liệu giữa các module khác nhau thì dữ liệu ở dạng byte chứ không phải object
 
-**************** NOTE *******
--static block chạy trước khi chạy 1 project java.
+
 
 ************* STATIC ***********
 - có thể hiểu nó là biến, method dùng chung. Dùng xuyên suốt cho đến khi kết thúc chương trình.
 - mothod static chỉ gọi được các hàm và biến là static.
-
+- static block chạy trước khi chạy 1 project java.
 
 
  ************* java 8 *****************
@@ -398,8 +403,8 @@ Chapter 6: Exception
 		Exception: gồm có checked exception và unchecked exception
 			Checked exception: IOException, SQLException
 				Gồm tất cả các exception ngoại trừ runtime exception
-				Phải khai báo exception ở method bằng từ khóa throws
-			Unchecked exception: NullPointerException, ArrayIndexOutOfBoundsException
+				Phải khai báo exception ở method bằng từ khóa throwsmagr
+			Unchecked exception: 
 				Gồm runtime exception
 				Không cần phải khai báo bằng từ khóa throws
 		Error: Lỗi nghiêm trọng, không nên xử lý (thường do JVM, hệ thống)
