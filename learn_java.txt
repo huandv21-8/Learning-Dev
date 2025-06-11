@@ -32,9 +32,8 @@
 
 
 ************* STATIC ***********
-- có thể hiểu nó là biến, method dùng chung. Dùng xuyên suốt cho đến khi kết thúc chương trình.
+- có thể hiểu nó là biến, method dùng chung. Chỉ khởi tạo 1 lần khi load class và dùng xuyên suốt cho đến khi kết thúc chương trình.
 - mothod static chỉ gọi được các hàm và biến là static.
-- static block chạy trước khi chạy 1 project java.
 
 
  ************* java 8 *****************
@@ -55,7 +54,7 @@
 				ArrayList:lưu trữ các phần tử tương tự nhau, các phần tử có thể được truy cập và thay đổi một cách dễ dàng bằng cách sử dụng index, tự động mở rộng mảng
 				LinkedList: các phần tử được liên kết với nhau thông qua các địa chỉ bộ nhớ, Các phần tử có thể được chèn hoặc xóa bất kỳ lúc nào.
 				Vector: Giống với ArrayList nhưng được đồng bộ ( tại 1 thời điểm chỉ có thể 1 thread được truy cập)
-			- Set : lưu trữ các phần tử không trùng lặp và không có thứ tự cụ thể.
+			- Set : lưu trữ các phần tử không trùng lặp và không có thứ tự cụ thể. -> dùng hashCode và equals để loại bỏ trùng lặp
 				HashSet: lưu trữ các phần tử không có thứ tự
 				LinkedHashSet: duy trì thứ tự của các phần tử được thêm vào (FIFO)
 				TreeSet: lưu trữ các phần tử theo thứ tự tăng dần hoặc giảm dần
@@ -73,7 +72,6 @@
 ***************** compile time và run time ****************
    - run time: là thời điểm chương trình đang chạy   (override)
    - compile time: là thời điểm source code đang được compile   (overloading)
-
    - Thông thường run time và compile time được nhắc tới khi nói tới lỗi. Lỗi run time tức là lỗi khi chạy mới thấy, tức lỗi logic. Lỗi compile time là lỗi compile là thấy ngay, tức là lỗi cú pháp.
    
 

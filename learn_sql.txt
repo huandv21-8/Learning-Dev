@@ -19,11 +19,12 @@
 ********Data base **********
 - có 3 loại quan hệ chính : 1-1, 1-n, n-n
 
+- Cách index hoạt dộng: Khi bạn thực hiện truy vấn có điều kiện lọc trên cột đó (WHERE, ORDER BY, JOIN, v.v.), DBMS sẽ dùng index để tìm nhanh thay vì duyệt toàn bộ bảng (full table scan).
 - Các loại index:
 	+ Tree index: Tốt cho các truy vấn bằng toán tử so sánh (=, <, >, BETWEEN) và truy vấn khoảng
 	+ Hash index: Tốt cho truy vấn bằng toán tử bằng (=), không hỗ trợ truy vấn khoảng (range)
 	+ unique index: Được dùng để ràng buộc tính duy nhất (UNIQUE constraint)
-	...
+
 
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
 - GROUP BY: Dùng để gom nhóm các bản ghi dựa trên một hoặc nhiều cột

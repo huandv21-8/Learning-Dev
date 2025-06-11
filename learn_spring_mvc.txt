@@ -78,7 +78,7 @@
 			Là một kỹ thuật lập trình dùng để giảm thiểu sự phụ thuộc giữa các lớp với nhau. Thay vì tự tạo các dependence của mình thì nó sẽ nhận các đối tượng đó được "tiêm" vào từ bên ngoài
 			Ví dụng: Khi mà class A sử dụng một số method class B, thì có thể nói là class A có quan hệ phụ thuộc với class B. Trước khi sử dụng thì A cần phải tạo 1 thực thể của B
 	+ Có các cách thực hiện Dependency injection:
-			+ Constructor
+			+ Constructor: Đảm bảo tính bất biến (không thay đổi sau khi được tạo do dùng final), luôn được cung cấp (Spring sẽ báo lỗi ngay nếu thiếu dependency), dễ dàng mock dependency khi Unit test
 			+ Setter
 			+ Interface Injection: Đối tượng phụ thuộc được truyền vào thông qua một interface.
 			+ Field Injection(@Autowired)

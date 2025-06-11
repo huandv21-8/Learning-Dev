@@ -1,5 +1,7 @@
 
 - Kafka một hệ thống phân tán mã nguồn mở được xây dựng để xử lý dòng sự kiện (event streaming). Kafka hoạt động như một hệ thống hàng đợi (message queue) 
+- Luồng hoạt động: Producer ---> Kafka Topic (Partition) ---> Consumer
+
 - Kafka cluster: Là một tập hợp các broker ( nhà môi giới ), và tối thiểu là 3 broker
 - Kafka broker: là máy chủ kafka, là tầng trung gian để trao đổi thông điệp giữa producer và consumer
 - Producer: là ứng dụng tạo ra message và chỉ gửi đến máy chủ kafka(broker)
