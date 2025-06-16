@@ -1,12 +1,24 @@
-     Test JUint5 và mockito
-Lúc đó controller nó sẽ chạy và call đến cái TodoService để thực thi chức năng
-Trong trường hợp không MockBean thì sao
-Thì nó sẽ chạy tiếp vào bên trong để thực thi logic
-Còn nếu có @MockBean và sử dụng when để giả dữ liệu trả về cho lời gọi service ở trong controller
-Thì controller nó sẽ không chạy vào bên trong thằng service nữa
-Mà lấy cái giá trị mình when đó luôn để đi tiếp (edited) 
-Tác dụng của việc này là gì
-Khi chú viết controller chú chưa hoàn thành xong service
-Nhưng chú hoàn toàn có thể test được code trong controller
-Miễn là chú xác định service nó sẽ trả ra cái gì, mình giả lập, còn làm sao để ra được cái đó, đó là nhiệm vụ của service.
-Cái này đặc biệt hữu dụng khi controller gọi tới nhiều service
+
+********JUint5*********
+- JUint5: là framework kiểm thử đơn vị, yêu cầu java 8 trở lên.
+- @Test: đánh dấu phương thức là 1 test method
+- @DisplayName: đặt tên cho test method -> xem xem method đó đang test chức nằng gì
+- @BeforeEach: Đánh dấu một phương thức sẽ được thực thi trước mỗi test method trong lớp hiện tại. Ví dụ: Sử dụng để khởi tạo lại đối tượng test hoặc thiết lập trạng thái ban đầu sạch cho mỗi test.
+- @AfterEach: Đánh dấu một phương thức sẽ được thực thi sau mỗi test method trong lớp hiện tại. Ví dụ: Dọn dẹp tài nguyên sau mỗi test.
+- @BeforeAll: Đánh dấu một phương thức sẽ được thực thi một lần duy nhất trước tất cả các test method trong lớp hiện tại. Ví dụ: Thiết lập kết nối cơ sở dữ liệu giả hoặc tài nguyên dùng chung.
+- @AfterAll: Đánh dấu một phương thức sẽ được thực thi một lần duy nhất sau tất cả các test method trong lớp hiện tại. Ví dụ: Dọn dẹp tài nguyên dùng chung sau khi tất cả test hoàn tất.
+- @ParameterizedTest kết hợp với @MethodSource, @CsvSource:  Chạy test với nhiều bộ tham số khác nha, Tránh việc phải viết lại cùng một logic test nhiều lần với các giá trị đầu vào khác nhau.
+- @Tag: Gắn thẻ cho các test, cho phép bạn chạy một tập hợp con các test dựa trên thẻ.
+- @Nested: Tổ chức các test case theo cấu trúc phân cấp, giúp dễ đọc và quản lý hơn.
+- Assertions: cung cấp nhiều phương thức assertX() để kiểm tra kết quả (ví dụ: assertEquals, assertTrue, assertThrows, assertNull).
+
+
+******** Mockito ******
+- Mockito cho phép bạn thay thế các phụ thuộc thực sự bằng các "đối tượng giả" (mock objects). 
+	ví dụ: UserService phụ thuộc vào UserRepository để truy cập cơ sở dữ liệu và Khi bạn viết unit test cho UserService, bạn chỉ muốn kiểm tra logic bên trong UserService đó.
+	Mockito sẽ tạo mock object là UserRepository mà ko cần kết nối csdl
+- Định nghĩa hành vi: sử dụng cú pháp when().thenReturn() để định nghĩa hành vi của một phương thức trên mock object khi nó được gọi.
+	Ví dụ: when(userRepository.findById(1L)).thenReturn(new User(1L, "Test User"));
+	Điều này có nghĩa là khi phương thức findById() của userRepositoryMock được gọi với đối số 1L, nó sẽ trả về một đối tượng User cụ thể.
+
+
