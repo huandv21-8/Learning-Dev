@@ -1,19 +1,27 @@
 
 - Kafka một hệ thống phân tán mã nguồn mở được xây dựng để xử lý dòng sự kiện (event streaming). Kafka hoạt động như một hệ thống hàng đợi (message queue) 
-- Luồng hoạt động: Producer ---> Kafka Topic (Partition) ---> Consumer
+- Luồng hoạt động:
+	+ Producer gửi Event: Producer tạo ra các event và gửi chúng đến một topic cụ thể
+	+ Kafka lưu trữ Event: Các broker trong cluster nhận event và ghi chúng vào các partition tương ứng
+	+ Consumer đọc Event: Consumer đăng ký vào một hoặc nhiều topic. Trong một consumer group, mỗi consumer sẽ được gán một hoặc nhiều partition để đọc. Consumer đọc các event từ các partition được gán theo thứ tự offset.
+	+ Xử lý Event: Sau khi nhận được event, consumer có thể xử lý dữ liệu theo nhu cầu của ứng dụng (ví dụ: lưu vào cơ sở dữ liệu, phân tích, gửi đến hệ thống khác).
 
-- Kafka cluster: Là một tập hợp các broker ( nhà môi giới ), và tối thiểu là 3 broker
+- Kafka cluster: Là một tập hợp các broker ( nhà môi giới ), nên có tối thiểu 3 broker trong môi trường sản xuất để đảm bảo tính sẵn sàng và khả năng chịu lỗi cao
 - Kafka broker: là máy chủ kafka, là tầng trung gian để trao đổi thông điệp giữa producer và consumer
 - Producer: là ứng dụng tạo ra message và chỉ gửi đến máy chủ kafka(broker)
 - Consumer: là ứng dụng đọc và xử lý message được gửi từ broker
 - Topic: dùng để phân loại message, dữ liệu trong broker. Mỗi topic đều có tên duy nhất. và có thể có nhiều topic trong broker
 - Partition: trong 1 topic thì được chia thành nhiều phân vùng (Partition) chứa các bản ghi theo 1 trình tự không thể thay đổi,
   mỗi partition chứa một tập hợp con của toàn bộ dữ liệu trong topic. khi dữ liệu được ghi vào partition thì sẽ ko thể thay đổi được
-- Offset là một key được gán cho mỗi thông điệp, offset ko reset mà tiếp tục tăng ngay cả khi message bị xóa, Partition có thể có nhiều offset
+- Offset là một số định danh duy nhất (như index) được gán cho mỗi thông điệp, offset ko reset mà tiếp tục tăng ngay cả khi message bị xóa, Partition có thể có nhiều offset
 - Consumer group: gồm nhiều consumer. Một consumer có thể nhận message từ nhiều partition. Nhưng một partition không thể gửi message cho nhiều consumer trong cùng consumer group.
 - Consumer offset: giống như một checkpoint hoặc bookmar để đánh dấu vị trí những message cần đọc
 - Message key dùng để điều hướng message được write ở partition nào. nếu key = null -> lưu random, nếu key != null -> nhưng message cùng key sẽ được write cùng broker/partition
-- Zookeeper: lưu thông tin và quản lý broker, topic, partition,... tạo replication leader
+
+- Zookeeper ( trước kafka 2.8 ): lưu thông tin và quản lý broker, topic, partition,... tạo replication leader
+- Trước kafka 2.8 thì zookeeper và kafka là 2 hệ thống riêng biệt và phải phụ thuộc vào zookeeper để quản lý các metadata như broker, topic,...
+- Sau kafka 2.8 thì kafka đã tích hợp giao thức Raft và các broker và loại bỏ sự phụ thuộc vào zookeeper. Giao thức raft thì sẽ quản lý broker, topic, partition,... tạo replication leader
+
 - Partition sẽ có nhiều replication được phân bố cho các broker khác để đảm bảo tính high reliable và high durable.
   Chỉ có 1 replication leader và nó sẽ có nhiềm vụ read/write dữ liệu. Khi broker chết -> replication leader chết -> zookeeper sẽ chỉ định Partition khác lên làm replication leader
 

@@ -268,11 +268,24 @@ sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng
 
 
  
- 
- 
- 
- 
- 
+*************Redis****************
+- Redis được sử dụng chủ yếu như một cơ sở dữ liệu lưu trữ trong bộ nhớ (RAM) hoặc như một bộ nhớ đệm (cache) với tốc độ truy cập nhanh chóng
+- Dùng để lưu trữ dữ liệu có cấu trúc, có thể sử dụng như một database, bộ nhớ cache hay một message broker.
+- Dữ liệu được lưu tạm thời (cache) trong Redis thay vì phải truy vấn database mỗi lần. Lần đầu sẽ lấy từ Db, các lần sau sẽ lấy từ Redis (nhanh hơn rất nhiều).
+- Các ứng dụng redis: 
+	+ caching:
+	+ Message broker
+	+ Queues:
+- Các kiểu dữ liệu: 
+	+ String: string, integer hoặc float. Dữ liệu đơn giản nhất (text, số). Ví dụ: Key:"name", Value:"Huan do"
+	+ List: List là một danh sách của strings, sắp xếp theo thứ tự insert. Redis có thể thêm một phần tử vào đầu hoặc cuối list. ví dụ: Key:"user:12345:posts", Value:["Post 1", "Post 2", "Post 3"]
+	+ Set: tập hợp các string (không được sắp xếp). Ví dụ: Key:"user:12345:groups", Value:{"sports", "music", "reading"}
+	+ Hash : lưu trữ hash table của các cặp key-value, trong đó key được sắp xếp ngẫu nhiên. Ví dụ:  Key:"product:12345", Value:{"name": "Áo thun", "price": "200.000 VNĐ", "stock": "Còn hàng"}
+	+ SORTED SET (ZSET): là 1 danh sách, trong đó mỗi phần tử là map của 1 string (member) và 1 floating-point number (score), danh sách được sắp xếp theo score này
+
+- Các kiểu cấu hình redis:
+	+ dùng RedisTemplate: cấu hình thử công : 
+	+ dùng RedisCacheManager, sử dụng các annotation như @Cacheable, @CacheEvict,...
  
  
  
