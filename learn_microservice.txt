@@ -58,7 +58,7 @@ Detail:
 	- Spring boot 2: Sleuth (tracing configuration) -> Brave (Tracer library) -> zipkin
 	- Spring boot 3: Micrometer (tracing configuration) -> OpenTelemetry (Tracer library) -> zipkin  ( nên sử dụng )
 
-********* CQRS + SAGA + Event driven **********
+********* CQRS + SAGA + Event-Driven Architecture **********
 + CQRS pattern: Command Query Responsibility Segregation: phân tách trách nhiệm của query và command : HTTP method
 	- Query : GET
 	- Command: PUSH, PUT, DELETE, PATH
@@ -71,6 +71,9 @@ Detail:
 	Mô hình Saga là một kiểu thiết kế kiến trúc trong lĩnh vực microservices, nơi các service nhỏ và độc lập tương tác với nhau thông qua các event.
 	Mô hình Saga giải quyết vấn đề của quản lý transaction phân tán và giúp đảm bảo tính nhất quán dữ liệu trong hệ thống
 	2 cách thực hiện SAGA pattern:
++ Event-Driven Architecture: là một mô hình thiết kế phần mềm trong đó các thành phần của hệ thống giao tiếp với nhau thông qua việc tạo ra, phát hiện, tiêu thụ và phản ứng với các sự kiện (events)
+  Thay vì các thành phần gọi trực tiếp các hàm hoặc API của nhau, chúng sẽ gửi các sự kiện để thông báo về những gì đã xảy ra, và các thành phần khác quan tâm sẽ lắng nghe và phản ứng với những sự kiện đó.
+	Các công nghệ phổ biến cho kênh/bộ môi giới sự kiện bao gồm : RabbitMQ (Message Queue), kafka (Event Streaming),...
 
 
 + Các nguyên lý thiết kế microservices

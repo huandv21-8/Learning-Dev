@@ -1,0 +1,16 @@
+
+- Graphql là là một ngôn ngữ truy vấn dữ liệu nguồn mở và một runtime cho API, cho phép client chỉ định chính xác những gì họ cần từ một API. 
+  GraphQL cho phép bạn yêu cầu chính xác những gì bạn cần và không hơn không kém.
+  Thay vì có nhiều endpoint API khác nhau trả về dữ liệu cố định (như trong kiến trúc REST), với GraphQL, bạn chỉ cần một endpoint duy nhất và có thể gửi các truy vấn để lấy dữ liệu theo ý muốn của mình
+- Schema định nghĩa cấu trúc dữ liệu mà API có thể trả về và các thao tác mà client có thể thực hiện. Được viết bằng SDL
+	 Các kiểu trong graphql:
+		 Object Type: định nghĩa object type như User, Product,... ben trong là tập hợp các fields
+		 Enum type: một tập hợp các giá trị có thể có được định nghĩa trước.
+		 Input Type: Dùng để định nghĩa cấu trúc của dữ liệu đầu vào cho các mutations (thay đổi dữ liệu).
+		 Query Type: Là kiểu đặc biệt, định nghĩa tất cả các điểm vào (entry points) cho các truy vấn đọc dữ liệu.
+		 Mutation Type: Là kiểu đặc biệt, định nghĩa tất cả các điểm vào cho các thao tác thay đổi dữ liệu (tạo, cập nhật, xóa).
+		 Subscription Type: Là kiểu đặc biệt, định nghĩa các điểm vào cho các thao tác đăng ký (real-time data). Khi có sự kiện xảy ra trên server, client sẽ tự động nhận được dữ liệu mới.
+	 Các thao tác: 
+		 Query: là cách client yêu cầu dữ liệu từ server. Client chỉ định rõ ràng các trường mà nó muốn nhận.
+		 Mutation: là cách client gửi dữ liệu đến server để tạo, cập nhật hoặc xóa dữ liệu. Tương tự như query, mutation cũng có cấu trúc rõ ràng.
+		 Subscription: Dùng để thiết lập kết nối thời gian thực (real-time) với server. Khi một sự kiện cụ thể xảy ra trên server, dữ liệu liên quan sẽ được đẩy (push) tự động đến client. Thường được triển khai thông qua WebSockets.

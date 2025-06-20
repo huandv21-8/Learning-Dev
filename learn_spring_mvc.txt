@@ -1,4 +1,14 @@
 
+******** script save token postman********
+
+- Graphql:
+	let token = pm.response.data.login.token;
+	pm.environment.set('token', token);
+- RestAPI:
+	const response = pm.response.json();
+	pm.environment.set('token', response.data.accessToken);
+
+
 ******* JRE version và JDK version *************
 	 49 = Java 5
 	 50 = Java 6
