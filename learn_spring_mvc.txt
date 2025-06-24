@@ -195,9 +195,9 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 		+ Signature (optional): giúp chúng ta xác thực danh tính người gửi, để tạo ra một signature chính xác, ta cần encode phần header, phần payload,
  
 ********** SPRING SECURITY ************
-   - example: https://github.com/eazybytes/springsecurity6
- 
-  - client -> các filter( filter -> filterChainProxy -> filter -> .... ) -> (controller, service, repository)
+- example: https://github.com/eazybytes/springsecurity6
+
+- client -> các filter( filter -> filterChainProxy -> filter -> .... ) -> (controller, service, repository)
 	 -> lấy ra username/pass chuyển thành object authentication 
 	 -> gửi cho authentication manager ( sẽ quản lý logic xác thực, và kiểm tra authentication providers có trong ứng dụng web của ta ( quản lý authentication providers) ) 
 	 -> Nhiệm vụ của các authentication providers là xác thực thông tin ( có thể có nhiều authentication providers) 
@@ -208,15 +208,12 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 	 -> tiếp đến là các lớp filters (spring security filters)
 	 -> trước khi phải hồi lại cho người dùng cuối thì sẽ lưu trữ đối tượng (object authentication ) ở bước 2 vào security context
 	 -> Và từ yêu cầu thứ 2 trở đi người dùng sẽ không cần nhập thông tin đăng nhập nếu xác thực thành công ở trong giai đoạn đầu ( đó là mục đích của bước lưu thông tin vào security context)
-	 
-	 
-	 Vì vậy, trách nhiệm của người quản lý xác thực là xác định tất cả các nhà cung cấp xác thực có sẵn cho yêu cầu cụ thể này. Và theo đó, nó sẽ gửi yêu cầu đến các nhà cung cấp xác thực này cho đến khi đạt đến điểm xác thực thành công hoặc xác thực thất bại.
-Vì vậy, trình quản lý xác thực của tôi sẽ không chỉ gửi yêu cầu đến một trong những nhà cung cấp xác thực, giả sử nghĩ đến một tình huống nó gửi yêu cầu đến nhà cung cấp xác thực đầu tiên và xác thực không thành công. 
-Vì vậy, trong trường hợp này, trình quản lý xác thực của tôi
-sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng thông tin đăng nhập của bạn không thành công. Thay vào đó, nó sẽ thử với tất cả các nhà cung cấp xác thực có sẵn. Vì vậy, khi nó thử tất cả các nhà cung cấp xác thực và không ai trong số họ được xác thực thành công thì chỉ có trình quản lý xác thực của tôi sẽ phản hồi cho người dùng cuối rằng xác thực của bạn không thành công.
- Đó là vai trò của người quản lý xác thực và đối với nhà cung cấp xác thực mà chúng ta có thể thấy ở đây, có thể có nhiều nhà cung cấp xác thực.
- 
 - Refresh Token để gia hạn token mà không cần yêu cầu người dùng đăng nhập lại.
+	 client khi login -> server sẽ trả response có token, refresh token. Token sẽ có time ngắn hơn refresh token ( refresh token bên server và client sẽ lưu lại, thường là lưu ở DB)
+	 -> khi token hết hạn, client sẽ call api Refresh Token và gửi mã refresh token đến server để kiểm tra
+	 -> nếu ok thì sẽ gửi lại cặp token, refresh token lại cho client
+	 -> nếu refresh token mà hết hạn thì client phải login lại
+
 - UserDetailsService (interface): có phương thức trừu tượng là loadUserByUsername: lấy thông tin của người dùng từ DB theo username được nhập để so sánh với chi tiết người dùng được lưu trong hệ thống
 - UserDetailsManager (interface)extends UserDetailsService: có thể cập nhật thông tin người dùng ( thêm, sửa, xóa,..)
 - Có 3 cách triển khai UserDetailsManager :InMemoryUserDetailsManager, JdbcUserDetailsManager, LdapUserdetailsManager
