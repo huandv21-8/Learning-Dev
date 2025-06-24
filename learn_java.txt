@@ -1,9 +1,10 @@
 
 ************* OOP ***************
 	- Đóng gói
+		+ Đóng gói các thuộc tính, chức năng của đối tượng vào 1 class và  quản lý quyền truy cập bằng access modifiers
 		+ Bảo vệ đối tượng không bị truy cập từ code bên ngoài vào để thay đổi các giá trị thuộc tính của đối tượng. Bảo đảm sự bảo mật, toàn vẹn của đối tượng.
 	- Kế thừa:
-		+ Lớp con kế thừa các thuộc tính, chức năng của lớp cha
+		+ Lớp con kế thừa các thuộc tính, chức năng của lớp cha -> tái sử dụng code
 	- Trừu tượng
 		+ Cho phép tạo ra các lớp trừu tượng mà không cần định nghĩa chi tiết cách thức thực thi của các phương thức
 		+ Ẩn đi các chi tiết triền khai của method và chỉ hiển tính năng (response) tới người dùng
@@ -22,6 +23,13 @@
 		Sử dụng AOP thì sẽ tách những nhiệm vụ trên thành các module riêng biệt, và gộp các module đó lại thì được chức năng insert.
 		Cho dù có sửa 1 trong các module thì các module còn lại cũng không ảnh hưởng.
 
+****** stack memory và heap menory*********
+- Stack Memory: 
+	+ Hoạt động theo cơ chế LIFO, 
+	+ Lưu các BIẾN cục bộ, các kiểu dữ liệu nguyên thủy, BIẾN tham chiếu (References) đến các đối tượng (ví dụ: String s = "hello"; thì biến s lưu trên Stack, còn đối tượng "hello" lưu trên Heap).
+- Heap Memory:
+	+ Là một vùng bộ nhớ lớn hơn và linh hoạt hơn, khi một đối tượng được tạo bằng từ khóa new, nó sẽ được cấp phát không gian trong Heap.
+	+ Lưu tất cả các đối tượng (Objects), mảng (array), String Pool
 
 
 ********** Serialization và Deserialization*************
@@ -31,10 +39,14 @@
 
 
 
-************* STATIC ***********
-- có thể hiểu nó là biến, method dùng chung. Chỉ khởi tạo 1 lần khi load class và dùng xuyên suốt cho đến khi kết thúc chương trình.
-- mothod static chỉ gọi được các hàm và biến là static.
-
+************* STATIC, Final***********
+- static: 
+	+ có thể hiểu nó là biến, method dùng chung. Chỉ khởi tạo 1 lần khi load class và dùng xuyên suốt cho đến khi kết thúc chương trình.
+	+ mothod static chỉ gọi được các hàm và biến là static.
+- final: 
+	+ biến: khai báo hằng số, ko thể thay đổi giá trị
+	+ method: không thể bị ghi đè (override)
+	+ class: không thể được kế thừa
 
  ************* java 8 *****************
   - có lamdal  : giúp code nhanh hơn, ngắn gọn hơn
@@ -43,11 +55,9 @@
   - có các method default trong interface  (Các phương thức mặc định)  : method có body, ko cần override method default trong class mà implements interface đó.
   - có date and time apis
   - optional class : các biến được sử dụng thông qua Optional Class sẽ tránh được lỗi NullPointerException.
-   
 
 
 **************** Collection **********************
-
 	Có 2 loại cơ bản của Java Collections:
 		+ Collection Interface: 
 			- List : danh sách các phần tử trong đó có thể được trùng lắp
@@ -61,7 +71,7 @@
 			- Queue : lưu trữ và quản lý các phần tử theo thứ tự First in, First out (FIFO)
 		+ Map Interface: biểu diễn một tập hợp các phần tử theo cặp key-value,
 				LinkedHashMap: kế thừa HashMap, lưu giữ theo thứ tự chèn vào.
-				TreeMap: tự động sắp xếp các phần tử theo thứ tự tăng dần của key
+				TreeMap: tự động sắp xếp các phần tử theo thứ tự tăng dần hoặc giảm dần của key
 				hashMap:  cho phép một key là null và nhiều giá trị null.
 				hashTable: không cho phép bất kỳ key hoặc giá trị null.
 
@@ -400,9 +410,12 @@ Chapter 6: Exception
 	- Các loại exception
 		Exception: gồm có checked exception và unchecked exception
 			Checked exception: IOException, SQLException
+				Là những ngoại lệ mà trình biên dịch (compiler) bắt buộc bạn phải xử lý.
+				Bạn phải khai báo rằng phương thức của bạn có thể ném ra ngoại lệ đó (bằng từ khóa throws) hoặc xử lý nó ngay lập tức (bằng khối try-catch). Nếu bạn không làm vậy, trình biên dịch sẽ báo lỗi.
 				Gồm tất cả các exception ngoại trừ runtime exception
-				Phải khai báo exception ở method bằng từ khóa throwsmagr
+				Phải khai báo exception ở method bằng từ khóa throws
 			Unchecked exception: 
+				Là những ngoại lệ mà trình biên dịch không bắt buộc bạn phải xử lý, thường xảy ra do lỗi lập trình (ví dụ: logic sai, sử dụng sai API)
 				Gồm runtime exception
 				Không cần phải khai báo bằng từ khóa throws
 		Error: Lỗi nghiêm trọng, không nên xử lý (thường do JVM, hệ thống)

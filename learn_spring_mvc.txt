@@ -101,9 +101,9 @@
 	+ Có 3 cách tạo bean: + dùng @Configuration
                           + dùng @Controller, @Service , @Repository, @Controller
                           + dùng file xml.
-	+ vòng đời bean: init-method và destroy-method;
-		+ init-method: tự động chạy khi file bean đc load
-		+ destroy-method: chạy khi context được đóng.
+	+ vòng đời bean: init-method và destroy-method -> tương đướng với @PostConstruct / @PreDestroy (Annotation)
+		+ init-method (@PostConstruct): tự động chạy khi file bean đc load
+		+ destroy-method (@PreDestroy): chạy khi context được đóng.
 		+ Được đánh dấu trên một method duy nhất bên trong Bean 
 			@PostConstruct: IoC container sẽ gọi hàm này sau khi một Bean được tạo ra và quản lý.
 			@PreDestroy: IoC container sẽ gọi hàm này trước khi một Bean bị xóa hoặc không được quản lý nữa.
@@ -138,13 +138,17 @@ document: 	https://viblo.asia/p/tong-hop-cac-bai-huong-dan-ve-design-pattern-23-
 	Có 23 design pattern và được chia làm 3 loại:
 		- Creational Pattern (Nhóm khởi tạo): Cung cấp giải pháp tạo ra các đối tượng và che giấu được logic của việc tạo ra nó
 			+ Singleton: một class chỉ có duy nhất một instance được khởi tạo và nó cung cấp phương thức truy cập đến instance đó từ mọi nơi (global access).
+				Lợi ích: Kiểm soát tài nguyên chung (ví dụ: kết nối cơ sở dữ liệu, quản lý cấu hình), đảm bảo tính duy nhất.
 			+ Factory Method: Pattern này được sinh ra nhằm mục đích khởi tạo đối tượng linh hoạt hơn nhưng vẫn che giấu được class nào được khởi tạo
+				Lợi ích: Tách biệt logic khởi tạo đối tượng khỏi mã sử dụng nó, tăng tính linh hoạt và khả năng mở rộng.
 			+ Abstract Factory: Tạo ra những super factory để tạo ra những factory
 			+ Builder: Bạn có cảm thấy khó chịu khi một class có quá nhiều thuộc tính mà trong số đó có những thuộc tính bắt buộc cần phải có còn một số thì không,
 				trong trường hợp này chúng ta thường làm gì? Có phải chúng ta sẽ tạo nhiều constructor tùy theo từng trường hợp không?
 				Nếu như vậy có phải nó sẽ cực kì nhiều constructor và code trở nên rắc rối dài dòng đến mức phát bực đúng không?
 				Nếu vậy chúng ta sẽ cần dùng tới Builder.
+				Lợi ích: Xây dựng các đối tượng phức tạp từng bước, linh hoạt trong việc tạo ra các biến thể của đối tượng.
 			+ Prototype: tạo ra một đối tượng gần giống hoặc giống hoàn toàn với một đối tượng bạn đã tạo trước đó ( bằng cách implements Cloneable)
+				Lợi ích: Tránh việc tạo lại đối tượng tốn kém, sao chép đối tượng động.
 		- Structural Pattern (Nhóm cấu trúc): dùng để thiết lập, định nghĩa quan hệ giữa các đối tượng.
 			+ Adapter:  giữ vai trò trung gian giữa hai lớp. Cho phép các lớp có các class, interface không liên quan tới nhau có thể giao tiếp được với nhau.
 			+ Bridge
@@ -261,7 +265,7 @@ sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng
 			 nếu hợp lệ thì fb sẽ trả access token cho ứng dụng của mình
 			 ứng dụng của mình gửi access token tới resource server (fb)
 			 nếu hợp lệ sẽ trả tài nguyên tương ứng cho ứng dụng của mình
-		Grant type: 
+		Grant type:
 
 
 
@@ -277,7 +281,6 @@ sẽ không chỉ trả lại phản hồi cho người dùng cuối nói rằng
 
 
 
- 
 *************Redis****************
 - Redis được sử dụng chủ yếu như một cơ sở dữ liệu lưu trữ trong bộ nhớ (RAM) hoặc như một bộ nhớ đệm (cache) với tốc độ truy cập nhanh chóng
 - Dùng để lưu trữ dữ liệu có cấu trúc, có thể sử dụng như một database, bộ nhớ cache hay một message broker.

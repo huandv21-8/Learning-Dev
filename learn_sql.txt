@@ -28,7 +28,7 @@
 
 - Having: dùng để lọc các kết quả truy vấn dựa trên những hàm tổng hợp như sum, count,...
 - GROUP BY: Dùng để gom nhóm các bản ghi dựa trên một hoặc nhiều cột
-- DISTINCT: loại bỏ bản ghi trùng lăpj
+- DISTINCT: loại bỏ bản ghi trùng lặp
 - INNER JOIN: trả về những bản ghi chung của 2 bảng
 - LEFT JOIN: trả về tất cả các hàng của bảng bên trái và chỉ lấy ở bảng bên phải những hàng đáp ứng được điều kiện ON. Và những giá trị ko tồn tại thì sẽ là null
 - RIGHT JOIN: ngược lại với left join
