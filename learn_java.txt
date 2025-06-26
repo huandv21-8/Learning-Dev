@@ -17,11 +17,11 @@
 		+ ghi đè (overriding): định nghĩa lại phương thức của lớp cha
 
 ************* AOP ***************
-- Là kỹ thuật lập trình chia nhỏ chương trình thành các module riêng rẽ, ko phụ thuộc vào nhau.
-  Khi hoạt động thì sẽ kết hợp các module lại để thực hiện chức năng, nhưng khi sửa đổi thì chỉ cần sửa đổi trên 1 module cụ thể.
-	Ví dụ: thực hiện chức năng insert bản ghi vào DB thì có thể bao gôm những nhiệm vụ như: Ghi log, mở/đóng transaction, xứ lý exception,...
-		Sử dụng AOP thì sẽ tách những nhiệm vụ trên thành các module riêng biệt, và gộp các module đó lại thì được chức năng insert.
-		Cho dù có sửa 1 trong các module thì các module còn lại cũng không ảnh hưởng.
+- là một kỹ thuật lập trình nhằm tách riêng các logic phụ (cross-cutting concerns) ra khỏi logic chính (business logic) của ứng dụng. Các logic phụ là các khía cạnh, khi thay đổi sẽ không ảnh hưởng đến các logic chính.
+	Ví dụ: thực hiện các function service, muốn ghi log khi các function này được gọi:
+		 + Cách truyền thống: thêm code ghi log vào mỗi function -> code lặp lại, khi sửa thì sửa nhiều nơi, khó đọc code khi code logic và code log xen kẽ nhau.
+		 + Cách làm với AOP: định nghĩa Aspect (tách code ghi log thành 1 module riêng xử lý việc ghi log) -> khi sửa thì không ảnh hưởng đến logic chính, không lặp lại code và không cần sửa nhiều nơi,
+	Spring hỗ trợ AOP bằng cách dùng proxy và annotation (@Aspect, @Before, @After, @Around, @Pointcut).
 
 ****** stack memory và heap menory*********
 - Stack Memory: 
